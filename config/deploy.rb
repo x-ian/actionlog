@@ -1,5 +1,6 @@
 set :application, "actionlog"
 set :repository, "/vol/git/actionlog.git" 
+set :local_repository, "."
 
 set :user, "root"
 set :use_sudo, false
