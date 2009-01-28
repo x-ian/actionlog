@@ -2,6 +2,6 @@
 
 /home/webuser/capistrano/actionlog/current/script/process/spawner \
   mongrel \
-  --environment=development \
+  --environment=central_development \
   --instances=1 \
   --port=4000
