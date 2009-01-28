@@ -23,3 +23,7 @@ set :deploy_via, :remote_cache
 role :app, "actionlog.dynalias.com"
 role :web, "actionlog.dynalias.com"
 role :db,  "actionlog.dynalias.com", :primary => true
+
+  task :start, :roles => :app do
+    run "cd #{current_path} && #{try_runner} nohup script/spin mit vielen parametern"
+  end
