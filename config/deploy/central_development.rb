@@ -25,5 +25,5 @@ role :web, "actionlog.dynalias.com"
 role :db,  "actionlog.dynalias.com", :primary => true
 
 deploy.task :start, :roles => :app do
-    run "cd #{current_path} && #{try_runner} nohup script/spin mit vielen parametern"
-  end
+    run "cd #{current_path} && #{try_runner} nohup script/spin-central_development"
+end
