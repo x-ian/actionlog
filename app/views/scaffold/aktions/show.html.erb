@@ -1,0 +1,78 @@
+<p>
+  <b>Log date:</b>
+  <%=h @aktion.log_date %>
+</p>
+
+<p>
+  <b>Assignment date:</b>
+  <%=h @aktion.assignment_date %>
+</p>
+
+<p>
+  <b>Action required:</b>
+  <%=h @aktion.action_required %>
+</p>
+
+<p>
+  <b>Review date:</b>
+  <%=h @aktion.review_date %>
+</p>
+
+<p>
+  <b>Target date:</b>
+  <%=h @aktion.target_date %>
+</p>
+
+<p>
+  <b>New target date:</b>
+  <%=h @aktion.new_target_date %>
+</p>
+
+<p>
+  <b>New target date changed:</b>
+  <%=h @aktion.new_target_date_changed %>
+</p>
+
+<p>
+  <b>Closeout comment:</b>
+  <%=h @aktion.closeout_comment %>
+</p>
+
+<p>
+  <b>Actual completion date:</b>
+  <%=h @aktion.actual_completion_date %>
+</p>
+
+<p>
+  <b>Event:</b>
+  <%=h @aktion.event_id %>
+</p>
+
+<p>
+  <b>Requested by:</b>
+  <%=h @aktion.requested_by_id %>
+</p>
+
+<p>
+  <b>Primary responsible:</b>
+  <%=h @aktion.primary_responsible_id %>
+</p>
+
+<p>
+  <b>Secondary responsible:</b>
+  <%=h @aktion.secondary_responsible_id %>
+</p>
+
+<p>
+  <b>Action priority:</b>
+  <%=h @aktion.action_priority_id %>
+</p>
+
+<p>
+  <b>Action status:</b>
+  <%=h @aktion.action_status_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_aktion_path(@aktion) %> |
+<%= link_to 'Back', aktions_path %>

@@ -1,0 +1,38 @@
+<td><%=link_to aktion.action_required, { :controller => "action_log", :action => "edit_action", :id => aktion }, { :title => "Edit action"} %></td>
+<td>
+  <%=aktion.requested_by.name unless aktion.requested_by.nil? %>
+  <%#=link_to aktion.requested_by.name, aktion.requested_by unless aktion.requested_by.nil? %>
+</td>
+<td>
+  <% if !aktion.primary_responsible.nil? %>
+    <%=aktion.primary_responsible.name%>
+    <%#=link_to aktion.primary_responsible.name, aktion.primary_responsible %><br/>
+  <% end %>
+  <% if !aktion.secondary_responsible.nil? %>
+    <%=aktion.secondary_responsible.name%>
+    <%#=link_to aktion.secondary_responsible.name, aktion.secondary_responsible %><br/>
+  <% end %>
+</td>
+<td>
+  <% if aktion.review_date != nil && aktion.review_date != "" %>
+    Review: <%=h aktion.review_date.to_s %> <br/>
+  <% end %>
+  <% if aktion.new_target_date == nil || aktion.new_target_date == "" %>
+    <%=h "Target: " + aktion.target_date.to_s unless aktion.target_date == nil || aktion.target_date == "" %>
+  <% else %>
+    <%=h "Target: " + aktion.new_target_date.to_s unless aktion.new_target_date == nil || aktion.new_target_date == "" %>
+  <% end %>
+  <%= aktion.check_date_consistency ? "" : "(inconsistent)" %>
+</td>
+<td><div id="action-closeout_comment-<%=aktion.id%>"><%=h aktion.closeout_comment %></div></td>
+<td><div id="action-completion_date-<%=aktion.id%>"><%=h aktion.actual_completion_date %></div></td>
+<td>
+  <% if aktion.action_status != nil && aktion.action_status.name == "completed" %>
+    <%= image_tag("action-checked.png?", :alt => "Completed", :title=>"Completed") %>
+  <% else %>
+    <a id="closeout_comment_link_<%=aktion.id%>">
+      <%=image_tag("action-unchecked.png?", :alt => "Complete", :title=>"Mark as Complete", :mouseover => "action-checked.png?", :border=>"0")%>
+    </a>
+    <%= render :partial => 'action_log/actions/closeout_comment_popup', :locals => {:aktion => aktion} %>
+  <% end %>
+</td>

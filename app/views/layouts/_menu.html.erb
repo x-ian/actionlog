@@ -1,0 +1,35 @@
+<table width="100%">
+  <tr>
+    <td align="left" >
+      <%= link_to "Action Log", :controller => "/action_log" %>
+      <% deny :user => :is_user? do %>
+        <%= link_to_function "Administration", visual_effect(:toggle_blind,"administration")%>
+        <% deny :user => :is_administrator? do %>
+          <%= link_to_function "Customization", visual_effect(:toggle_blind,"customization")%>
+        <% end %>
+      <% end %>
+    </td>
+    <td align="right">
+      <%= render :partial => 'accounts/account_bar' %>
+    </td>
+  </tr>
+</table>
+
+<div id="administration" style="display: none;">
+  <br/>
+  <%= link_to "Users", :controller => "admin/user" %>
+  <%= link_to "Organizational Units", :controller => "admin/organizational_unit" %>
+  <%= link_to "Meetings", :controller => "admin/meeting" %>
+  <%= link_to "Event Area", :controller => "admin/event_area" %>
+  <%= link_to "Export data", :controller => "export" %>
+  <br/><br/>
+</div>
+<div id="customization" style="display: none;">
+  <br/>
+  <%= link_to "Action Priorities", :controller => "customization/action_priority" %>
+  <%= link_to "Action Verbs", :controller => "customization/action_verb" %>
+  <%= link_to "Priority Axes & Ranges", :controller => "customization/priority_axis" %>
+  <br/><br/>
+</div>
+
+<hr/>

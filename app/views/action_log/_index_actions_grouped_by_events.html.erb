@@ -1,0 +1,28 @@
+
+<table cellspacing="0" cellpadding="0">
+  <tr>
+    <th class="header">Event</th>
+    <th class="header">Action required</th>
+    <th class="header">Requested by</th>
+    <th class="header">Responsible</th>
+    <th class="header">Due date</th>
+    <th class="header">Closeout comment</th>
+    <th class="header">Completion date</th>
+    <th class="header"></th>
+  </tr>
+
+  <% for event in @events %>
+    <%  clazz = "record" %>
+    <tr class="<%=clazz %>">
+      <td colspan="8"><%=link_to event.name, { :controller => "action_log", :action => "edit_event", :id => event }, { :title => "Edit event"} %> (Event in <%=h event.event_area.name unless event.event_area.nil?%> of <%=h event.event_area.meeting.name unless event.event_area.nil? || event.event_area.meeting.nil? %>)</td>
+    </tr>
+    <% for aktion in event.aktions %>
+      <% aktion_class = "record even-record" %>
+      <% aktion_class = (aktion.overdue ? "highlighted-record " : "") + aktion_class %>
+      <tr class="<%=aktion_class%>" id="action-<%=aktion.id%>">
+        <td></td>
+<%= render :partial => "index_actions_action_data", :locals => { :aktion => aktion } %>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

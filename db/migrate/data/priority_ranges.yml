@@ -1,0 +1,59 @@
+one:
+  id: 1
+  value: A
+  description: 
+  priority_axis_id: 1
+
+two:
+  id: 2
+  value: B
+  description:
+  priority_axis_id: 1
+
+three:
+  id: 3
+  value: C
+  description:
+  priority_axis_id: 1
+
+four:
+  id: 4
+  value: D
+  description:
+  priority_axis_id: 1
+
+five:
+  id: 5
+  value: E
+  description:
+  priority_axis_id: 1
+
+six:
+  id: 6
+  value: 1
+  description:
+  priority_axis_id: 2
+
+seven:
+  id: 7
+  value: 2
+  description:
+  priority_axis_id: 2
+
+eight:
+  id: 8
+  value: 3
+  description:
+  priority_axis_id: 2
+
+nine:
+  id: 9
+  value: 4
+  description:
+  priority_axis_id: 2
+
+ten:
+  id: 10
+  value: 5
+  description:
+  priority_axis_id: 2

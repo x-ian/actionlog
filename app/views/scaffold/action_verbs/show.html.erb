@@ -1,0 +1,13 @@
+<p>
+  <b>Verb:</b>
+  <%=h @action_verb.verb %>
+</p>
+
+<p>
+  <b>Disliked:</b>
+  <%=h @action_verb.disliked %>
+</p>
+
+
+<%= link_to 'Edit', edit_action_verb_path(@action_verb) %> |
+<%= link_to 'Back', action_verbs_path %>

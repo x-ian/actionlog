@@ -1,0 +1,2 @@
+module Customization::PriorityAxisHelper
+end

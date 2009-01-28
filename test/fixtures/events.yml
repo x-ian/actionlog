@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  log_date: 2009-01-10
+  event_area_id: 1
+  escalated_event_area_id: 1
+  event_type_id: 1
+  user_id: 1
+  priority_id: 1
+
+two:
+  name: MyString
+  log_date: 2009-01-10
+  event_area_id: 1
+  escalated_event_area_id: 1
+  event_type_id: 1
+  user_id: 1
+  priority_id: 1

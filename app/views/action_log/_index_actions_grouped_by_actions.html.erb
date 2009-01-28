@@ -1,0 +1,19 @@
+
+<table cellspacing="0" cellpadding="0">
+  <tr>
+    <th class="header">Event</th>
+    <th class="header">Action required</th>
+    <th class="header">Requested by</th>
+    <th class="header">Responsible</th>
+    <th class="header">Due date</th>
+    <th class="header">Closeout comment</th>
+    <th class="header">Completion date</th>
+    <th class="header"></th>
+  </tr>
+
+  <% for aktion in @aktions %>
+    <tr class="<%=get_table_row_class(aktion)%>" id="action-<%=aktion.id%>">
+      <%= render :partial => "index_actions_grouped_by_actions_row", :locals => { :aktion => aktion } %>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,48 @@
+<h1>Listing aktions</h1>
+
+<table>
+  <tr>
+    <th> </th>
+    <th>Assignment date</th>
+    <th>Action required</th>
+    <th>Review date</th>
+    <th>Target date</th>
+    <th>New target date</th>
+    <th>New target date changed</th>
+    <th>Closeout comment</th>
+    <th>Actual completion date</th>
+    <th>Event</th>
+    <th>Requested by</th>
+    <th>Primary responsible</th>
+    <th>Secondary responsible</th>
+    <th>Action priority</th>
+    <th>Action status</th>
+  </tr>
+
+<% for aktion in @aktions %>
+  <tr>
+    <td><%=h aktion.log_date %></td>
+    <td><%=h aktion.assignment_date %></td>
+    <td><%=h aktion.action_required %></td>
+    <td><%=h aktion.review_date %></td>
+    <td><%=h aktion.target_date %></td>
+    <td><%=h aktion.new_target_date %></td>
+    <td><%=h aktion.new_target_date_changed %></td>
+    <td><%=h aktion.closeout_comment %></td>
+    <td><%=h aktion.actual_completion_date %></td>
+    <td><%=h aktion.event_id %></td>
+    <td><%=h aktion.requested_by_id %></td>
+    <td><%=h aktion.primary_responsible_id %></td>
+    <td><%=h aktion.secondary_responsible_id %></td>
+    <td><%=h aktion.action_priority_id %></td>
+    <td><%=h aktion.action_status_id %></td>
+    <td><%= link_to 'Show', aktion %></td>
+    <td><%= link_to 'Edit', edit_aktion_path(aktion) %></td>
+    <td><%= link_to 'Destroy', aktion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New aktion', new_aktion_path %>

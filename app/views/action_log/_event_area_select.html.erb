@@ -1,0 +1,3 @@
+<%= collection_select(:event, :event_area_id, EventArea.find_all_by_meeting_id(meeting_id), :id, :name, { :include_blank => true }) %>
+
+<%#  { :onchange => "document.getElementById('my_event_area_select').value = this.value" } %>

@@ -1,0 +1,22 @@
+<h1>Listing action_priorities</h1>
+
+<table>
+  <tr>
+    <th>Level</th>
+    <th>Description</th>
+  </tr>
+
+<% for action_priority in @action_priorities %>
+  <tr>
+    <td><%=h action_priority.level %></td>
+    <td><%=h action_priority.description %></td>
+    <td><%= link_to 'Show', action_priority %></td>
+    <td><%= link_to 'Edit', edit_action_priority_path(action_priority) %></td>
+    <td><%= link_to 'Destroy', action_priority, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New action_priority', new_action_priority_path %>

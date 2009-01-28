@@ -1,0 +1,35 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  log_date: 2009-01-10
+  assignment_date: 2009-01-10
+  action_required: MyString
+  review_date: 2009-01-10
+  target_date: 2009-01-10
+  new_target_date: 2009-01-10
+  new_target_date_changed: false
+  closeout_comment: 
+  actual_completion_date: 2009-01-10
+  event_id: 1
+  requested_by_id: 1
+  primary_responsible_id: 1
+  secondary_responsible_id: 1
+  action_priority_id: 1
+  action_status_id: 1
+
+two:
+  log_date: 2009-01-10
+  assignment_date: 2009-01-10
+  action_required: MyString
+  review_date: 2009-01-10
+  target_date: 2009-01-10
+  new_target_date: 2009-01-10
+  new_target_date_changed: false
+  closeout_comment: 
+  actual_completion_date: 2009-01-10
+  event_id: 1
+  requested_by_id: 1
+  primary_responsible_id: 1
+  secondary_responsible_id: 1
+  action_priority_id: 1
+  action_status_id: 1

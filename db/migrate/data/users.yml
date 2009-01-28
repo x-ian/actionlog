@@ -1,0 +1,17 @@
+one:
+  id: 1
+  name: User
+  email: cn@cn.com
+  inactive: false
+  login: user
+  pw: user
+  role: 1
+
+two:
+  id: 2
+  name: Inactive User
+  email: cn@cn.com
+  inactive: true
+  login: inactiveuser
+  pw: inactiveuser
+  role: 1

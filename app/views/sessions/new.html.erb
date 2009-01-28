@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>ActionLog: <%= controller.action_name %></title>
+    <%= stylesheet_link_tag 'scaffold' %>
+    <%= stylesheet_link_tag 'global' %>
+  </head>
+  <body>
+    <h1 align="center">Welcome to the ActionLog</h1>
+
+ 
+    <% form_tag session_path do -%>
+      <table align="center">
+        <tr>
+          <td colspan="2" align="center">
+            <div id="flash">
+              <%= render :partial => 'action_log/flash', :locals => { :flash => flash } %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right"><%= label_tag 'login' %></td>
+          <td align="left"><%= text_field_tag 'login', @login %></td>
+        </tr>
+        <tr>
+          <td align="right"><%= label_tag 'password' %></td>
+          <td align="left"><%= password_field_tag 'password', nil %></td>
+        </tr>
+        <tr>
+          <td align="right"><%= label_tag 'remember_me', 'Remember me' %></td>
+          <td align="left"><%= check_box_tag 'remember_me', '1', @remember_me %>(via Cookies)</td>
+        </tr>
+        <tr>
+          <td><br/></td>
+          <td><br/></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center"><%= submit_tag 'Log in' %></td>
+        </tr>
+      </table>
+    <% end -%>
+
+  </body>
+</html>
+
+

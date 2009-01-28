@@ -1,0 +1,11 @@
+one:
+  id: 1
+  name: User
+
+two:
+  id: 2
+  name: Administrator
+
+three:
+  id: 3
+  name: Customizator

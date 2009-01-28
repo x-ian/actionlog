@@ -1,0 +1,72 @@
+<h1>Editing aktion</h1>
+
+<% form_for(@aktion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :log_date %><br />
+    <%= f.date_select :log_date %>
+  </p>
+  <p>
+    <%= f.label :assignment_date %><br />
+    <%= f.date_select :assignment_date %>
+  </p>
+  <p>
+    <%= f.label :action_required %><br />
+    <%= f.text_field :action_required %>
+  </p>
+  <p>
+    <%= f.label :review_date %><br />
+    <%= f.date_select :review_date %>
+  </p>
+  <p>
+    <%= f.label :target_date %><br />
+    <%= f.date_select :target_date %>
+  </p>
+  <p>
+    <%= f.label :new_target_date %><br />
+    <%= f.date_select :new_target_date %>
+  </p>
+  <p>
+    <%= f.label :new_target_date_changed %><br />
+    <%= f.check_box :new_target_date_changed %>
+  </p>
+  <p>
+    <%= f.label :closeout_comment %><br />
+    <%= f.text_field :closeout_comment %>
+  </p>
+  <p>
+    <%= f.label :actual_completion_date %><br />
+    <%= f.date_select :actual_completion_date %>
+  </p>
+  <p>
+    <%= f.label :event_id %><br />
+    <%= f.text_field :event_id %>
+  </p>
+  <p>
+    <%= f.label :requested_by_id %><br />
+    <%= f.text_field :requested_by_id %>
+  </p>
+  <p>
+    <%= f.label :primary_responsible_id %><br />
+    <%= f.text_field :primary_responsible_id %>
+  </p>
+  <p>
+    <%= f.label :secondary_responsible_id %><br />
+    <%= f.text_field :secondary_responsible_id %>
+  </p>
+  <p>
+    <%= f.label :action_priority_id %><br />
+    <%= f.text_field :action_priority_id %>
+  </p>
+  <p>
+    <%= f.label :action_status_id %><br />
+    <%= f.text_field :action_status_id %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @aktion %> |
+<%= link_to 'Back', aktions_path %>

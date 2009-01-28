@@ -1,0 +1,2 @@
+module Scaffold::PriorityAxesHelper
+end

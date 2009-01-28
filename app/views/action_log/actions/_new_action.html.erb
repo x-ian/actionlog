@@ -1,0 +1,123 @@
+<%= calendar_date_select_includes %>
+<% CalendarDateSelect.format = :iso_date  %>
+<% CalendarDateSelect.image = "/images/calendar_date_select/calendar.gif"%>
+
+<h1>New action</h1>
+
+<table>
+  <% form_for(
+    aktion,
+    :html => { :method => :get, :onsubmit=>"document.getElementById('my_event_id').value = document.getElementById('aktion_event_id').value" },
+    :url => { :controller => "action_log", :action => "create_action"}) do |f| %>
+    <%= f.error_messages %>
+
+    <tr>
+      <td>Organizational Unit</td>
+      <td>
+        <%= tree_select(
+          OrganizationalUnit.find(:all, :conditions => "parent_id = 0"),
+          'action_organizational_unit',
+          'id',
+          aktion.organizational_unit,
+          nil
+        ) %>
+        <%= observe_field "action_organizational_unit_id", :url => { :action => :fill_event_select_for_action }%>
+        <%= observe_field "action_organizational_unit_id", :url => { :action => :fill_event_area_select_for_action }%>
+        <%= observe_field "action_organizational_unit_id", :url => { :action => :fill_meeting_select_for_action }, :with => :id %>
+      </td>
+    </tr>
+    <tr>
+      <td>Meeting</td>
+      <td>
+        <div id="action_meeting_select">
+          <%= render :partial => 'action_log/actions/meeting_select', :locals => {:orgunit_id => aktion.organizational_unit_id, :aktion => aktion } %>
+        </div>
+        <%= observe_field "aktion_meeting_id", :url => { :action => :fill_event_select_for_action }%>
+        <%= observe_field "aktion_meeting_id", :url => { :action => :fill_event_area_select_for_action }%>
+      </td>
+    </tr>
+    <tr>
+    <td>Area of Event</td>
+    <td>
+      <div id="action_event_area_select">
+        <%= render :partial => 'action_log/actions/event_area_select', :locals => {:meeting_id => aktion.meeting_id, :aktion => aktion } %>
+      </div>
+    </td>
+    <tr>
+      <td><%= f.label :event%></td>
+      <td>
+        <div id="action_event_select">
+          <%= render :partial => 'action_log/actions/event_select', :locals => {:event_area_id => aktion.event_area_id, :aktion => aktion } %>
+        </div>
+        <%= hidden_field_tag "my_event_id", "" %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :action_required %></td>
+      <td>
+        <%#= f.text_field :action_required,
+        {:onChange => "new Ajax.Request('/action_log/check_action_required/' + this.value,
+        {asynchronous:true, evalScripts:true, parameters:'authenticity_token='+encodeURIComponent('"+form_authenticity_token.to_s+"')})"} %>
+
+        <%=text_area_with_auto_complete :aktion, :action_required,
+          { :size => "40x4", :onChange => "new Ajax.Request('/action_log/check_action_required/' + this.value,
+          {asynchronous:true, evalScripts:true, parameters:'authenticity_token='+encodeURIComponent('"+form_authenticity_token.to_s+"')})"},
+          { :method => :get, :frequency=>0, :min_chars => 0} %>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <div id="action_status">(unchecked)</div>
+        <%#= link_to_remote "Check", :url => {:action => "check_action"} %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :target_date %></td>
+      <td>
+        <%= f.calendar_date_select :target_date, :size => 10, :maxlength => 10, 
+          :onchange => remote_function(:url => { :action => :show_review_date }, :with => "'value=' + $('aktion_target_date').value") %>
+        <%#= f.text_field :target_date, :size => 10, :maxlength => 10 %>
+        <%#= observe_field "aktion_target_date", :url => { :action => :show_review_date }, :with => "value" %>
+      </td>
+    </tr>
+    <% style = "display: none;" %>
+    <%# style = "" if review_date_necessary(aktion) %>
+    <tr id ="review_date" style="<%=style%>">
+      <td><%= f.label :review_date %></td>
+      <td>
+        <%= f.calendar_date_select :review_date, :size => 10, :maxlength => 10 %>
+        (Because Target date more than 6 weeks ahead)
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :closeout_comment %></td>
+      <td><%= f.text_field :closeout_comment %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :requested_by_id %></td>
+      <td><%= f.collection_select :requested_by_id, User.find(:all), :id, :name, { :include_blank => true } %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :primary_responsible_id %></td>
+      <td>
+        <%= f.collection_select :primary_responsible_id, User.find(:all), :id, :name, { :include_blank => true } %>
+        <%#= observe_field "aktion_primary_responsible_id", :function => update_page { |page| page.visual_effect(:toggle_blind, "secondary_responsible") } %>
+        <%= observe_field "aktion_primary_responsible_id", :url => { :action => :show_secondary_responsible }, :with => "id" %>
+      </td>
+    </tr>
+    <% style = "display: none;" %>
+    <% style = "" if aktion != nil && aktion.primary_responsible_id != nil  %>
+    <tr id ="secondary_responsible" style="<%=style%>">
+      <td><%= f.label :secondary_responsible_id %></td>
+      <td><%= f.collection_select :secondary_responsible_id, User.find(:all), :id, :name, { :include_blank => true } %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :action_priority_id %></td>
+      <td><%= f.collection_select :action_priority_id, ActionPriority.find(:all), :id, :level, { :include_blank => true } %></td>
+    </tr>
+    <tr>
+      <td><%= f.submit "Add" %></td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,46 @@
+<%= javascript_include_tag :defaults %>
+<%= stylesheet_link_tag 'popup-kit/popup.css' %>
+<%= javascript_include_tag 'popup-kit/popup.js' %>
+
+<% if @edit_event %>
+  <%= render :partial => 'edit_event', :locals => { :event => @event } %>
+<% end %>
+<% if @edit_action %>
+  <%= render :partial => 'action_log/actions/edit_action', :locals => {}  %>
+<% end %>
+
+<%
+if flash[:notice].blank? && flash[:error].blank?
+  style = "display: none;"
+else
+  style = ""
+end
+%>
+
+<% if !@edit_event && !@edit_action %>
+  <%= link_to_function "Add events and actions", visual_effect(:toggle_blind,"add")%>
+  <div id="add" style="<%=style%>">
+    <table>
+      <tr>
+        <td valign="top">
+          <%= render :partial => 'new_event', :locals => { :event => @event } if !@edit_event && @event != nil %>
+        </td>
+        <td>
+          <%= render :partial => 'action_log/actions/new_action', :locals => { :aktion => @aktion} if !@edit_aktion && @aktion != nil %>
+        </td>
+      </tr>
+    </table>
+  </div>
+<% end %>
+
+<h1>Listing actions</h1>
+<div id="index_filter">
+  <%= render :partial => 'index_filter', :locals => { :action_status => params[:action_status], :requested => params[:requested], :responsible => params[:responsible], :to => params[:to], :from => params[:from], } %>
+</div>
+
+<%=link_to_remote("Grouped by actions", :url => { :action => "index_grouped_by_actions" }) %>
+<%=link_to_remote("Grouped by events", :url => { :action => "index_grouped_by_events" }) %>
+<br/><br/>
+<div id="index_actions">
+  <%= render :partial => 'index_actions_grouped_by_actions', :locals => {} %>
+</div>

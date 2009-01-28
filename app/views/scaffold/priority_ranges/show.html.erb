@@ -1,0 +1,18 @@
+<p>
+  <b>Value:</b>
+  <%=h @priority_range.value %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @priority_range.description %>
+</p>
+
+<p>
+  <b>Priority axis:</b>
+  <%=h @priority_range.priority_axis_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_priority_range_path(@priority_range) %> |
+<%= link_to 'Back', priority_ranges_path %>

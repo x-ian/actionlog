@@ -1,0 +1,15 @@
+one:
+  id: 1
+  name: uncompleted
+
+two:
+  id: 2
+  name: completed
+
+three:
+  id: 3
+  name: no longer relevant
+
+four:
+  id: 4
+  name: deleted

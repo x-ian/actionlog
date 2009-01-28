@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  value: MyString
+  description: MyText
+  priority_axis_id: 1
+
+two:
+  value: MyString
+  description: MyText
+  priority_axis_id: 1

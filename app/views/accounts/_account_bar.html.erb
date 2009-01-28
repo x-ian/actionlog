@@ -1,0 +1,6 @@
+<% if logged_in? -%>
+  <span id="account-bar-greeting">Welcome <%=self.current_account.name%> (<%=self.current_account.login%>)</span>
+  <span id="account-bar-action"  >(<%= link_to "Log out", logout_path, { :title => "Log out" }    %>)</span>
+<% else -%>
+  Not logged in <span id="account-bar-greeting"><%= link_to_login_with_IP '(Log in)', :style => 'border: none;' %></span>
+<% end -%>

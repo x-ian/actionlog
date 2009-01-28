@@ -1,0 +1,82 @@
+<h1>Edit event</h1>
+
+<table>
+  <% form_for(event,
+    :html => { :onsubmit=>"document.getElementById('my_event_area_id').value = document.getElementById('event_event_area_id').value" },
+    :url => { :controller => "action_log", :action => "update_event", :id => event}) do |f| %>
+    <%= f.error_messages %>
+
+    <tr>
+      <td>Organizational Unit</td>
+      <td>
+        <%= tree_select(
+          OrganizationalUnit.find(:all, :conditions => "parent_id = 0"),
+          'organizational_unit',
+          'id',
+          event.organizational_unit,
+          nil
+        ) %>
+        <%= observe_field "organizational_unit_id", :url => { :action => :fill_event_area_select }%>
+        <%= observe_field "organizational_unit_id", :url => { :action => :fill_meeting_select }, :with => :id %>
+      </td>
+    </tr>
+    <tr>
+      <td>Meeting</td>
+      <td>
+        <div id="meeting_select">
+          <%= render :partial => 'meeting_select', :locals => {:orgunit_id => event.organizational_unit_id, :event => event } %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Area of Event</td>
+      <td>
+        <div id="event_area_select">
+          <%= render :partial => 'event_area_select', :locals => {:meeting_id => event.event_area_id, :event => event } %>
+        </div>
+        <%= hidden_field_tag "my_event_area_id", "" %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :event_type_id %></td>
+      <td>
+        <% for et in EventType.find(:all) %>
+          <%= radio_button_tag "event_type", et.name, (event.event_type_id == et.id ? true : false) %> <%= et.name %><br/>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Event</td>
+      <td><%= f.text_area :name, :size=>"40x4" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :log_date %></td>
+      <td><%= f.calendar_date_select :log_date, :size => 10, :maxlength => 10 %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Accountable" %></td>
+      <td><%= f.collection_select :user_id, User.find(:all), :id, :name, { :include_blank => true } %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :escalated_event_area_id %></td>
+      <td><%= f.collection_select :escalated_event_area_id, EventArea.find(:all), :id, :name, { :include_blank => true } %></td>
+    </tr>
+    <% PriorityAxis.find(:all).each do |pa| %>
+      <tr>
+        <td><%= label_tag "priority_axis_" + pa.name %></td>
+        <td>
+          <%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options(event.priority_value_by_axis(pa.id), PriorityRange.find_all_by_priority_axis_id(pa.id), true) %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td><%= f.submit "Update" %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td><%= button_to 'Back', :action => "index" %></td>
+  </tr>
+  <tr>
+    <td><%= button_to 'Destroy', { :action => :destroy_event, :id => event.id}, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+</table>

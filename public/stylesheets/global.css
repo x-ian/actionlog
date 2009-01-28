@@ -1,0 +1,33 @@
+tr.record td {
+    background-color:#E6F2FF;
+    border-bottom:1px solid #C5DBF7;
+    border-left:1px solid #C5DBF7;
+    color:#333333;
+    padding:5px 4px;
+}
+
+tr.even-record td {
+    background-color:#FFFFFF;
+    border-left:1px solid #DDDDDD;
+}
+
+tr.highlighted-record td {
+    color:#F50000;
+}
+
+tr.even-record td.sorted {
+    background-color:#E6F2FF;
+    border-bottom:1px solid #AFD0F5;
+}
+
+tr.record td.sorted {
+    background-color:#B9DCFF;
+    border-bottom:1px solid #AFD0F5;
+}
+
+th.header {
+    background-color:#ccc;
+    text-align:left;
+    padding:5px 4px;
+}
+

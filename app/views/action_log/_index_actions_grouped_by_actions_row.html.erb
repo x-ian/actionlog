@@ -1,0 +1,2 @@
+<td><%=link_to aktion.event.name, { :controller => "action_log", :action => "edit_event", :id => aktion.event }, { :title => "Edit event"} %></td>
+<%= render :partial => "index_actions_action_data", :locals => { :aktion => aktion } %>
