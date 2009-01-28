@@ -4,5 +4,4 @@
   mongrel \
   --environment=development \
   --instances=1 \
-  --address=127.0.0.1 \
   --port=4000
