@@ -32,8 +32,8 @@
         <div id="action_meeting_select">
           <%= render :partial => 'action_log/actions/meeting_select', :locals => {:orgunit_id => @aktion.organizational_unit_id, :aktion => @aktion } %>
         </div>
-        <%= observe_field "aktion_meeting_id", :url => { :action => :fill_event_select_for_action }%>
-        <%= observe_field "aktion_meeting_id", :url => { :action => :fill_event_area_select_for_action }%>
+        <%#= observe_field "aktion_meeting_id", :url => { :action => :fill_event_select_for_action }%>
+        <%#= observe_field "aktion_meeting_id", :url => { :action => :fill_event_area_select_for_action }%>
       </td>
     </tr>
     <tr>

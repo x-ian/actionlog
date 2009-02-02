@@ -13,5 +13,7 @@ class Admin::UserController < ApplicationController
     #columns[:phone].label = "Phone #"
     #columns[:phone].description = "(Format: ###-###-####)"
     config.columns[:role].ui_type = :select
+    config.columns[:organizational_units].ui_type = :select
+    config.columns[:meeting].ui_type = :select
   end
 end

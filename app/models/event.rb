@@ -12,20 +12,29 @@ class Event < ActiveRecord::Base
   belongs_to :event_type
   belongs_to :priority, :dependent => :destroy
 
+  # BEGIN possible mixin or whatever for aktion and event
+  def default_meeting=(v)
+    @default_meeting = v
+  end
+
   def meeting_id
-    event_area.meeting_id unless event_area.nil?
+    return event_area.meeting_id unless event_area.nil?
+    return @default_meeting.id if event_area.nil? && @default_meeting != nil
   end
 
   def meeting_id=(value)
   end
   
   def organizational_unit_id
-    event_area.meeting.organizational_unit_id unless event_area.nil? || event_area.meeting.nil?
+    return event_area.meeting.organizational_unit_id unless event_area.nil? || event_area.meeting.nil?
+    return @default_meeting.organizational_unit_id if (event_area.nil? || event_area.meeting.nil?) && @default_meeting != nil && @default_meeting.organizational_unit != nil
   end
 
   def organizational_unit
-    event_area.meeting.organizational_unit unless event_area.nil? || event_area.meeting.nil?
+    return event_area.meeting.organizational_unit unless event_area.nil? || event_area.meeting.nil?
+    return @default_meeting.organizational_unit if (event_area.nil? || event_area.meeting.nil?) && @default_meeting != nil && @default_meeting.organizational_unit != nil
   end
+  # END possible mixin or whatever for aktion and event
 
   def assign_priorities(priorities)
     priority.destroy unless priority.nil?

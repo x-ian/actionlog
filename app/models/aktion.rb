@@ -59,21 +59,6 @@ class Aktion < ActiveRecord::Base
     end
   end
 
-  def meeting_id
-    event.event_area.meeting_id if !event.nil? && !event.event_area.nil?
-  end
-
-  def meeting_id=(value)
-  end
-
-  def organizational_unit_id
-    organizational_unit.id unless organizational_unit.nil?
-  end
-
-  def organizational_unit
-    event.organizational_unit unless event.nil?
-  end
-
   def overdue
     return false if completed
     if new_target_date != nil && new_target_date <= Time.now.to_date
@@ -143,5 +128,29 @@ class Aktion < ActiveRecord::Base
 
     return conditions
   end
+
+    # BEGIN possible mixin or whatever for aktion and event
+  def default_meeting=(v)
+    @default_meeting = v
+  end
+
+  def meeting_id
+    return event.event_area.meeting_id unless event.nil? || event.event_area.nil?
+    return @default_meeting.id if (event.nil? || event.event_area.nil?) && @default_meeting != nil
+  end
+
+  def meeting_id=(value)
+  end
+
+  def organizational_unit_id
+    return event.event_area.meeting.organizational_unit_id unless event.nil? || event.event_area.nil? || event.event_area.meeting.nil?
+    return @default_meeting.organizational_unit_id if (event.nil? || event.event_area.nil? || event.event_area.meeting.nil?) && @default_meeting != nil && @default_meeting.organizational_unit != nil
+  end
+
+  def organizational_unit
+    return event.event_area.meeting.organizational_unit unless event.nil? || event.event_area.nil? || event.event_area.meeting.nil?
+    return @default_meeting.organizational_unit if (event.nil? || event.event_area.nil? || event.event_area.meeting.nil?) && @default_meeting != nil && @default_meeting.organizational_unit != nil
+  end
+  # END possible mixin or whatever for aktion and event
 
 end

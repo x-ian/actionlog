@@ -3,15 +3,12 @@ class ActionLogController < ApplicationController
   before_filter :login_required
 
   def index
-    logger.debug current_account
-    logger.debug current_account.user.is_user?
-    logger.debug current_account.user.role_id.to_s unless current_account.user.role_id
-        logger.debug current_account.user.name
-
-    @event = Event.new    
+    @event = Event.new
+    @event.default_meeting = current_account.user.meeting unless current_account.nil? || current_account.user.nil?
     @event.event_area_id = Event.find(flash[:last_used_event_id]).event_area_id unless flash[:last_used_event_id] == nil
 
     @aktion = Aktion.new
+    @aktion.default_meeting = current_account.user.meeting unless current_account.nil? || current_account.user.nil?
     @aktion.event_id = flash[:last_used_event_id] unless flash[:last_used_event_id] == nil
 
     @edit_event = false
@@ -29,7 +26,6 @@ class ActionLogController < ApplicationController
     session[:action_log_current_view] = "grouped_by_actions" if session[:action_log_current_view].blank?
     params[:action_status] = ActionStatus::UNCOMPLETED if params[:action_status] == nil
 
-    logger.debug "____" + params[:action_status].to_s
     @aktions = []
     @events = []
     @aktions = Aktion.find_all_by_filter_form(params) if session[:action_log_current_view] == "grouped_by_actions"

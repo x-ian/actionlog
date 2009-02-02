@@ -7,6 +7,7 @@ class Admin::MeetingController < ApplicationController
     #config.label = "Customers"
     #config.columns = [:name, :phone, :company_type, :comments]
     config.columns.exclude :event_areas
+    config.columns.exclude :users
     #list.sorting = {:name => 'ASC'}
     #columns[:phone].label = "Phone #"
     #columns[:phone].description = "(Format: ###-###-####)"

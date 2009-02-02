@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090127173754) do
+ActiveRecord::Schema.define(:version => 20090129124543) do
 
   create_table "accounts", :force => true do |t|
     t.string   "login",                     :limit => 40
@@ -111,6 +111,11 @@ ActiveRecord::Schema.define(:version => 20090127173754) do
     t.integer  "lock_version", :default => 0
   end
 
+  create_table "organizational_units_users", :id => false, :force => true do |t|
+    t.integer "organizational_unit_id"
+    t.integer "user_id"
+  end
+
   create_table "priorities", :force => true do |t|
     t.string   "level"
     t.text     "description"
@@ -154,6 +159,7 @@ ActiveRecord::Schema.define(:version => 20090127173754) do
     t.string   "pw"
     t.string   "login"
     t.integer  "role_id"
+    t.integer  "meeting_id"
   end
 
 end
