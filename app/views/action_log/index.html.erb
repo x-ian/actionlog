@@ -42,5 +42,9 @@ end
 <%=link_to_remote("Grouped by events", :url => { :action => "index_grouped_by_events" }) %>
 <br/><br/>
 <div id="index_actions">
-  <%= render :partial => 'index_actions_grouped_by_actions', :locals => {} %>
+  <% if session[:action_log_current_view] == "grouped_by_events" %>
+    <%= render :partial => 'index_actions_grouped_by_events', :locals => {} %>
+  <% else %>
+    <%= render :partial => 'index_actions_grouped_by_actions', :locals => {} %>
+  <% end %>
 </div>

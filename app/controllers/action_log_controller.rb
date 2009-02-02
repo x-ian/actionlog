@@ -80,6 +80,8 @@ class ActionLogController < ApplicationController
         format.js
       else
         flash[:error] = 'Error while creating event.'
+        @events = []
+        @aktions = []
         format.html { render :action => "index" }
       end
     end
@@ -101,6 +103,9 @@ class ActionLogController < ApplicationController
         format.html { redirect_to(:action => "index") }
       else
         flash[:error] = 'Error while creating action.'
+        @events = []
+        @aktions = []
+
         format.html { render :action => "index" }
       end
     end
