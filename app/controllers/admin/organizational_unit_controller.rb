@@ -6,9 +6,10 @@ class Admin::OrganizationalUnitController < ApplicationController
   active_scaffold :organizational_unit do |config|
     #config.label = "Customers"
     #config.columns = [:name, :phone, :company_type, :comments]
-    config.columns.exclude :users, :meetings
+    config.columns.exclude :lft, :rgt, :meetings, :users
     #list.sorting = {:name => 'ASC'}
     #columns[:phone].label = "Phone #"
     #columns[:phone].description = "(Format: ###-###-####)"
+    config.columns[:parent].ui_type = :select
   end
 end

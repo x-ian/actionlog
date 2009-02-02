@@ -5,6 +5,7 @@ class OrganizationalUnit < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => "parent_id"
 
   has_and_belongs_to_many :users
+  belongs_to :parent, :class_name=>"OrganizationalUnit"
 
   has_many :meetings
 end
