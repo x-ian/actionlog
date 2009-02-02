@@ -23,6 +23,12 @@ module ActionLogHelper
     return s
   end
 
+  def calc_review_date(aktion_id)
+    return Time.now.to_date + 28 if aktion_id.blank?
+    return Time.now.to_date + 28 if Aktion.find(aktion_id).review_date.blank?
+    return Aktion.find(aktion_id).review_date
+  end
+
   def review_date_necessary(target_date)
     unless target_date.blank?
       # if target_date - today > 60 days
@@ -33,6 +39,7 @@ module ActionLogHelper
   end
 
   def initial_review_date_necessary(aktion)
+    return true unless aktion.review_date == nil
     if aktion.new_target_date != nil
       return review_date_necessary(aktion.new_target_date.to_s)
     else

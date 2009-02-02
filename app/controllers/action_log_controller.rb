@@ -71,7 +71,8 @@ class ActionLogController < ApplicationController
     @event.assign_priorities(collect_priority_values(params))
     @event.event_type = EventType.find_by_name(params["event_type"]) unless params["event_type"].blank?
     @event.event_area_id = params[:my_event_area_id] unless params[:my_event_area_id].blank?
-  
+    @event.meeting_date = Time.now.to_date if params[:aktion_assignment_date].blank?
+
     respond_to do |format|
       if @event.save
         flash[:notice] = 'Event was successfully created.'
@@ -187,6 +188,7 @@ class ActionLogController < ApplicationController
   def show_review_date
     render :update do |page|
       page.visual_effect(:blind_down, "review_date") if review_date_necessary(params[:value])
+      page[:aktion_review_date].value = calc_review_date(params[:id]) if review_date_necessary(params[:value])
       page.visual_effect(:blind_up, "review_date") unless review_date_necessary(params[:value])
     end
   end

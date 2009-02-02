@@ -12,6 +12,4 @@ class OrganizationalUnit < ActiveRecord::Base
   def correct_parent
     write_attribute :parent_id, 0 if parent.nil?
   end
-
-
 end
