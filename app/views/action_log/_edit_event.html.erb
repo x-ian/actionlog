@@ -1,3 +1,7 @@
+<%= calendar_date_select_includes %>
+<% CalendarDateSelect.format = :iso_date  %>
+<% CalendarDateSelect.image = "/images/calendar_date_select/calendar.gif"%>
+
 <h1>Edit event</h1>
 
 <table>
@@ -30,8 +34,12 @@
       <td><%= f.text_area :name, :size=>"40x4" %></td>
     </tr>
     <tr>
+      <td><%= f.label :meeting_date %></td>
+      <td><%= f.calendar_date_select :meeting_date, :size => 10, :maxlength => 10 %></td>
+    </tr>
+    <tr>
       <td><%= f.label :log_date %></td>
-      <td><%= f.calendar_date_select :log_date, :size => 10, :maxlength => 10 %></td>
+      <td><%= event.log_date %></td>
     </tr>
     <tr>
       <td><%= f.label "Accountable" %></td>
@@ -47,11 +55,11 @@
     <tr>
       <td><%= f.submit "Update" %></td>
     </tr>
+    <tr>
+      <td><%= button_to 'Back', :action => "index" %></td>
+    </tr>
+    <tr>
+      <td><%= button_to 'Destroy', { :action => :destroy_event, :id => event.id}, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
   <% end %>
-  <tr>
-    <td><%= button_to 'Back', :action => "index" %></td>
-  </tr>
-  <tr>
-    <td><%= button_to 'Destroy', { :action => :destroy_event, :id => event.id}, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
 </table>
