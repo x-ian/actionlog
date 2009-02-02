@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090202121258) do
+ActiveRecord::Schema.define(:version => 20090202142221) do
 
   create_table "accounts", :force => true do |t|
     t.string   "login",                     :limit => 40
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20090202121258) do
     t.integer  "priority_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "meeting_date"
   end
 
   create_table "meetings", :force => true do |t|
