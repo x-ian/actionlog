@@ -11,31 +11,8 @@
     :url => { :controller => "action_log", :action => "update_action", :id => @aktion}) do |f| %>
     <%= f.error_messages %>
 
-    <tr>
-      <td>Organizational Unit</td>
-      <td>
-        <%= tree_select(
-          OrganizationalUnit.find(:all, :conditions => "parent_id = 0"),
-          'action_organizational_unit',
-          'id',
-          @aktion.organizational_unit,
-          nil
-        ) %>
-        <%= observe_field "action_organizational_unit_id", :url => { :action => :fill_event_select_for_action }%>
-        <%= observe_field "action_organizational_unit_id", :url => { :action => :fill_event_area_select_for_action }%>
-        <%= observe_field "action_organizational_unit_id", :url => { :action => :fill_meeting_select_for_action }, :with => :id %>
-      </td>
-    </tr>
-    <tr>
-      <td>Meeting</td>
-      <td>
-        <div id="action_meeting_select">
-          <%= render :partial => 'action_log/actions/meeting_select', :locals => {:orgunit_id => @aktion.organizational_unit_id, :aktion => @aktion } %>
-        </div>
-        <%#= observe_field "aktion_meeting_id", :url => { :action => :fill_event_select_for_action }%>
-        <%#= observe_field "aktion_meeting_id", :url => { :action => :fill_event_area_select_for_action }%>
-      </td>
-    </tr>
+    <%= render :partial => 'action_log/actions/default_meeting', :locals => {:aktion => @aktion } %>
+
     <tr>
     <td>Area of Event</td>
     <td>

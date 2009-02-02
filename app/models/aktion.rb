@@ -139,6 +139,11 @@ class Aktion < ActiveRecord::Base
     return @default_meeting.id if (event.nil? || event.event_area.nil?) && @default_meeting != nil
   end
 
+  def meeting
+    return event.event_area.meeting unless event.nil? || event.event_area.nil?
+    return @default_meeting if (event.nil? || event.event_area.nil?) && @default_meeting != nil
+  end
+
   def meeting_id=(value)
   end
 

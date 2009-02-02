@@ -5,28 +5,8 @@
     :html => { :onsubmit=>"document.getElementById('my_event_area_id').value = document.getElementById('event_event_area_id').value" },
     :url => { :controller => "action_log", :action => "create_event"}) do |f| %>
     <%= f.error_messages %>
-    <tr>
-      <td>Organizational Unit</td>
-      <td>
-        <%= tree_select(
-          OrganizationalUnit.find(:all, :conditions => "parent_id = 0"),
-          'organizational_unit',
-          'id',
-          event.organizational_unit,
-          nil
-        ) %>
-        <%= observe_field "organizational_unit_id", :url => { :action => :fill_event_area_select }%>
-        <%= observe_field "organizational_unit_id", :url => { :action => :fill_meeting_select }, :with => :id %>
-      </td>
-    </tr>
-    <tr>
-      <td>Meeting</td>
-      <td>
-        <div id="meeting_select">
-          <%= render :partial => 'meeting_select', :locals => {:orgunit_id => event.organizational_unit_id, :event => event } %>
-        </div>
-      </td>
-    </tr>
+
+    <%= render :partial => 'default_meeting', :locals => {:event => event } %>
     <tr>
       <td>Area of Event</td>
       <td>

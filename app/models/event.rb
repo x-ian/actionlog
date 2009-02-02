@@ -22,6 +22,11 @@ class Event < ActiveRecord::Base
     return @default_meeting.id if event_area.nil? && @default_meeting != nil
   end
 
+  def meeting
+    return event_area.meeting unless event_area.nil?
+    return @default_meeting if event_area.nil? && @default_meeting != nil
+  end
+
   def meeting_id=(value)
   end
   

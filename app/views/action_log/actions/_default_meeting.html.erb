@@ -1,0 +1,38 @@
+    <% default_meeting_available = !aktion.meeting.nil? && !aktion.organizational_unit.nil? %>
+    <% style = "display: none;" %>
+    <% style = "" unless default_meeting_available %>
+    <% if default_meeting_available %>
+      <tr>
+        <td>Meeting</td>
+        <td>
+          <%= "'#{aktion.meeting.name}' (in '#{aktion.organizational_unit.name}')" %>
+          <%= link_to_function("Change", nil, :id => "more_link") do |page|
+            page.visual_effect  :toggle_blind,"action_default_orgunit"
+            page.visual_effect  :toggle_blind,"action_default_meeting"
+          end %>
+        </td>
+      </tr>
+    <% end %>
+    <tr id ="action_default_orgunit" style="<%=style%>">
+      <td>Organizational Unit</td>
+      <td>
+        <%= tree_select(
+          OrganizationalUnit.find(:all, :conditions => "parent_id = 0"),
+          'action_organizational_unit',
+          'id',
+          aktion.organizational_unit,
+          nil
+        ) %>
+        <%= observe_field "action_organizational_unit_id", :url => { :action => :fill_event_select_for_action }%>
+        <%= observe_field "action_organizational_unit_id", :url => { :action => :fill_event_area_select_for_action }%>
+        <%= observe_field "action_organizational_unit_id", :url => { :action => :fill_meeting_select_for_action }, :with => :id %>
+      </td>
+    </tr>
+    <tr id ="action_default_meeting" style="<%=style%>">
+      <td>Meeting</td>
+      <td>
+        <div id="action_meeting_select">
+          <%= render :partial => 'action_log/actions/meeting_select', :locals => {:orgunit_id => aktion.organizational_unit_id, :aktion => aktion } %>
+        </div>
+      </td>
+    </tr>
