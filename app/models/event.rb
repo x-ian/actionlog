@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+  before_save :update_timestamp
+
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => "event_area_id"
   validates_presence_of :event_area
@@ -11,6 +13,10 @@ class Event < ActiveRecord::Base
   belongs_to :user
   belongs_to :event_type
   belongs_to :priority, :dependent => :destroy
+
+  def update_timestamp
+    write_attribute :log_date, Time.now.to_date
+  end
 
   # BEGIN possible mixin or whatever for aktion and event
   def default_meeting=(v)
