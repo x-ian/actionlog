@@ -93,6 +93,7 @@ class ActionLogController < ApplicationController
 
   def create_action
     @aktion = Aktion.new(params[:aktion])
+    @aktion.action_type = ActionType.find_by_name(params["action_type"]) unless params["action_type"].blank?
     @aktion.event_id = params[:my_event_id] unless params[:my_event_id].blank?
     @aktion.assignment_date = Time.now.to_date if params[:aktion_assignment_date].blank?
 
@@ -238,6 +239,7 @@ class ActionLogController < ApplicationController
 
   def update_action
     @aktion = Aktion.find(params[:id])
+    @aktion.action_type = ActionType.find_by_name(params["action_type"]) unless params["action_type"].blank?
     @aktion.event_id = params[:my_event_id] unless params[:my_event_id].blank?
 
     respond_to do |format|

@@ -38,6 +38,14 @@
       <td><%= f.calendar_date_select :assignment_date, :size => 10, :maxlength => 10 %></td>
     </tr>
     <tr>
+      <td><%= f.label :action_type_id %></td>
+      <td>
+        <% for et in ActionType.find(:all) %>
+          <%= radio_button_tag "action_type", et.name, (@aktion.action_type_id == et.id ? true : false) %> <%= et.name %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
       <td><%= f.label :action_required %></td>
       <td>
         <%#= f.text_field :action_required,

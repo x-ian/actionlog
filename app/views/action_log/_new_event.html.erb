@@ -34,12 +34,9 @@
         <%= f.collection_select :user_id, User.find(:all), :id, :name, { :include_blank => true } %>
       </td>
     </tr>
-    <% PriorityAxis.find(:all).each do |pa| %>
-      <tr>
-        <td><%= label_tag "priority_axis_" + pa.name %></td>
-        <td><%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options(nil, PriorityRange.find_all_by_priority_axis_id(pa.id), true) %></td>
-      </tr>
-    <% end %>
+    
+    <%= render :partial => 'action_log/events/risk_management', :locals => {:event => event } %>
+
     <tr>
       <td>
         <%= f.submit "Add" %>

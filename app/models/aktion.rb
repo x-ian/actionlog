@@ -6,6 +6,7 @@ class Aktion < ActiveRecord::Base
   belongs_to :event
   belongs_to :action_priority
   belongs_to :action_status
+  belongs_to :action_type
 
   belongs_to :requested_by, :class_name=>"User"
   belongs_to :primary_responsible, :class_name=>"User"
