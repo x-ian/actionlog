@@ -135,11 +135,17 @@ class ActionLogController < ApplicationController
   end
 
   def check_action_required
-    @action_status = "MEAN MAN (unknown verbs)"
+    @action_status = "50"
+    @action_status_text = ""
 
     unless params[:id].blank?
-      @action_status = "BUGGER (bad action verbs)" if ActionVerb.bad_verb(params[:id])
-      @action_status = "JEDI (bonus points!)" if ActionVerb.good_verb(params[:id])
+      if ActionVerb.bad_verb(params[:id])
+        @action_status = "5 "
+        @action_status_text = "(bad verb)"
+      elsif ActionVerb.good_verb(params[:id])
+        @action_status = "100"
+        @action_status_text = "(good verb)"
+      end
     end
     respond_to do |format|
       format.js

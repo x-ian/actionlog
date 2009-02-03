@@ -1,6 +1,7 @@
 <%= calendar_date_select_includes %>
 <% CalendarDateSelect.format = :iso_date  %>
 <% CalendarDateSelect.image = "/images/calendar_date_select/calendar.gif"%>
+<%= progress_bar_includes %>
 
 <h1>New action</h1>
 
@@ -53,8 +54,7 @@
     <tr>
       <td></td>
       <td>
-        <div id="action_status">(unchecked)</div>
-        <%#= link_to_remote "Check", :url => {:action => "check_action"} %>
+        Description quality: <%=progress_bar("my_sixty_percent_progress_bar",0,false,true) %>&nbsp;&nbsp;<span id="action_status">&nbsp;</span>
       </td>
     </tr>
     <tr>
