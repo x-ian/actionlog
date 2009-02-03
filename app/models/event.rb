@@ -71,9 +71,9 @@ class Event < ActiveRecord::Base
     priority.priority_ranges.detect { |v| v.priority_axis_id == axis_id } unless priority == nil 
   end
 
-  def self.find_all_by_filter_form(params)
+  def self.find_all_by_filter_form(params, meeting)
     e = []
-    a = Aktion.find_all_by_filter_form(params)
+    a = Aktion.find_all_by_filter_form(params, meeting)
     a.each { |item| 
       if e.index(item.event) == nil
         e.insert(-1, item.event) if params[:action_status].blank?

@@ -23,4 +23,10 @@ class ApplicationController < ActionController::Base
   def current_user
     return current_account.user
   end
+
+  def current_meeting
+    return session[:current_meeting] unless session[:current_meeting].blank?
+    #session[:current_meeting] = current_user.meetings.first unless current_user.meetings.size < 1
+  end
+
 end

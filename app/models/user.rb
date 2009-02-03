@@ -26,9 +26,10 @@ class User < ActiveRecord::Base
 
   belongs_to :role
 
-  belongs_to :meeting
+  #belongs_to :meeting
 
   has_and_belongs_to_many :organizational_units
+  has_and_belongs_to_many :meetings
 
   def deal_with_account
     write_attribute :login, (self[:login] ? self[:login].downcase : nil)

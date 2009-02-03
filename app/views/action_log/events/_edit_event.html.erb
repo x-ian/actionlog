@@ -10,13 +10,13 @@
     :url => { :controller => "action_log", :action => "update_event", :id => event}) do |f| %>
     <%= f.error_messages %>
 
-    <%= render :partial => 'default_meeting', :locals => {:event => event } %>
+    <%= render :partial => 'action_log/events/default_meeting', :locals => {:event => event } %>
 
     <tr>
       <td>Area of Event</td>
       <td>
         <div id="event_area_select">
-          <%= render :partial => 'event_area_select', :locals => {:meeting_id => event.event_area_id, :event => event } %>
+          <%= render :partial => 'action_log/events/event_area_select', :locals => {:meeting_id => event.event_area_id, :event => event } %>
         </div>
         <%= hidden_field_tag "my_event_area_id", "" %>
       </td>

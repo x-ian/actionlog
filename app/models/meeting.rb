@@ -4,5 +4,7 @@ class Meeting < ActiveRecord::Base
 
   belongs_to :organizational_unit
   has_many :event_areas
-  has_many :users
+#  has_many :users
+  has_and_belongs_to_many :users
+
 end

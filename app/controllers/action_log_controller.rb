@@ -4,11 +4,11 @@ class ActionLogController < ApplicationController
 
   def index
     @event = Event.new
-    @event.default_meeting = current_account.user.meeting unless current_account.nil? || current_account.user.nil?
+    #@event.default_meeting = current_account.user.meeting unless current_account.nil? || current_account.user.nil?
     @event.event_area_id = Event.find(flash[:last_used_event_id]).event_area_id unless flash[:last_used_event_id] == nil
 
     @aktion = Aktion.new
-    @aktion.default_meeting = current_account.user.meeting unless current_account.nil? || current_account.user.nil?
+    #@aktion.default_meeting = current_account.user.meeting unless current_account.nil? || current_account.user.nil?
     @aktion.event_id = flash[:last_used_event_id] unless flash[:last_used_event_id] == nil
 
     @edit_event = false
@@ -28,17 +28,28 @@ class ActionLogController < ApplicationController
 
     @aktions = []
     @events = []
-    @aktions = Aktion.find_all_by_filter_form(params) if session[:action_log_current_view] == "grouped_by_actions"
-    @events = Event.find_all_by_filter_form(params) if session[:action_log_current_view] == "grouped_by_events"
+    @aktions = Aktion.find_all_by_filter_form(params, current_meeting) if session[:action_log_current_view] == "grouped_by_actions"
+    @events = Event.find_all_by_filter_form(params, current_meeting) if session[:action_log_current_view] == "grouped_by_events"
 
     respond_to do |format|
       format.html # index.html.erb
     end
   end
 
+  def set_current_meeting
+    if params[:current_meeting].blank?
+      session[:current_meeting] = nil
+    else
+      session[:current_meeting] = Meeting.find(params[:current_meeting])
+    end
+    respond_to do |format|
+      format.html { redirect_to(:action => "index") }
+    end
+  end
+
   def apply_filter
-    @aktions = Aktion.find_all_by_filter_form(params) if session[:action_log_current_view] == "grouped_by_actions"
-    @events = Event.find_all_by_filter_form(params) if session[:action_log_current_view] == "grouped_by_events"
+    @aktions = Aktion.find_all_by_filter_form(params, current_meeting) if session[:action_log_current_view] == "grouped_by_actions"
+    @events = Event.find_all_by_filter_form(params, current_meeting) if session[:action_log_current_view] == "grouped_by_events"
     render :update do |page|
       page[:index_filter].replace_html :partial => 'index_filter',  :locals => { :action_status => params[:action_status], :requested => params[:requested], :responsible => params[:responsible], :to => params[:to], :from => params[:from], }
       page[:index_actions].replace_html :partial => 'index_actions_grouped_by_events', :locals => {} if session[:action_log_current_view] == "grouped_by_events"
@@ -48,7 +59,7 @@ class ActionLogController < ApplicationController
 
   def index_grouped_by_events
     session[:action_log_current_view] = "grouped_by_events"
-    @events = Event.find_all_by_filter_form(params)
+    @events = Event.find_all_by_filter_form(params, current_meeting)
     @aktions = []
     render :update do |page|
       page[:index_filter].replace_html :partial => 'index_filter',  :locals => { :action_status => params[:action_status], :requested => params[:requested], :responsible => params[:responsible], :to => params[:to], :from => params[:from], }
@@ -59,7 +70,7 @@ class ActionLogController < ApplicationController
   def index_grouped_by_actions
     session[:action_log_current_view] = "grouped_by_actions" 
     @events = []
-    @aktions = Aktion.find_all_by_filter_form(params)
+    @aktions = Aktion.find_all_by_filter_form(params, current_meeting)
     render :update do |page|
       page[:index_filter].replace_html :partial => 'index_filter',  :locals => { :action_status => params[:action_status], :requested => params[:requested], :responsible => params[:responsible], :to => params[:to], :from => params[:from], }
       page[:index_actions].replace_html :partial => 'index_actions_grouped_by_actions', :locals => {}
@@ -156,7 +167,7 @@ class ActionLogController < ApplicationController
     orgunit_id = ""
     orgunit_id = params[:id] unless params[:id].blank?
     render :update do |page|
-      page.replace_html "meeting_select", :partial => "meeting_select", :locals => {:orgunit_id => orgunit_id, :event => nil}
+      page.replace_html "meeting_select", :partial => "action_log/events/meeting_select", :locals => {:orgunit_id => orgunit_id, :event => nil}
     end
   end
 
@@ -164,7 +175,7 @@ class ActionLogController < ApplicationController
     meeting_id = ""
     meeting_id = params[:id] unless params[:id].blank?
     render :update do |page|
-      page.replace_html "event_area_select", :partial => "event_area_select", :locals => {:meeting_id => meeting_id, :eventarea_id => ""}
+      page.replace_html "event_area_select", :partial => "action_log/events/event_area_select", :locals => {:meeting_id => meeting_id, :eventarea_id => ""}
     end
   end
 

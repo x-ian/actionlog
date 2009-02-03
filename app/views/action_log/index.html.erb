@@ -3,7 +3,7 @@
 <%= javascript_include_tag 'popup-kit/popup.js' %>
 
 <% if @edit_event %>
-  <%= render :partial => 'edit_event', :locals => { :event => @event } %>
+  <%= render :partial => 'action_log/events/edit_event', :locals => { :event => @event } %>
 <% end %>
 <% if @edit_action %>
   <%= render :partial => 'action_log/actions/edit_action', :locals => {}  %>
@@ -23,7 +23,7 @@ end
     <table>
       <tr>
         <td valign="top">
-          <%= render :partial => 'new_event', :locals => { :event => @event } if !@edit_event && @event != nil %>
+          <%= render :partial => 'action_log/events/new_event', :locals => { :event => @event } if !@edit_event && @event != nil %>
         </td>
         <td>
           <%= render :partial => 'action_log/actions/new_action', :locals => { :aktion => @aktion} if !@edit_aktion && @aktion != nil %>

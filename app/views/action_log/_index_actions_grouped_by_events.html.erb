@@ -22,7 +22,7 @@
       <% aktion_class = (aktion.overdue ? "highlighted-record " : "") + aktion_class %>
       <tr class="<%=aktion_class%>" id="action-<%=aktion.id%>">
         <td></td>
-<%= render :partial => "index_actions_action_data", :locals => { :aktion => aktion } %>
+        <%= render :partial => "index_actions_action_data", :locals => { :aktion => aktion } %>
       </tr>
     <% end %>
   <% end %>
