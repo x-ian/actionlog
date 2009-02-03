@@ -4,6 +4,7 @@ class Customization::ActionVerbController < ApplicationController
 
   layout "admin"
   active_scaffold :action_verb do |config|
+    config.actions.exclude :nested
     #config.label = "Customers"
     #config.columns = [:name, :phone, :company_type, :comments]
     #config.columns.exclude :priority_axis, :priorities

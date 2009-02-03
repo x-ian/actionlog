@@ -4,6 +4,7 @@ class Admin::OrganizationalUnitController < ApplicationController
 
   layout "admin"
   active_scaffold :organizational_unit do |config|
+    config.actions.exclude :nested
     #config.label = "Customers"
     #config.columns = [:name, :phone, :company_type, :comments]
     config.columns.exclude :lft, :rgt, :meetings, :users
