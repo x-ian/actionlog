@@ -1,6 +1,7 @@
 <%= calendar_date_select_includes %>
 <% CalendarDateSelect.format = :iso_date  %>
 <% CalendarDateSelect.image = "/images/calendar_date_select/calendar.gif"%>
+<%= progress_bar_includes %>
 
 <h1>Edit action</h1>
 
@@ -48,21 +49,19 @@
     <tr>
       <td><%= f.label :action_required %></td>
       <td>
-        <%#= f.text_field :action_required,
-        {:onChange => "new Ajax.Request('/action_log/check_action_required/' + this.value,
-        {asynchronous:true, evalScripts:true, parameters:'authenticity_token='+encodeURIComponent('"+form_authenticity_token.to_s+"')})"} %>
+        <%= f.text_area :action_required, :size => "40x4" %>
+        <%= observe_field "aktion_action_required", :url => { :action => :check_action_required }, :frequency => 2, :with => 'verb'%>
 
-        <%=text_area_with_auto_complete :aktion, :action_required,
-          { :size => "40x4", :onChange => "new Ajax.Request('/action_log/check_action_required/' + this.value,
-          {asynchronous:true, evalScripts:true, parameters:'authenticity_token='+encodeURIComponent('"+form_authenticity_token.to_s+"')})"},
-          {:method => :get, :frequency=>0, :min_chars => 0} %>
+        <%#=text_area_with_auto_complete :aktion, :action_required,
+        { :size => "40x4", :onChange => "new Ajax.Request('/action_log/check_action_required/' + this.value,
+        {asynchronous:true, evalScripts:true, parameters:'authenticity_token='+encodeURIComponent('"+form_authenticity_token.to_s+"')})"},
+        {:method => :get, :frequency=>0, :min_chars => 0} %>
       </td>
     </tr>
     <tr>
       <td></td>
       <td>
-        <div id="action_status">(unchecked)</div>
-        <%#= link_to_remote "Check", :url => {:action => "check_action"} %>
+        Description quality: <%=progress_bar("action_status_",0,false,true) %>&nbsp;&nbsp;<span id="action_status">&nbsp;</span>
       </td>
     </tr>
     <tr>
@@ -125,11 +124,11 @@
         <%= f.submit "Update" %>
       </td>
     </tr>
+    <tr>
+      <td><%= button_to 'Back', :action => "index" %></td>
+    </tr>
+    <tr>
+      <td><%= button_to 'Destroy', { :action => :destroy_action, :id => @aktion.id}, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
   <% end %>
-  <tr>
-    <td><%= button_to 'Back', :action => "index" %></td>
-  </tr>
-  <tr>
-    <td><%= button_to 'Destroy', { :action => :destroy_action, :id => @aktion.id}, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
 </table>

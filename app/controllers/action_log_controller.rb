@@ -138,11 +138,11 @@ class ActionLogController < ApplicationController
     @action_status = "50"
     @action_status_text = ""
 
-    unless params[:id].blank?
-      if ActionVerb.bad_verb(params[:id])
+    unless params[:verb].blank?
+      if ActionVerb.bad_verb(params[:verb])
         @action_status = "5 "
         @action_status_text = "(bad verb)"
-      elsif ActionVerb.good_verb(params[:id])
+      elsif ActionVerb.good_verb(params[:verb])
         @action_status = "100"
         @action_status_text = "(good verb)"
       end

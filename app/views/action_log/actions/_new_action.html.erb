@@ -41,11 +41,10 @@
     <tr>
       <td><%= f.label :action_required %></td>
       <td>
-        <%#= f.text_field :action_required,
-        {:onChange => "new Ajax.Request('/action_log/check_action_required/' + this.value,
-        {asynchronous:true, evalScripts:true, parameters:'authenticity_token='+encodeURIComponent('"+form_authenticity_token.to_s+"')})"} %>
+        <%= f.text_area :action_required, :size => "40x4" %>
+        <%= observe_field "aktion_action_required", :url => { :action => :check_action_required }, :frequency => 2, :with => 'verb'%>
 
-        <%=text_area_with_auto_complete :aktion, :action_required,
+        <%#=text_area_with_auto_complete :aktion, :action_required,
           { :size => "40x4", :onChange => "new Ajax.Request('/action_log/check_action_required/' + this.value,
           {asynchronous:true, evalScripts:true, parameters:'authenticity_token='+encodeURIComponent('"+form_authenticity_token.to_s+"')})"},
           { :method => :get, :frequency=>0, :min_chars => 0} %>
@@ -54,7 +53,7 @@
     <tr>
       <td></td>
       <td>
-        Description quality: <%=progress_bar("my_sixty_percent_progress_bar",0,false,true) %>&nbsp;&nbsp;<span id="action_status">&nbsp;</span>
+        Description quality: <%=progress_bar("action_status_",0,false,true) %>&nbsp;&nbsp;<span id="action_status">&nbsp;</span>
       </td>
     </tr>
     <tr>
