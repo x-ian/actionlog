@@ -37,8 +37,8 @@ class Aktion < ActiveRecord::Base
     save
   end
 
-  def soft_delete!
-    self.action_status_id = ActionStatus.DELETED
+  def soft_delete
+    self.action_status_id = ActionStatus::DELETED
     save
   end
 
