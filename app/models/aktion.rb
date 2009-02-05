@@ -95,10 +95,10 @@ class Aktion < ActiveRecord::Base
   def self.find_all_by_filter_form(params, meeting)
     filter_conditions = self.extract_filter_conditions(params, meeting)
     if meeting.nil?
-      Aktion.find(:all, :conditions => filter_conditions, :order => "internal_due_date_for_sorting")
+      Aktion.find(:all, :conditions => filter_conditions, :include => [ :event, :requested_by, :primary_responsible, :secondary_responsible ], :order => "internal_due_date_for_sorting")
     else
       joins = "LEFT JOIN events ON events.id = event_id LEFT JOIN event_areas on event_areas.id = events.event_area_id LEFT JOIN meetings ON meetings.id = event_areas.meeting_id"
-      Aktion.find(:all, :conditions => filter_conditions, :joins => joins, :order => "internal_due_date_for_sorting")
+      Aktion.find(:all, :conditions => filter_conditions, :include => [ :event, :requested_by, :primary_responsible, :secondary_responsible ], :joins => joins, :order => "internal_due_date_for_sorting")
     end
   end
 
