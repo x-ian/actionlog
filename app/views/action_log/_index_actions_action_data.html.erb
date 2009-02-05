@@ -1,31 +1,30 @@
 <td><%=link_to aktion.action_required, { :controller => "action_log", :action => "edit_action", :id => aktion }, { :title => "Edit action"} %></td>
 <td>
-  <%=aktion.requested_by.name unless aktion.requested_by.nil? %>
-  <%#=link_to aktion.requested_by.name, aktion.requested_by unless aktion.requested_by.nil? %>
+  <%= aktion.requested_by.nil? ? "&#160;": aktion.requested_by.name %>
 </td>
 <td>
-  <% if !aktion.primary_responsible.nil? %>
-    <%=aktion.primary_responsible.name%>
-    <%#=link_to aktion.primary_responsible.name, aktion.primary_responsible %><br/>
-  <% end %>
-  <% if !aktion.secondary_responsible.nil? %>
-    <%=aktion.secondary_responsible.name%>
-    <%#=link_to aktion.secondary_responsible.name, aktion.secondary_responsible %><br/>
-  <% end %>
+  <%= aktion.primary_responsible.nil? ? "" : aktion.primary_responsible.name + "<br/>" %>
+  <%= aktion.secondary_responsible.nil? ? "" : aktion.secondary_responsible.name%>
+  <%= "&#160;" if aktion.primary_responsible.nil? && aktion.secondary_responsible.nil? %>
 </td>
 <td>
+  <% date_text_exists = false %>
   <% if aktion.review_date != nil && aktion.review_date != "" %>
     Review: <%=h aktion.review_date.to_s %> <br/>
+    <% date_text_exists = true %>
   <% end %>
   <% if aktion.new_target_date == nil || aktion.new_target_date == "" %>
     <%=h "Target: " + aktion.target_date.to_s unless aktion.target_date == nil || aktion.target_date == "" %>
+    <% date_text_exists = true %>
   <% else %>
     <%=h "Target: " + aktion.new_target_date.to_s unless aktion.new_target_date == nil || aktion.new_target_date == "" %>
+    <% date_text_exists = true %>
   <% end %>
-  <%= aktion.check_date_consistency ? "" : "(inconsistent)" %>
+  <%= aktion.check_date_consistency ? "&#160;" : "(inconsistent)" %>
+  <%= "&#160;" unless date_text_exists %>
 </td>
-<td><div id="action-closeout_comment-<%=aktion.id%>"><%=h aktion.closeout_comment %></div></td>
-<td><div id="action-completion_date-<%=aktion.id%>"><%=h aktion.actual_completion_date %></div></td>
+<td><div id="action-closeout_comment-<%=aktion.id%>"><%= aktion.closeout_comment.blank? ? "&#160;" : h(aktion.closeout_comment) %></div></td>
+<td><div id="action-completion_date-<%=aktion.id%>"><%= aktion.actual_completion_date.blank? ? "&#160;" : h(aktion.actual_completion_date) %></div></td>
 <td>
   <% if aktion.action_status_id == ActionStatus::COMPLETED %>
     <%= image_tag("action-checked.png?", :alt => "Completed", :title=>"Completed") %>
