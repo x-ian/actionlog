@@ -27,25 +27,33 @@
       <tr>
         <td align="left" >
           <h3 class="tab" title="first"><div class="tabtxt"><a href="#">Action Log</a></div></h3>
-          <div class="tab"><h3 class="tabtxt" title="second"><a href="#">Administration</a></h3></div>
-          <div class="tab"><h3 class="tabtxt" title="third"><a href="#">Customization</a></h3></div>
+          <% deny :user => :is_user? do %>
+            <div class="tab"><h3 class="tabtxt" title="second"><a href="#">Administration</a></h3></div>
+            <% deny :user => :is_administrator? do %>
+              <div class="tab"><h3 class="tabtxt" title="third"><a href="#">Customization</a></h3></div>
+            <% end %>
+          <% end %>
           <div class="boxholder">
             <div class="box">
               <%= link_to "Action Log", :controller => "/action_log" %>
               <%= link_to "Export data", :controller => "admin/export" %>
             </div>
-            <div class="box">
-              <%= link_to "Users", :controller => "admin/user" %>
-              <%= link_to "Organizational Units", :controller => "admin/organizational_unit" %>
-              <%= link_to "Meetings", :controller => "admin/meeting" %>
-              <%= link_to "Event Area", :controller => "admin/event_area" %>
+            <% deny :user => :is_user? do %>
+              <div class="box">
+                <%= link_to "Users", :controller => "admin/user" %>
+                <%= link_to "Organizational Units", :controller => "admin/organizational_unit" %>
+                <%= link_to "Meetings", :controller => "admin/meeting" %>
+                <%= link_to "Event Area", :controller => "admin/event_area" %>
 
-            </div>
-            <div class="box">
-              <%= link_to "Action Priorities", :controller => "customization/action_priority" %>
-              <%= link_to "Action Verbs", :controller => "customization/action_verb" %>
-              <%= link_to "Priority Axes & Ranges", :controller => "customization/priority_axis" %>
-            </div>
+              </div>
+              <% deny :user => :is_administrator? do %>
+                <div class="box">
+                  <%= link_to "Action Priorities", :controller => "customization/action_priority" %>
+                  <%= link_to "Action Verbs", :controller => "customization/action_verb" %>
+                  <%= link_to "Priority Axes & Ranges", :controller => "customization/priority_axis" %>
+                </div>
+              <% end %>
+            <% end %>
           </div>
         </td>
         <td align="right">

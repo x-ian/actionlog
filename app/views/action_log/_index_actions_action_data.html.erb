@@ -27,7 +27,7 @@
 <td><div id="action-closeout_comment-<%=aktion.id%>"><%=h aktion.closeout_comment %></div></td>
 <td><div id="action-completion_date-<%=aktion.id%>"><%=h aktion.actual_completion_date %></div></td>
 <td>
-  <% if aktion.action_status != nil && aktion.action_status.name == "completed" %>
+  <% if aktion.action_status_id == ActionStatus::COMPLETED %>
     <%= image_tag("action-checked.png?", :alt => "Completed", :title=>"Completed") %>
   <% else %>
     <a id="closeout_comment_link_<%=aktion.id%>">
