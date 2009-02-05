@@ -1,0 +1,29 @@
+
+#wrapper{
+    /*width: 1000px;*/
+    /*height: 50px;*/
+    margin: 0 auto;
+}
+.box{
+    background: #E6F2FF;
+}
+.boxholder{
+    clear: both;
+    padding: 5px;
+    background: #E6F2FF;
+}
+.tab{
+    float: left;
+    height: 32px;
+    width: 102px;
+    margin: 0 1px 0 0;
+    text-align: center;
+    background: #E6F2FF url(images/greentab.jpg) no-repeat;
+}
+.tabtxt{
+    margin: 0;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 9px 0 0 0;
+}

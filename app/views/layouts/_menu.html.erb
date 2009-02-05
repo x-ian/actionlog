@@ -1,35 +1,66 @@
-<table width="100%">
-  <tr>
-    <td align="left" >
-      <%= link_to "Action Log", :controller => "/action_log" %>
-      <% deny :user => :is_user? do %>
-        <%= link_to_function "Administration", visual_effect(:toggle_blind,"administration")%>
-        <% deny :user => :is_administrator? do %>
-          <%= link_to_function "Customization", visual_effect(:toggle_blind,"customization")%>
-        <% end %>
-      <% end %>
-    </td>
-    <td align="right">
-      <%= render :partial => 'accounts/account_bar' %>
-    </td>
-  </tr>
-</table>
+<%= javascript_include_tag :defaults %>
+<%= javascript_include_tag 'moo.fx/moo.fx.js' %>
+<%= javascript_include_tag 'moo.fx/accordion.js' %>
+<%= stylesheet_link_tag 'moo.fx/accordion.css' %>
 
-<div id="administration" style="display: none;">
-  <br/>
-  <%= link_to "Users", :controller => "admin/user" %>
-  <%= link_to "Organizational Units", :controller => "admin/organizational_unit" %>
-  <%= link_to "Meetings", :controller => "admin/meeting" %>
-  <%= link_to "Event Area", :controller => "admin/event_area" %>
-  <%= link_to "Export data", :controller => "export" %>
-  <br/><br/>
-</div>
-<div id="customization" style="display: none;">
-  <br/>
-  <%= link_to "Action Priorities", :controller => "customization/action_priority" %>
-  <%= link_to "Action Verbs", :controller => "customization/action_verb" %>
-  <%= link_to "Priority Axes & Ranges", :controller => "customization/priority_axis" %>
-  <br/><br/>
+<% javascript_tag do -%>
+  function init(){
+  var stretchers = document.getElementsByClassName('box');
+  var toggles = document.getElementsByClassName('tab');
+  var myAccordion = new fx.Accordion(toggles, stretchers, {opacity: false, height: true, duration: 600});
+  //hash functions
+  var found = false;
+  //  toggles.each(function(h3, i){
+  //  var div = Element.find(h3, 'nextSibling');
+  //if (window.location.href.indexOf(h3.title) > 0) {
+  //myAccordion.showThisHideOpen(div);
+  //found = true;
+  //}
+  //});
+  if (!found) myAccordion.showThisHideOpen(stretchers[0]);
+  }
+<%end%>
+
+<div id="wrapper">
+  <div id="content">
+    <table width="100%">
+      <tr>
+        <td align="left" >
+          <h3 class="tab" title="first"><div class="tabtxt"><a href="#">Action Log</a></div></h3>
+          <div class="tab"><h3 class="tabtxt" title="second"><a href="#">Administration</a></h3></div>
+          <div class="tab"><h3 class="tabtxt" title="third"><a href="#">Customization</a></h3></div>
+          <div class="boxholder">
+            <div class="box">
+              <%= link_to "Action Log", :controller => "/action_log" %>
+              <%= link_to "Export data", :controller => "admin/export" %>
+            </div>
+            <div class="box">
+              <%= link_to "Users", :controller => "admin/user" %>
+              <%= link_to "Organizational Units", :controller => "admin/organizational_unit" %>
+              <%= link_to "Meetings", :controller => "admin/meeting" %>
+              <%= link_to "Event Area", :controller => "admin/event_area" %>
+
+            </div>
+            <div class="box">
+              <%= link_to "Action Priorities", :controller => "customization/action_priority" %>
+              <%= link_to "Action Verbs", :controller => "customization/action_verb" %>
+              <%= link_to "Priority Axes & Ranges", :controller => "customization/priority_axis" %>
+            </div>
+          </div>
+        </td>
+        <td align="right">
+          <%= render :partial => 'accounts/account_bar' %>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div>
+    <hr/>
+  </div>
 </div>
 
-<hr/>
+<% javascript_tag do -%>
+  Element.cleanWhitespace('content');
+  init();
+<%  end -%>
