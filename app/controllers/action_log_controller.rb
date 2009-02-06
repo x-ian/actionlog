@@ -25,10 +25,11 @@ class ActionLogController < ApplicationController
     # default
     session[:action_log_current_view] = "grouped_by_actions" if session[:action_log_current_view].blank?
     params[:action_status] = ActionStatus::UNCOMPLETED if params[:action_status] == nil
+    session[:actions_per_page] = "(all)" if session[:actions_per_page].blank?
 
     @aktions = []
     @events = []
-    @aktions = Aktion.find_all_by_filter_form(params, current_meeting) if session[:action_log_current_view] == "grouped_by_actions"
+    @aktions = Aktion.find_all_by_filter_form(params, current_meeting, params[:page], session[:actions_per_page]) if session[:action_log_current_view] == "grouped_by_actions"
     @events = Event.find_all_by_filter_form(params, current_meeting) if session[:action_log_current_view] == "grouped_by_events"
 
     respond_to do |format|
@@ -47,8 +48,16 @@ class ActionLogController < ApplicationController
     end
   end
 
+  def set_paginate_size
+    session[:actions_per_page] = params[:actions_per_page]
+    respond_to do |format|
+      format.html { redirect_to(:action => "index") }
+    end
+  end
+
   def apply_filter
-    @aktions = Aktion.find_all_by_filter_form(params, current_meeting) if session[:action_log_current_view] == "grouped_by_actions"
+    params[:page] = 1
+    @aktions = Aktion.find_all_by_filter_form(params, current_meeting, params[:page], session[:actions_per_page]) if session[:action_log_current_view] == "grouped_by_actions"
     @events = Event.find_all_by_filter_form(params, current_meeting) if session[:action_log_current_view] == "grouped_by_events"
     render :update do |page|
       page[:index_filter].replace_html :partial => 'index_filter',  :locals => { :action_status => params[:action_status], :requested => params[:requested], :responsible => params[:responsible], :to => params[:to], :from => params[:from], }
@@ -69,8 +78,9 @@ class ActionLogController < ApplicationController
 
   def index_grouped_by_actions
     session[:action_log_current_view] = "grouped_by_actions" 
+    session[:actions_per_page] = "(all)"
     @events = []
-    @aktions = Aktion.find_all_by_filter_form(params, current_meeting)
+    @aktions = Aktion.find_all_by_filter_form(params, current_meeting, params[:page])
     render :update do |page|
       page[:index_filter].replace_html :partial => 'index_filter',  :locals => { :action_status => params[:action_status], :requested => params[:requested], :responsible => params[:responsible], :to => params[:to], :from => params[:from], }
       page[:index_actions].replace_html :partial => 'index_actions_grouped_by_actions', :locals => {}

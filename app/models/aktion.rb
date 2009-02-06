@@ -92,13 +92,21 @@ class Aktion < ActiveRecord::Base
     true
   end
 
-  def self.find_all_by_filter_form(params, meeting)
+  def self.find_all_by_filter_form(params, meeting, page = 0, per_page = "(all)")
     filter_conditions = self.extract_filter_conditions(params, meeting)
     if meeting.nil?
-      Aktion.find(:all, :conditions => filter_conditions, :include => [ :event, :requested_by, :primary_responsible, :secondary_responsible ], :order => "internal_due_date_for_sorting")
+      if per_page == "(all)"
+        Aktion.find(:all, :conditions => filter_conditions, :include => [ :event, :requested_by, :primary_responsible, :secondary_responsible ], :order => "internal_due_date_for_sorting")
+      else
+        Aktion.paginate(:page => page, :per_page => per_page, :conditions => filter_conditions, :include => [ :event, :requested_by, :primary_responsible, :secondary_responsible ], :order => "internal_due_date_for_sorting")
+      end
     else
       joins = "LEFT JOIN events ON events.id = event_id LEFT JOIN event_areas on event_areas.id = events.event_area_id LEFT JOIN meetings ON meetings.id = event_areas.meeting_id"
-      Aktion.find(:all, :conditions => filter_conditions, :include => [ :event, :requested_by, :primary_responsible, :secondary_responsible ], :joins => joins, :order => "internal_due_date_for_sorting")
+      if per_page == "(all)"
+        Aktion.find(:all, :conditions => filter_conditions, :include => [ :event, :requested_by, :primary_responsible, :secondary_responsible ], :joins => joins, :order => "internal_due_date_for_sorting")
+      else
+        Aktion.paginate(:page => page, :per_page => per_page, :conditions => filter_conditions, :include => [ :event, :requested_by, :primary_responsible, :secondary_responsible ], :joins => joins, :order => "internal_due_date_for_sorting")
+      end
     end
   end
 
@@ -140,7 +148,7 @@ class Aktion < ActiveRecord::Base
     return conditions
   end
 
-    # BEGIN possible mixin or whatever for aktion and event
+  # BEGIN possible mixin or whatever for aktion and event
   def default_meeting=(v)
     @default_meeting = v
   end

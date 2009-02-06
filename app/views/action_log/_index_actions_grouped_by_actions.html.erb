@@ -1,3 +1,10 @@
+<table width="100%"><tr><td align="right">
+      <% form_tag(:action => "set_paginate_size", :controller => "/action_log" ) do %>
+        <%= "Actions per Page:" %>
+        <%=select_tag "actions_per_page", "<option></option><option>(all)</option><option>10</option><option>25</option><option>50</option>", :onchange=>"document.getElementById ('submit_paginate_size').click();" %>
+        <span style="display:none;"><input type=submit id='submit_paginate_size'></span>
+      <% end %>
+</td></tr></table>
 
 <table cellspacing="0" cellpadding="0">
   <colgroup span="8"></colgroup>
@@ -17,4 +24,8 @@
       <%= render :partial => "index_actions_grouped_by_actions_row", :locals => { :aktion => aktion } %>
     </tr>
   <% end %>
+
 </table>
+
+<br/>
+<%= will_paginate @aktions unless session[:actions_per_page] == "(all)"%>
