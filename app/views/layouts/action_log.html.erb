@@ -9,14 +9,17 @@
     <%= stylesheet_link_tag 'global' %>
   </head>
   <body>
+    <div>
+      <div style="position:absolute;">
+        <%= render :partial => 'layouts/menu' %>
 
-  <%= render :partial => 'layouts/menu' %>
+        <div id="flash">
+          <%= render :partial => 'flash', :locals => { :flash => flash } %>
+        </div>
 
-    <div id="flash">
-      <%= render :partial => 'flash', :locals => { :flash => flash } %>
+        <%= yield  %>
+      </div>
+      <div id="overlay" align="center" style="display:none;"><div id="spinner"><img id="busy" src="images/spinner/progress_bar.gif" /><br/>Please wait while processing request...</div></div>
     </div>
-
-    <%= yield  %>
-
   </body>
 </html>
