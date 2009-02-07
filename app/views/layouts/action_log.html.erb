@@ -10,7 +10,8 @@
   </head>
   <body>
     <div>
-      <div style="position:absolute;">
+      <div style="position:absolute; left:350px" id="overlay" align="center" ><div id="spinner"><img id="busy" src="images/spinner/progress_bar.gif" /><br/>Please wait while processing request...</div></div>
+      <div >
         <%= render :partial => 'layouts/menu' %>
 
         <div id="flash">
@@ -19,7 +20,9 @@
 
         <%= yield  %>
       </div>
-      <div id="overlay" align="center" style="display:none;"><div id="spinner"><img id="busy" src="images/spinner/progress_bar.gif" /><br/>Please wait while processing request...</div></div>
     </div>
-  </body>
+<%= update_page_tag do |page|
+page["overlay"].hide
+end %>
+</body>
 </html>
