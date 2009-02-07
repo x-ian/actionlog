@@ -16,5 +16,3 @@ config.action_controller.perform_caching             = true
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
-# Phusion Passenger stuff
-config.action_controller.relative_url_root = "/actionlog"
