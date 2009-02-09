@@ -31,3 +31,26 @@ th.header {
     padding:5px 4px;
 }
 
+.roundedcornr_box_479185 {
+   background: #ffffff url(../images/roundedcornr_479185_grad.gif) no-repeat;
+}
+.roundedcornr_top_479185 div {
+   background: url(../images/roundedcornr_479185_tl.gif) no-repeat top left;
+}
+.roundedcornr_top_479185 {
+   background: transparent url(../images/roundedcornr_479185_tr.gif) no-repeat top right;
+}
+.roundedcornr_bottom_479185 div {
+   background: url(../images/roundedcornr_479185_bl.gif) no-repeat bottom left;
+}
+.roundedcornr_bottom_479185 {
+   background: transparent url(../images/roundedcornr_479185_br.gif) no-repeat bottom right;
+}
+
+.roundedcornr_top_479185 div, .roundedcornr_top_479185,
+.roundedcornr_bottom_479185 div, .roundedcornr_bottom_479185 {
+   width: 100%;
+   height: 10px;
+   font-size: 1px;
+}
+.roundedcornr_content_479185 { margin: 0 10px; }

@@ -2,7 +2,6 @@
   <span id="account-bar-greeting">Welcome <%=self.current_account.name%> (<%=self.current_account.login%>)</span>
   <span id="account-bar-action">(<%= link_to "Log out", logout_path, { :title => "Log out" }    %>)</span>
   <br/>
-  <br/>
   <%
   meeting_name = ""
   meeting_name = current_meeting.name unless current_meeting.nil?

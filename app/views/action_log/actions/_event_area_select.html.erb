@@ -1,2 +1,2 @@
-<%= collection_select(:aktion, :event_area_id, EventArea.find_all_by_meeting_id(meeting_id), :id, :name, { :include_blank => true }) %>
+<%= collection_select(:aktion, :event_area_id, EventArea.find_all_by_meeting_id(meeting_id), :id, :name, { :include_blank => true }, :style=>"width:200px;") %>
 <%= observe_field :aktion_event_area_id, :url => { :action => :fill_event_select_for_action }, :with => :id %>

@@ -33,6 +33,13 @@
               <div class="tab"><h3 class="tabtxt" title="third"><a href="#">Customization</a></h3></div>
             <% end %>
           <% end %>
+        </td>
+        <td align="right">
+          <%= render :partial => 'accounts/account_bar' %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
           <div class="boxholder">
             <div class="box">
               <%= link_to "Action Log", :controller => "/action_log" %>
@@ -56,15 +63,8 @@
             <% end %>
           </div>
         </td>
-        <td align="right">
-          <%= render :partial => 'accounts/account_bar' %>
-        </td>
       </tr>
     </table>
-  </div>
-
-  <div>
-    <hr/>
   </div>
 </div>
 
