@@ -26,7 +26,10 @@ class ActionLogController < ApplicationController
     session[:action_log_current_view] = "grouped_by_actions" if session[:action_log_current_view].blank?
     params[:action_status] = ActionStatus::UNCOMPLETED if params[:action_status] == nil
     session[:actions_per_page] = "(all)" if session[:actions_per_page].blank?
-
+    session[:cut_text] ="no" if session[:cut_text].blank?
+    session[:font_size] = "auto" if session[:font_size].blank?
+    session[:table_width] = "auto" if session[:table_width].blank?
+    
     @aktions = []
     @events = []
     @aktions = Aktion.find_all_by_filter_form(params, current_meeting, params[:page], session[:actions_per_page]) if session[:action_log_current_view] == "grouped_by_actions"
@@ -50,6 +53,15 @@ class ActionLogController < ApplicationController
 
   def set_paginate_size
     session[:actions_per_page] = params[:actions_per_page]
+    respond_to do |format|
+      format.html { redirect_to(:action => "index") }
+    end
+  end
+
+  def set_table_properties
+    session[:font_size] = params[:font_size]
+    session[:cut_text] = params[:cut_text]
+    session[:table_width] = params[:table_width]
     respond_to do |format|
       format.html { redirect_to(:action => "index") }
     end

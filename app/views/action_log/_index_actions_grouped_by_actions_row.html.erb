@@ -1,2 +1,6 @@
-<td><%=link_to aktion.event.name, { :controller => "action_log", :action => "edit_event", :id => aktion.event }, { :title => "Edit event"} %></td>
+<td style="font-size:<%=session[:font_size]%>;">
+  <%= "<div style='max-height:35px; max-width:125px; overflow:hidden;'>" if session[:cut_text]=='yes'%>
+    <%=link_to aktion.event.name, { :controller => "action_log", :action => "edit_event", :id => aktion.event }, { :title => "Edit event: #{aktion.event.name}"} %>
+  <%= "</div>" if session[:cut_text]=='yes'%>
+</td>
 <%= render :partial => "index_actions_action_data", :locals => { :aktion => aktion } %>

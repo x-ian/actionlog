@@ -1,4 +1,17 @@
 module ActionLogHelper
+  def create_select_tag_options2(object, list)
+    tag = ""
+    list.each do |i|
+      if object != nil && object == i
+        tag += "<option selected='selected'>" + i + "</option>"
+      else
+        tag += "<option>" + i + "</option>"
+      end
+
+    end
+    return tag
+  end
+
   def create_select_tag_options(object, list, include_blank)
     tag = ""
     tag = "<option></option>" if include_blank
