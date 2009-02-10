@@ -1,74 +1,48 @@
 <%= javascript_include_tag :defaults %>
-<%= javascript_include_tag 'moo.fx/moo.fx.js' %>
-<%= javascript_include_tag 'moo.fx/accordion.js' %>
-<%= stylesheet_link_tag 'moo.fx/accordion.css' %>
+<%= javascript_include_tag 'menu.js' %>
+<%= stylesheet_link_tag 'menu.css' %>
 
-<% javascript_tag do -%>
-  function init(){
-  var stretchers = document.getElementsByClassName('box');
-  var toggles = document.getElementsByClassName('tab');
-  var myAccordion = new fx.Accordion(toggles, stretchers, {opacity: false, height: true, duration: 600});
-  //hash functions
-  var found = false;
-  //  toggles.each(function(h3, i){
-  //  var div = Element.find(h3, 'nextSibling');
-  //if (window.location.href.indexOf(h3.title) > 0) {
-  //myAccordion.showThisHideOpen(div);
-  //found = true;
-  //}
-  //});
-  if (!found) myAccordion.showThisHideOpen(stretchers[0]);
-  }
-<%end%>
-
-<div id="wrapper">
-  <div id="content">
-    <table width="100%">
-      <tr>
-        <td align="left" >
-          <h3 class="tab" title="first"><div class="tabtxt"><a href="#">Action Log</a></div></h3>
+<table width="100%" cellpadding="0px" cellspacing="0px">
+  <tr >
+    <td align="left" width="350px" >
+      <div id="menu">
+        <ul class="level1" id="root">
+          <li>
+            <a href="#">Action Log</a>
+            <ul class="level2">
+              <li><%= link_to "Action Log", :controller => "/action_log" %></li>
+              <li><%= link_to "Export data", :controller => "admin/export" %></li>
+            </ul>
+          </li>
           <% deny :user => :is_user? do %>
-            <div class="tab"><h3 class="tabtxt" title="second"><a href="#">Administration</a></h3></div>
+            <li class="sep">|</li>
+            <li><a href="#">Administration</a>
+              <ul class="level2">
+                <li><%= link_to "Users", :controller => "admin/user" %></li>
+                <li><%= link_to "Organizational Units", :controller => "admin/organizational_unit" %></li>
+                <li><%= link_to "Meetings", :controller => "admin/meeting" %></li>
+                <li><%= link_to "Event Area", :controller => "admin/event_area" %></li>
+              </ul>
+            </li>
             <% deny :user => :is_administrator? do %>
-              <div class="tab"><h3 class="tabtxt" title="third"><a href="#">Customization</a></h3></div>
+              <li class="sep">|</li>
+              <li><a href="#">Customization</a>
+                <ul class="level2">
+                  <li><%= link_to "Action Priorities", :controller => "customization/action_priority" %></li>
+                  <li><%= link_to "Action Verbs", :controller => "customization/action_verb" %></li>
+                  <li><%= link_to "Priority Axes & Ranges", :controller => "customization/priority_axis" %></li>
+                </ul>
+              </li>
             <% end %>
           <% end %>
-        </td>
-        <td align="right">
-          <%= render :partial => 'accounts/account_bar' %>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <div class="boxholder">
-            <div class="box">
-              <%= link_to "Action Log", :controller => "/action_log" %>
-              <%= link_to "Export data", :controller => "admin/export" %>
-            </div>
-            <% deny :user => :is_user? do %>
-              <div class="box">
-                <%= link_to "Users", :controller => "admin/user" %>
-                <%= link_to "Organizational Units", :controller => "admin/organizational_unit" %>
-                <%= link_to "Meetings", :controller => "admin/meeting" %>
-                <%= link_to "Event Area", :controller => "admin/event_area" %>
-
-              </div>
-              <% deny :user => :is_administrator? do %>
-                <div class="box">
-                  <%= link_to "Action Priorities", :controller => "customization/action_priority" %>
-                  <%= link_to "Action Verbs", :controller => "customization/action_verb" %>
-                  <%= link_to "Priority Axes & Ranges", :controller => "customization/priority_axis" %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </td>
-      </tr>
-    </table>
-  </div>
-</div>
-
-<% javascript_tag do -%>
-  Element.cleanWhitespace('content');
-  init();
-<%  end -%>
+        </ul>
+      </div>
+    </td>
+    <td align="right" valign="top">
+      <%= render :partial => 'accounts/account_bar' %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#00A5A5" height="4px"/>
+  </tr>
+</table>
