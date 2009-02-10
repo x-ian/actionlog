@@ -31,9 +31,7 @@
   </tr>
 
   <% for aktion in @aktions %>
-    <tr class="<%=get_table_row_class(aktion)%>" id="action-<%=aktion.id%>">
-      <%= render :partial => "index_actions_grouped_by_actions_row", :locals => { :aktion => aktion } %>
-    </tr>
+      <%= render :partial => "index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion } %>
   <% end %>
 
 </table>

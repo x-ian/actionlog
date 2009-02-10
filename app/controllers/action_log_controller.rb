@@ -246,6 +246,13 @@ class ActionLogController < ApplicationController
     end
   end
 
+  def edit_event_remote
+    @event = Aktion.find(params[:id]).event
+    render :update do |page|
+      page.replace_html "action-#{params[:id]}", :partial => "action_log/events/edit_event_remote", :locals => { :aktion => Aktion.find(params[:id]), :event => @event }
+    end
+  end
+
   def update_event
     @event = Event.find(params[:id])
     @event.assign_priorities(collect_priority_values(params))
@@ -275,6 +282,13 @@ class ActionLogController < ApplicationController
   def edit_action
     respond_to do |format|
       format.html { redirect_to(:action => "index", :edit_action => params[:id]) }
+    end
+  end
+
+  def edit_action_remote
+    @aktion = Aktion.find(params[:id])
+    render :update do |page|
+      page.replace_html "action-#{params[:id]}", :partial => "action_log/actions/edit_action_remote", :locals => { :aktion => @aktion }
     end
   end
 

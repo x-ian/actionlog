@@ -1,6 +1,6 @@
 <td style="font-size:<%=session[:font_size]%>;">
   <%= "<div style='max-height:35px; max-width:175px; overflow:hidden;'>" if session[:cut_text]=='yes'%>
-  <%=link_to aktion.action_required, { :controller => "action_log", :action => "edit_action", :id => aktion }, { :title => "Edit action: #{aktion.action_required}"} %>
+  <%=link_to_remote aktion.action_required, :url => { :controller => "action_log", :action => "edit_action_remote", :id => aktion } %>
   <%= "</div>" if session[:cut_text]=='yes'%>
 </td>
 <td style="font-size:<%=session[:font_size]%>;">

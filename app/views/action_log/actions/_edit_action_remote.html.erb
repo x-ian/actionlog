@@ -1,0 +1,278 @@
+<td colspan="8">
+  <% form_for(
+    @aktion,
+    :html => { :onsubmit=>"document.getElementById('my_event_id').value = document.getElementById('aktion_event_id').value" },
+    :url => { :controller => "action_log", :action => "update_action", :id => @aktion}) do |f| %>
+    <%= f.error_messages %>
+
+    <table>
+      <tr>
+        <td rowspan="2" colspan="2">
+          <table>
+            <tr>
+              <td align="left">Action</td>
+              <td align="right">
+                Type:
+                <% for et in ActionType.find(:all) %>
+                  <%= radio_button_tag "action_type", et.name, (aktion.action_type_id == et.id ? true : false) %> <%= et.name %>
+                <% end %>
+              </td>
+            </tr>
+          </table>
+          <%= f.text_area :action_required, :size => "40x4" %>
+          <%= observe_field "aktion_action_required", :url => { :action => :check_action_required }, :frequency => 2, :with => 'verb'%><br>
+          Description quality: <%=progress_bar("action_status_",0,false,true) %>&nbsp;&nbsp;<span id="action_status">&nbsp;</span>
+        </td>
+        <td>
+          <%= f.label :log_date %><br/>
+          <%=@aktion.log_date%>
+        </td>
+        <td>
+          <%= f.label :requested_by_id %><br/>
+          <%= f.collection_select :requested_by_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:150px;" %>
+        </td>
+        <td>
+          <%= f.label :target_date %><br/>
+          <%= aktion.target_date %>
+        </td>
+        <td rowspan="2">
+          <%= f.label :closeout_comment %><br/>
+          <%= f.text_area :closeout_comment, :size => "25x4" %>
+        </td>
+        <td>
+          Completion&nbsp;date<br/>
+          <%= f.calendar_date_select :actual_completion_date, :size => 10, :maxlength => 10 %>
+        </td>
+      </tr>
+      <tr>
+
+        <!-- 2x action required -->
+        <td>
+          Assignment&nbsp;date<br/>
+          <%= f.calendar_date_select :assignment_date, :size => 10, :maxlength => 10 %>
+        </td>
+        <td>
+          <%= f.label :primary_responsible_id %><br/>
+          <%= f.collection_select :primary_responsible_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:150px;" %>
+        </td>
+        <td>
+          New&nbsp;target&nbsp;date<br/>
+          <%= f.calendar_date_select :new_target_date, :size => 10, :maxlength => 10,
+            :onchange => remote_function(:url => { :action => :show_review_date, :id => @aktion.id },
+            :with => "'value=' + $('aktion_new_target_date').value") %><br/>
+          <%= @aktion.new_target_date_changed ? "(already changed)" : "" %>
+        </td>
+        <!-- closeout comment -->
+
+        <td>
+          <%= f.label :action_status_id %><br/>
+          <%= f.collection_select :action_status_id, ActionStatus.find(:all), :id, :name %>
+        </td>
+      </tr>
+      <tr>
+      <td>
+        Organizational Unit<br/>
+        <%= tree_select(
+          OrganizationalUnit.find(:all, :conditions => "parent_id = 0"),
+          'organizational_unit',
+          'id',
+          @aktion.organizational_unit,
+          nil
+        ) %>
+      </td>
+      <td>
+        Area of Event<br/>
+        <div id="action_event_area_select">
+          <%= render :partial => 'action_log/actions/event_area_select', :locals => {:meeting_id => @aktion.meeting_id, :aktion => @aktion } %>
+        </div>
+      </td>
+        <td>
+          <%= f.label :action_priority_id %><br/>
+          <%= f.collection_select :action_priority_id, ActionPriority.find(:all), :id, :level, { :include_blank => true } %>
+        </td>
+        <td>
+          <%= f.label :secondary_responsible_id %><br/>
+          <%= f.collection_select :secondary_responsible_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:150px;" %>
+        </td>
+        <td>
+          <%= f.label :review_date %><br/>
+          <%= f.calendar_date_select :review_date, :size => 10, :maxlength => 10 %>
+        </td>
+        <td/>
+        <td align="right">
+          <%= f.submit "Update" %> <%= link_to 'Back', :action => "index" %> <%= link_to 'Destroy', { :action => :destroy_action, :id => @aktion.id}, :confirm => 'Are you sure?', :method => :delete %>
+        </td>
+      </tr>
+    <tr>
+      <td valign="top">
+        Meeting<br/>
+        <div id="action_meeting_select">
+          <%= render :partial => 'action_log/actions/meeting_select', :locals => {:orgunit_id => @aktion.organizational_unit_id, :aktion => @aktion } %>
+        </div>
+      </td>
+      <td>
+        Event<br/>
+        <div id="action_event_select">
+          <%= render :partial => 'action_log/actions/event_select', :locals => {:event_area_id => @aktion.event_area_id, :aktion => @aktion } %>
+        </div>
+        <%= hidden_field_tag "my_event_id", "" %>
+      </td>
+    </tr>
+
+
+      <!--
+
+                                <td valign="top">
+                                  Area of Event<br/>
+                                  <span id="action_event_area_select">
+  <%= render :partial => 'action_log/actions/event_area_select', :locals => {:meeting_id => aktion.meeting_id, :aktion => aktion } %>
+                                  </span>
+                                  <br/>
+  <%= f.label :event%><br/>
+                                  <span id="action_event_select">
+  <%= render :partial => 'action_log/actions/event_select', :locals => {:event_area_id => aktion.event_area_id, :aktion => aktion } %>
+                                  </span>
+  <%= hidden_field_tag "my_event_id", "" %>
+                                </td>
+
+
+                                <td>
+                                  Meeting:
+  <% unless flash[:last_used_event_id] == nil %>
+                                                                flash[:last_used_event_id]
+    <% aktion.event = Event.find(flash[:last_used_event_id]) %>
+    <%= "'#{aktion.meeting.name}' (in '#{aktion.organizational_unit.name}')" %>
+  <% else %>
+    <% if current_meeting == nil %>
+                                                                                              (use Current Meeting selector)
+    <% else %>
+      <% aktion.default_meeting = current_meeting %>
+      <%= "'#{aktion.meeting.name}' (in '#{aktion.organizational_unit.name}')" %>
+    <% end %>
+  <% end %>
+                                </td>
+
+
+
+
+
+                                <tr>
+                                <td>Area of Event</td>
+                                <td>
+                                  <div id="action_event_area_select">
+  <%= render :partial => 'action_log/actions/event_area_select', :locals => {:meeting_id => @aktion.meeting_id, :aktion => @aktion } %>
+                                  </div>
+                                </td>
+                                <tr>
+                                  <td>Event</td>
+                                  <td>
+                                    <div id="action_event_select">
+  <%= render :partial => 'action_log/actions/event_select', :locals => {:event_area_id => @aktion.event_area_id, :aktion => @aktion } %>
+                                    </div>
+  <%= hidden_field_tag "my_event_id", "" %>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><%= f.label :log_date %></td>
+                                  <td><%=@aktion.log_date%></td>
+                                </tr>
+                                <tr>
+                                  <td><%= f.label :assignment_date %></td>
+                                  <td><%= f.calendar_date_select :assignment_date, :size => 10, :maxlength => 10 %></td>
+                                </tr>
+                                <tr>
+                                  <td><%= f.label :action_type_id %></td>
+                                  <td>
+  <% for et in ActionType.find(:all) %>
+    <%= radio_button_tag "action_type", et.name, (@aktion.action_type_id == et.id ? true : false) %> <%= et.name %>
+  <% end %>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><%= f.label :action_required %></td>
+                                  <td>
+  <%= f.text_area :action_required, :size => "40x4" %>
+  <%= observe_field "aktion_action_required", :url => { :action => :check_action_required }, :frequency => 2, :with => 'verb'%>
+
+  <%#=text_area_with_auto_complete :aktion, :action_required,
+  { :size => "40x4", :onChange => "new Ajax.Request('/action_log/check_action_required/' + this.value,
+  {asynchronous:true, evalScripts:true, parameters:'authenticity_token='+encodeURIComponent('"+form_authenticity_token.to_s+"')})"},
+  {:method => :get, :frequency=>0, :min_chars => 0} %>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td></td>
+                                  <td>
+                                    Description quality: <%=progress_bar("action_status_",0,false,true) %>&nbsp;&nbsp;<span id="action_status">&nbsp;</span>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><%= f.label :requested_by_id %></td>
+                                  <td><%= f.collection_select :requested_by_id, User.find(:all), :id, :name, { :include_blank => true } %></td>
+                                </tr>
+                                <tr>
+                                  <td><%= f.label :primary_responsible_id %></td>
+                                  <td>
+  <%= f.collection_select :primary_responsible_id, User.find(:all), :id, :name, { :include_blank => true } %>
+  <%#= observe_field "aktion_primary_responsible_id", :function => update_page { |page| page.visual_effect(:toggle_blind, "secondary_responsible") } %>
+  <%= observe_field "aktion_primary_responsible_id", :url => { :action => :show_secondary_responsible }, :with => "id" %>
+                                  </td>
+                                </tr>
+  <% style = "display: none;" %>
+  <% style = "" if @aktion != nil && @aktion.primary_responsible_id != nil  %>
+                                <tr id ="secondary_responsible" style="<%=style%>">
+                                  <td><%= f.label :secondary_responsible_id %></td>
+                                  <td><%= f.collection_select :secondary_responsible_id, User.find(:all), :id, :name, { :include_blank => true } %></td>
+                                </tr>
+                                <tr>
+                                  <td><%= f.label :target_date %></td>
+                                  <td><%= @aktion.target_date %></td>
+                                </tr>
+                                <tr>
+                                  <td><%= f.label :new_target_date %></td>
+                                  <td>
+  <%= f.calendar_date_select :new_target_date, :size => 10, :maxlength => 10,
+    :onchange => remote_function(:url => { :action => :show_review_date, :id => @aktion.id }, :with => "'value=' + $('aktion_new_target_date').value") %>
+  <%= @aktion.new_target_date_changed ? "(already changed)" : "" %>
+                                  </td>
+                                </tr>
+  <% style = "display: none;" %>
+  <% style = "" if initial_review_date_necessary(@aktion) %>
+                                <tr id ="review_date" style="<%=style%>">
+                                  <td><%= f.label :review_date %></td>
+                                  <td>
+  <%= f.calendar_date_select :review_date, :size => 10, :maxlength => 10 %>
+                                    (Because Target date more than 6 weeks ahead)
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><%= f.label :action_status_id %></td>
+                                  <td><%= f.collection_select :action_status_id, ActionStatus.find(:all), :id, :name %></td>
+                                </tr>
+                                <tr>
+                                  <td><%= f.label :closeout_comment %></td>
+                                  <td><%= f.text_field :closeout_comment %></td>
+                                </tr>
+                                <tr>
+                                  <td><%= f.label :actual_completion_date %></td>
+                                </tr>
+                                <tr>
+                                  <td><%= f.label :action_priority_id %></td>
+                                  <td><%= f.collection_select :action_priority_id, ActionPriority.find(:all), :id, :level, { :include_blank => true } %></td>
+                                </tr>
+                                -->
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td>
+
+              </td>
+
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</td>
