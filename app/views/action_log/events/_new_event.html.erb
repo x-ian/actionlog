@@ -29,7 +29,7 @@
       <td><%= f.text_area :name, :size=>"40x4" %></td>
     </tr>
     <tr>
-      <td><%= f.label "Accountable" %></td>
+      <td><%= f.label "Owner" %></td>
       <td>
         <%= f.collection_select :user_id, User.find(:all), :id, :name, { :include_blank => true } %>
       </td>
