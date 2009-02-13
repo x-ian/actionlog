@@ -75,21 +75,27 @@ namespace :utils do
     File.open(file, "r") do |aFile|
       aFile.each_line do |substr|
         values = substr.split(";")
-        u = User.new(:name=>values[16])
-        u.login=u.name.gsub(/ /, "").strip
-        u.pw = u.name.gsub(/ /, "").strip.downcase
-        u.role_id=1
-        u.save
-        u = User.new(:name=>values[9])
-        u.login=u.name.gsub(/ /, "").strip
-        u.pw = u.name.gsub(/ /, "").strip.downcase
-        u.role_id=1
-        u.save
-        u = User.new(:name=>values[8])
-        u.login=u.name.gsub(/ /, "").strip
-        u.pw = u.name.gsub(/ /, "").strip.downcase
-        u.role_id=1
-        u.save
+        if User.find_by_name(values[16]) == nil
+          u = User.new(:name=>values[16])
+          u.login=u.name.gsub(/ /, "").strip
+          u.pw = u.name.gsub(/ /, "").strip.downcase
+          u.role_id=1
+          u.save
+        end
+        if User.find_by_name(values[9]) == nil
+          u = User.new(:name=>values[9])
+          u.login=u.name.gsub(/ /, "").strip
+          u.pw = u.name.gsub(/ /, "").strip.downcase
+          u.role_id=1
+          u.save
+        end
+        if User.find_by_name(values[8]) == nil
+          u = User.new(:name=>values[8])
+          u.login=u.name.gsub(/ /, "").strip
+          u.pw = u.name.gsub(/ /, "").strip.downcase
+          u.role_id=1
+          u.save
+        end
       end
     end
   end
