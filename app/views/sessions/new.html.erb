@@ -11,7 +11,7 @@
   <body>
     <h1 align="center">Welcome to the ActionLog</h1>
 
- 
+
     <% form_tag session_path do -%>
       <table align="center">
         <tr>
@@ -42,6 +42,20 @@
         </tr>
       </table>
     <% end -%>
+
+    <% if RAILS_ENV == "central_development" %>
+      <br/><br/><br/><br/><br/>
+      <p align="center">(central development)</p>
+      <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+        try {
+          var pageTracker = _gat._getTracker("UA-7468840-1");
+          pageTracker._trackPageview();
+        } catch(err) {}</script>
+<% end %>
 
   </body>
 </html>
