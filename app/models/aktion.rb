@@ -93,8 +93,9 @@ class Aktion < ActiveRecord::Base
   end
 
   def self.find_all_by_filter_form(params, meeting, page = 0, per_page = "(all)")
+    return [] if meeting.nil?
     filter_conditions = self.extract_filter_conditions(params, meeting)
-    if meeting.nil?
+    if meeting == "(all)"
       if per_page == "(all)"
         Aktion.find(:all, :conditions => filter_conditions, :include => [ :event, :requested_by, :primary_responsible, :secondary_responsible ], :order => "internal_due_date_for_sorting")
       else
@@ -133,7 +134,7 @@ class Aktion < ActiveRecord::Base
       c = c + " AND (primary_responsible_id IS NULL AND secondary_responsible_id IS NULL)" if params[:responsible] == unassigned_value
     end
 
-    unless meeting.nil?
+    unless meeting == "(all)"
       c = c + " AND meetings.id = ?"
       conditions.insert(-1, meeting.id)
     end

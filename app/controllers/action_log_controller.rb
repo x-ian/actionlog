@@ -43,6 +43,8 @@ class ActionLogController < ApplicationController
   def set_current_meeting
     if params[:current_meeting].blank?
       session[:current_meeting] = nil
+    elsif params[:current_meeting] == "(all)"
+      session[:current_meeting] = "(all)"
     else
       session[:current_meeting] = Meeting.find(params[:current_meeting])
     end

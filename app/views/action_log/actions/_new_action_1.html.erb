@@ -27,7 +27,7 @@
               <% aktion.event = Event.find(flash[:last_used_event_id]) %>
               <%= "'#{aktion.meeting.name}' (in '#{aktion.organizational_unit.name}')" %>
             <% else %>
-            <% if current_meeting == nil %>
+            <% if current_meeting == nil || current_meeting == "(all)" %>
               (use Current Meeting selector)
             <% else %>
               <% aktion.default_meeting = current_meeting %>

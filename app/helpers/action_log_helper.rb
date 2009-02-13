@@ -26,13 +26,14 @@ module ActionLogHelper
     return tag
   end
 
-  def options_for_select_filter (elements, param, include_unassigned = false)
+  def options_for_select_filter (elements, param, include_unassigned = false, include_all = false)
     s = []
     elements.each do |d|
       s.insert(0, "<option value='" + d.id.to_s + "'" + (d.id.to_s == param.to_s ? " selected='selected'>" : ">") + d.name + "</option>")
     end
     s.insert(0, "<option" + (param.blank? ? " selected='selected'>" : ">") + "</option>")
     s.insert(1, "<option value='(unassigned)'" + ("(unassigned)" == param ? " selected='selected'>" : ">") + "(unassigned)</option>") if include_unassigned
+    s.insert(1, "<option value='(all)'" + ("(all)" == param ? " selected='selected'>" : ">") + "(all)</option>") if include_all
     return s
   end
 

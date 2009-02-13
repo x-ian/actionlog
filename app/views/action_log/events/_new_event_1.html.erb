@@ -20,7 +20,7 @@
           </td>
           <td>
             Meeting:
-            <% if current_meeting == nil %>
+            <% if current_meeting == nil || current_meeting == "(all)" %>
               (use Current Meeting selector)
             <% else %>
               <% event.default_meeting = current_meeting %>
