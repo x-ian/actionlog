@@ -50,7 +50,6 @@ namespace :utils do
   task(:import_actionlog_dummy_data_set => :environment ) do
 
     file = "lib/tasks/ActionLog Dummy Data Set.csv"
-    #file = "/home/webuser/actionlog/lib/tasks/ActionLog Dummy Data Set.csv"
     import_users(file)
     import_events(file)
     import_actions(file)
@@ -131,7 +130,7 @@ namespace :utils do
         a.requested_by = User.find_by_name(values[16])
         a.closeout_comment = values[17]
 
-        #        a.completed = values[14] == "Y" ? true : false
+        a.action_status_id = (values[14] == "Y" ? ActionStatus::COMPLETED : nil)
         a.save
       end
     end
