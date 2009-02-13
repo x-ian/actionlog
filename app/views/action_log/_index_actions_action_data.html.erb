@@ -27,13 +27,6 @@
   <%= aktion.check_date_consistency ? "&#160;" : "<br/>(inconsistent)" %>
   <%= "&#160;" unless date_text_exists %>
 </td>
-<td style="font-size:<%=session[:font_size]%>;" title="<%=h(aktion.closeout_comment)%>">
-  <div id="action-closeout_comment-<%=aktion.id%>">
-    <%= "<div style='max-height:35px; max-width:175px; overflow:hidden;'>" if session[:cut_text]=='yes'%>
-    <%= aktion.closeout_comment.blank? ? "&#160;" : h(aktion.closeout_comment) %>
-    <%= "</div>" if session[:cut_text]=='yes'%>
-  </div>
-</td>
 <td style="font-size:<%=session[:font_size]%>;"><div id="action-completion_date-<%=aktion.id%>"><%= aktion.actual_completion_date.blank? ? "&#160;" : h(aktion.actual_completion_date) %></div></td>
 <td>
   <% if aktion.action_status_id == ActionStatus::COMPLETED %>
