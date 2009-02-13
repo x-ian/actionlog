@@ -46,6 +46,16 @@ namespace :utils do
     u.save
   end
 
+  desc "Mark as completed"
+  task(:mark_acions_as_completed => :environment ) do
+    Aktion.find(:all).each do |a|
+      if a.actual_completion_date != nil && a.closeout_comment != nil
+        a.action_status_id = ActionStatus::COMPLETED
+        a.save
+      end
+    end
+  end
+
   desc "Import"
   task(:import_actionlog_dummy_data_set => :environment ) do
 

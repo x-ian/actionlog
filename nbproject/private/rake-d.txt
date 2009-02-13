@@ -94,3 +94,4 @@ tmp\:sockets\:clear=Clears all files in tmp/sockets
 utils\:create_default_users=Create default users
 utils\:do_something_with_models=Iterates through models in the app and does something with each of them
 utils\:import_actionlog_dummy_data_set=Import
+utils\:mark_acions_as_completed=Mark as completed
