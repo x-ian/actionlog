@@ -82,7 +82,22 @@ class Event < ActiveRecord::Base
     }
     return e
   end
-  
+
+  def self.find_events_without_actions(meeting)
+    return [] if meeting == nil
+
+    sql = "SELECT events.* FROM events "
+    sql += "LEFT JOIN event_areas ON event_areas.id = event_area_id LEFT JOIN meetings ON meetings.id = event_areas.meeting_id "
+    sql += "WHERE events.id NOT IN "
+    sql += "(SELECT event_id FROM aktions LEFT JOIN events ON events.id = event_id LEFT JOIN event_areas on event_areas.id = events.event_area_id LEFT JOIN meetings ON meetings.id = event_areas.meeting_id "
+    sql += "WHERE meeting_id = #{meeting.id}" unless meeting == "(all)"
+    sql += ") "
+    sql += "AND meeting_id = #{meeting.id} " unless meeting == "(all)"
+    sql += "ORDER BY meeting_date"
+      logger.debug(sql)
+    return Event.find_by_sql(sql)
+  end
+
   def status_by_actions
     completed_counter = 0
     no_longer_relevant_counter = 0

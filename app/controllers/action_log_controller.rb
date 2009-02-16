@@ -255,6 +255,24 @@ class ActionLogController < ApplicationController
     end
   end
 
+  def edit_event_remote_for_events_without_actions
+    @event = Event.find(params[:id])
+    render :update do |page|
+      page.replace_html "event-without-action-#{params[:id]}", :partial => "action_log/events/edit_event_remote", :locals => { :event => @event }
+      #page.replace_html "action-89", :partial => "action_log/events/edit_event_remote", :locals => { :aktion => Aktion.find(89), :event => event }
+      #page.replace_html "action-89", "ABC"
+    end
+  end
+
+  def add_action_to_event_remote
+    @event = Event.find(params[:id])
+    @aktion = Aktion.new
+    @aktion.event_id = @event.id
+    render :update do |page|
+      page.replace_html "event-without-action-#{params[:id]}", :partial => "action_log/actions/new_action_1", :locals => { :aktion => @aktion }
+    end
+  end
+
   def update_event
     @event = Event.find(params[:id])
     @event.assign_priorities(collect_priority_values(params))

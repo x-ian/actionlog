@@ -1,0 +1,20 @@
+
+<table cellspacing="0" cellpadding="0">
+  <tr>
+    <th class="header">Area of Event</th>
+    <th class="header">Meeting date</th>
+    <th class="header">Event</th>
+    <th class="header">Owner</th>
+    <th class="header"></th>
+  </tr>
+
+  <% for event in Event.find_events_without_actions(current_meeting) %>
+    <tr id="event-without-action-<%=event.id%>" class="<%=cycle('even-record record', 'record')%>">
+      <td><%=event.event_area.name %></td>
+      <td><%=event.meeting_date.nil? ? "&#160;" : event.meeting_date %></td>
+      <td><%=link_to_remote event.name, :url => { :controller => "action_log", :action => "edit_event_remote_for_events_without_actions", :id => event } %></td>
+      <td><%=event.user.nil? ? "&#160;" : event.user.name %></td>
+      <td><%=link_to_remote "Add action", :url => { :controller => "action_log", :action => "add_action_to_event_remote", :id => event } %></td>
+    </tr>
+  <% end %>
+</table>
