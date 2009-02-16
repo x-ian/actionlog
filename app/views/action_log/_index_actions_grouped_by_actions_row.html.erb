@@ -1,6 +1,7 @@
-<td style="font-size:<%=session[:font_size]%>;">
-  <%= "<div style='max-height:35px; max-width:125px; overflow:hidden;'>" if session[:cut_text]=='yes'%>
-    <%=link_to_remote aktion.event.name, :url => { :controller => "action_log", :action => "edit_event_remote", :id => aktion } %>
-  <%= "</div>" if session[:cut_text]=='yes'%>
+<% id = "action-#{aktion.id}" %>
+<% event_title = "Click to edit" %>
+<% event_title = "Click to edit: " + aktion.event.name if session[:cut_text]=='yes' %>
+<td id="<%=id%>-event" style="font-size:<%=session[:font_size]%>;" title="<%=event_title%>">
+  <%= render :partial => "action_log/table_cells/event", :locals => { :aktion => aktion } %>
 </td>
 <%= render :partial => "index_actions_action_data", :locals => { :aktion => aktion } %>

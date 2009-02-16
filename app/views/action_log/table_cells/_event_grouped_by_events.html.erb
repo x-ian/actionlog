@@ -1,0 +1,3 @@
+<div onclick="<%=remote_function :update => 'event-' + event.id.to_s + '-event', :url => {:controller => "action_log_inplace_edit", :action=>"inplace_edit_event_grouped_by_events", :id=>event.id} %>">
+  <%=event.name %> (Event in <%=h event.event_area.name unless event.event_area.nil?%> of <%=h event.event_area.meeting.name unless event.event_area.nil? || event.event_area.meeting.nil? %>)
+</div>

@@ -3,15 +3,16 @@
 <% CalendarDateSelect.image = "/images/calendar_date_select/calendar.gif"%>
 <%= progress_bar_includes %>
 
+<td colspan="8">
 <div class="roundedcornr_box_479185">
   <div class="roundedcornr_top_479185"><div></div></div>
   <div class="roundedcornr_content_479185">
-    <table>
       <% form_for(
         aktion,
         :html => { :method => :get, :onsubmit=>"document.getElementById('my_event_id').value = document.getElementById('aktion_event_id').value" },
         :url => { :controller => "action_log", :action => "create_action"}) do |f| %>
         <%= f.error_messages %>
+    <table>
 
         <tr>
           <td>Action</td>
@@ -81,8 +82,9 @@
           </td>
           <td><%= f.submit "Add" %></td>
         </tr>
-      <% end %>
     </table>
+      <% end %>
      </div>
    <div class="roundedcornr_bottom_479185"><div></div></div>
 </div>
+</td>

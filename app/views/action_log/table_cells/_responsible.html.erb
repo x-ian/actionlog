@@ -1,0 +1,5 @@
+<div onclick="<%=remote_function :update => 'action-' + aktion.id.to_s + '-responsible', :url => {:controller => "action_log_inplace_edit", :action=>"inplace_edit_responsible", :id=>aktion.id} %>">
+  <%= aktion.primary_responsible.nil? ? "" : aktion.primary_responsible.name + "<br/>" %>
+  <%= aktion.secondary_responsible.nil? ? "" : aktion.secondary_responsible.name%>
+  <%= "&#160;" if aktion.primary_responsible.nil? && aktion.secondary_responsible.nil? %>
+</div>

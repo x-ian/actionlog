@@ -1,0 +1,17 @@
+<% form_remote_tag :url => { :action => "update_due_date"} do %>
+  <% target_date = aktion.target_date %>
+  <% target_date = aktion.new_target_date unless aktion.new_target_date.nil? %>
+  <table class="blindtable">
+    <tr>
+      <td>Review:</td>
+      <td><%= calendar_date_select_tag :review_date, aktion.review_date, :size => 10, :maxlength => 10 %></td>
+    </tr>
+    <tr>
+      <td>Target:</td>
+      <td><%= calendar_date_select_tag :target_date, target_date, :size => 10, :maxlength => 10 %></td>
+    </tr>
+  </table>
+  <%= hidden_field_tag :id, aktion.id %>
+  <%= submit_tag 'Save' %>
+  <%= link_to_remote 'Cancel', :url => {:action => "update_due_date", :id => aktion } %>
+<% end %>

@@ -1,0 +1,7 @@
+<% form_remote_tag :url => { :action => "update_event_grouped_by_events"} do %>
+  <%= text_area_tag :event, event.name, :size => "80x2" %>
+  <%= hidden_field_tag :id, event.id %>
+  <br/>
+  <%= submit_tag 'Save' %>
+  <%= link_to_remote 'Cancel', :url => {:action => "update_event_grouped_events", :id => event } %>
+<% end %>

@@ -1,0 +1,3 @@
+<div onclick="<%=remote_function :update => 'action-' + aktion.id.to_s + '-requested_by', :url => {:controller => "action_log_inplace_edit", :action=>"inplace_edit_requested_by", :id=>aktion.id} %>">
+  <%= aktion.requested_by.nil? ? "&#160;": aktion.requested_by.name %>
+</div>

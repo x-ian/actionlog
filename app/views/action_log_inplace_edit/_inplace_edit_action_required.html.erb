@@ -1,0 +1,7 @@
+<% form_remote_tag :url => { :action => "update_action_required"} do %>
+  <%= text_area_tag :action_required, aktion.action_required, :size => "40x4" %>
+  <%= hidden_field_tag :id, aktion.id %>
+  <br/>
+  <%= submit_tag 'Save' %>
+  <%= link_to_remote 'Cancel', :url => {:action => "update_action_required", :id => aktion } %>
+<% end %>

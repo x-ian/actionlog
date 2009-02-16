@@ -1,0 +1,15 @@
+<% form_remote_tag :url => { :action => "update_responsible"} do %>
+  <table class="blindtable">
+    <tr>
+      <td>1st:</td>
+      <td><%= select_tag :primary_responsible, create_user_select_tag_options(aktion.primary_responsible, User.find(:all), true) %></td>
+    </tr>
+    <tr>
+      <td>2nd:</td>
+      <td><%= select_tag :secondary_responsible, create_user_select_tag_options(aktion.secondary_responsible, User.find(:all), true) %></td>
+    </tr>
+  </table>
+  <%= hidden_field_tag :id, aktion.id %>
+  <%= submit_tag 'Save' %>
+  <%= link_to_remote 'Cancel', :url => {:action => "update_responsible", :id => aktion } %>
+<% end %>
