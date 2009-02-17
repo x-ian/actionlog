@@ -1,0 +1,39 @@
+<div id="popup_event_id">
+  <%= render :partial => 'action_log_popup_edit/event_id', :locals => { :event => event } %>
+</div>
+
+  <tr>
+    <td>Area of Event</td>
+    <td>
+      <div id="event_area_select">
+        <%= render :partial => 'event_event_area_select', :locals => {:meeting_id => event.event_area_id, :event => event } %>
+      </div>
+      <%= hidden_field_tag "popup_my_event_area_id", "", :id => :popup_my_event_area_id %>
+    </td>
+  </tr>
+  <tr>
+    <td>Event type</td>
+    <td>
+      <% for et in EventType.find(:all) %>
+        <%= radio_button_tag "popup_event_type", et.name, (event.event_type_id == et.id ? true : false) %> <%= et.name %><br/>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td>Event</td>
+    <td><%= text_area_tag "event[name]", event.name, :size=>"40x4", :id => :popup_event_name %></td>
+  </tr>
+  <tr>
+    <td>Meeting date</td>
+    <td><%= calendar_date_select_tag "event[meeting_date]", event.meeting_date, :size => 10, :maxlength => 10, :id => :popup_event_meeting_date %></td>
+  </tr>
+  <tr>
+    <td>Owner</td>
+    <td><%= select_tag "event[user_id]", create_user_select_tag_options(event.user, User.find(:all), true), :id => :popup_event_user_id %>
+  </tr>
+  <tr>
+    <td>Escalated event area</td>
+    <td><%= select_tag "event[escalated_event_area_id]", create_collection_select_tag_options(event.escalated_event_area, EventArea.find(:all), true, :id, :name), :id => :popup_event_escalated_event_area_id %>
+  </tr>
+
+  <%= render :partial => 'event_risk_management', :locals => {:event => event } %>

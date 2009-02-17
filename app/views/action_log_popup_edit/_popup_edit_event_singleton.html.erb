@@ -1,0 +1,16 @@
+<div id="popup_event_title">
+  <%#= render :partial => 'action_log_popup_edit/event_title', :locals => { :event => event } %>
+</div>
+
+<%= form_remote_tag(
+  :html => { :onsubmit=>"document.getElementById('popup_my_event_id').value = document.getElementById('popup_my_event_area_id').value" },
+  :url => { :controller => "action_log_popup_edit", :action => "update_event", :id => event}) %>
+
+<table class="blindtable" id="popup_event_table">
+  <%#= render :partial => 'action_log_popup_edit/event_title', :locals => { :event => event } %>
+</table>
+<hr/>
+<%= submit_tag 'Update', :class => 'popup_closebox' %>
+<a class="popup_closebox" href="#">Cancel</a>
+
+</form>

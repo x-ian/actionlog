@@ -1,5 +1,7 @@
 class ActionLogPopupEditController < ApplicationController
 
+  # Aktion
+
   def show_popup_edit_action
     aktion = Aktion.find(params[:id])
     render :update do |page|
@@ -39,26 +41,9 @@ class ActionLogPopupEditController < ApplicationController
       format.js {
         render :update do |page|
           page << "$('edit_action_popup').popup.hide();"
-
-                  page.replace_html "action-#{aktion.id}", :partial => "action_log/index_actions_grouped_by_actions_row", :locals => {:aktion => aktion}
-        highlight_changed_row page, aktion
-#
-#          page.replace_html "action-#{params[:id]}-event", :partial => "action_log/table_cells/event", :locals => { :aktion => @aktion }
-#          page.replace_html "action-#{params[:id]}-action_required", :partial => "action_log/table_cells/action_required", :locals => { :aktion => @aktion }
-#          page.replace_html "action-#{params[:id]}-requested_by", :partial => "action_log/table_cells/requested_by", :locals => { :aktion => @aktion }
-#          page.replace_html "action-#{params[:id]}-responsible", :partial => "action_log/table_cells/responsible", :locals => { :aktion => @aktion }
-#          page.replace_html "action-#{params[:id]}-due_date", :partial => "action_log/table_cells/due_date", :locals => { :aktion => @aktion }
-#
-#          page.visual_effect(:highlight, "action-#{@aktion.id}-event", :duration => 2)
-#          page.visual_effect(:highlight, "action-#{@aktion.id}-action_required", :duration => 2)
-#          page.visual_effect(:highlight, "action-#{@aktion.id}-requested_by", :duration => 2)
-#          page.visual_effect(:highlight, "action-#{@aktion.id}-responsible", :duration => 2)
-#          page.visual_effect(:highlight, "action-#{@aktion.id}-due_date", :duration => 2)
-
-          #page.call "alert"
-          #page.replace_html "event-without-action-#{params[:id]}", :partial => "action_log/actions/new_action_1", :locals => { :aktion => @aktion }
+          page.replace_html "action-#{aktion.id}", :partial => "action_log/index_actions_grouped_by_actions_row", :locals => {:aktion => aktion}
+          highlight_changed_row page, aktion
         end
-
       }
     end
   end
@@ -98,5 +83,46 @@ class ActionLogPopupEditController < ApplicationController
     end
   end
 
+  # Event
 
+  def show_popup_edit_event
+    event = Event.find(params[:id])
+    render :update do |page|
+      page.replace_html "popup_event_table", :partial => "action_log_popup_edit/event_table", :locals => {:event => event }
+      page.replace_html "popup_event_title", :partial => "action_log_popup_edit/event_title", :locals => {:event => event }
+      page << "$('edit_event_popup').popup.show();"
+    end
+  end
+
+  def update_event
+    event = Event.find(params[:id])
+    event.assign_priorities(collect_priority_values(params))
+    event.event_type = EventType.find_by_name(params["popup_event_type"]) unless params["popup_event_type"].blank?
+
+    respond_to do |format|
+      if event.update_attributes(params[:event])
+        flash[:notice] = 'Event was successfully updated.'
+      else
+        flash[:error] = 'Error while updating event.'
+      end
+      format.js {
+        render :update do |page|
+          page << "$('edit_event_popup').popup.hide();"
+          if session[:action_log_current_view] == "grouped_by_events"
+            page.replace_html "event-#{event.id}-event", :partial => "action_log/table_cells/event_grouped_by_events", :locals => {:event => event}
+            page.visual_effect(:highlight, "event-#{event.id}-event") unless params[:event] == nil
+          else
+            for aktion in event.aktions
+              page.replace_html "action-#{aktion.id}", :partial => "action_log/index_actions_grouped_by_actions_row", :locals => {:aktion => aktion}
+              highlight_changed_row page, aktion
+            end
+          end
+        end
+      }
+    end
+  end
+
+  def collect_priority_values(params)
+    params.select { |key,value| key.starts_with?("priority_axis_") }
+  end
 end
