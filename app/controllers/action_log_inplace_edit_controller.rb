@@ -21,14 +21,16 @@ class ActionLogInplaceEditController < ApplicationController
   end
 
   def update_event
-    a = Aktion.find(params[:id])
+    aktion = Aktion.find(params[:id])
     unless params[:event] == nil
-      a.event.name = params[:event]
-      a.event.save
+      aktion.event.name = params[:event]
+      aktion.event.save
     end
     render :update do |page|
-      page.replace_html "action-#{a.id}-event", :partial => "action_log/table_cells/event", :locals => {:aktion => a}
-      page.visual_effect(:highlight, "action-#{a.id}-event") unless params[:event] == nil
+      for a in aktion.event.aktions
+        page.replace_html "action-#{a.id}-event", :partial => "action_log/table_cells/event", :locals => {:aktion => a}
+        page.visual_effect(:highlight, "action-#{a.id}-event") unless params[:event] == nil
+      end
     end
   end
 
