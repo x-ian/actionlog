@@ -42,6 +42,10 @@ class Aktion < ActiveRecord::Base
     save
   end
 
+  def event_area
+    event.event_area unless event.nil?
+  end
+
   def event_area_id
     event.event_area_id unless event.nil?
   end
