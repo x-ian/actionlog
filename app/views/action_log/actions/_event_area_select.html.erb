@@ -1,3 +1,3 @@
-<%= select_tag "aktion[event_area_id]", create_user_select_tag_options(aktion.event_area, EventArea.find_all_by_meeting_id(meeting_id), true), :id => :aktion_event_area_id, :style=>"width:150px;" %>
-<%#= collection_select(:aktion, :event_area_id, EventArea.find_all_by_meeting_id(meeting_id), :id, :name, { :include_blank => true }, :style=>"width:150px;") %>
+<%#= select_tag "aktion[event_area_id]", create_user_select_tag_options(aktion.event_area, EventArea.find_all_by_meeting_id(meeting_id), true), :id => :aktion_event_area_id, :style=>"width:150px;" %>
+<%= collection_select(:aktion, :event_area_id, EventArea.find_all_by_meeting_id(meeting_id), :id, :name, { :include_blank => true }, :style=>"width:150px;") %>
 <%= observe_field :aktion_event_area_id, :url => { :action => :fill_event_select_for_action }, :with => :id %>
