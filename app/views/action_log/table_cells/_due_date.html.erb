@@ -1,16 +1,26 @@
-<div onclick="<%=remote_function :update => 'action-' + aktion.id.to_s + '-due_date', :url => {:controller => "action_log_inplace_edit", :action=>"inplace_edit_due_date", :id=>aktion.id} %>">
+<span onclick="<%=remote_function :update => 'action-' + aktion.id.to_s + '-due_date', :url => {:controller => "action_log_inplace_edit", :action=>"inplace_edit_due_date", :id=>aktion.id} %>">
   <% date_text_exists = false %>
-  <% if aktion.review_date != nil && aktion.review_date != "" %>
-    Review:&nbsp;<%=h aktion.review_date.to_s %><br/>
-    <% date_text_exists = true %>
-  <% end %>
-  <% if aktion.new_target_date == nil || aktion.new_target_date == "" %>
-    <%="Target:&nbsp;" + aktion.target_date.to_s unless aktion.target_date == nil || aktion.target_date == "" %>
-    <% date_text_exists = true %>
-  <% else %>
-    <%= "Target:&nbsp;" + aktion.new_target_date.to_s unless aktion.new_target_date == nil || aktion.new_target_date == "" %>
-    <% date_text_exists = true %>
-  <% end %>
-  <%= aktion.check_date_consistency ? "&#160;" : "<br/>(inconsistent)" %>
+  <table class="blindlayouttable">
+    <% if aktion.review_date != nil && aktion.review_date != "" %>
+      <tr>
+        <td>Review:</td>
+        <td><%=h aktion.review_date.to_s %><td/>
+        <% date_text_exists = true %>
+      </tr>
+    <% end %>
+    <tr>
+      <td>Target:</td>
+      <td>
+        <% if aktion.new_target_date == nil || aktion.new_target_date == "" %>
+          <%=aktion.target_date.to_s unless aktion.target_date == nil || aktion.target_date == "" %>
+          <% date_text_exists = true %>
+        <% else %>
+          <%=aktion.new_target_date.to_s unless aktion.new_target_date == nil || aktion.new_target_date == "" %>
+          <% date_text_exists = true %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <%= aktion.check_date_consistency ? "" : "(inconsistent)" %>
   <%= "&#160;" unless date_text_exists %>
-</div>
+</span>
