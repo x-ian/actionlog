@@ -1,0 +1,59 @@
+    <tr>
+      <td><%= label_tag :requested_by_id %></td>
+      <td><%#= f.collection_select :requested_by_id, User.find(:all), :id, :name, { :include_blank => true } %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :primary_responsible_id %></td>
+      <td>
+        <table class="blindtable" width="100%">
+          <tr>
+            <td align="left">
+              <%#= f.collection_select :primary_responsible_id, User.find(:all), :id, :name, { :include_blank => true } %>
+              <%= observe_field "aktion_primary_responsible_id", :url => { :action => :show_secondary_responsible }, :with => "id" %>
+            </td>
+            <% style = "display: none;" %>
+            <% style = "" if aktion != nil && aktion.primary_responsible_id != nil  %>
+            <td align="right" id ="secondary_responsible" style="<%=style%>">
+              <%#= label_tag :secondary_responsible_id %>Secondary&nbsp;<%#= f.collection_select :secondary_responsible_id, User.find(:all), :id, :name, { :include_blank => true } %>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td><%= label_tag :target_date %></td>
+      <td><%= aktion.target_date %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :new_target_date %></td>
+      <td>
+        <%= calendar_date_select_tag :new_target_date, :size => 10, :maxlength => 10,
+          :onchange => remote_function(:url => { :action => :show_review_date, :id => aktion.id }, :with => "'value=' + $('aktion_new_target_date').value") %>
+        <%= aktion.new_target_date_changed ? "(already changed)" : "" %>
+      </td>
+    </tr>
+    <% style = "display: none;" %>
+    <% style = "" if initial_review_date_necessary(aktion) %>
+    <tr id ="review_date" style="<%=style%>">
+      <td><%= label_tag :review_date %></td>
+      <td>
+        <%= calendar_date_select_tag :review_date, :size => 10, :maxlength => 10 %>
+        (Because Target date more than 6 weeks ahead)
+      </td>
+    </tr>
+    <tr>
+      <td><%= label_tag :action_status_id %></td>
+      <td><%#= f.collection_select :action_status_id, ActionStatus.find(:all), :id, :name %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :closeout_comment %></td>
+      <td><%= text_field_tag :closeout_comment %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :actual_completion_date %></td>
+      <td><%= calendar_date_select_tag :actual_completion_date, :size => 10, :maxlength => 10 %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag :action_priority_id %></td>
+      <td><%#= f.collection_select :action_priority_id, ActionPriority.find(:all), :id, :level, { :include_blank => true } %></td>
+    </tr>

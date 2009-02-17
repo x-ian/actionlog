@@ -4,3 +4,4 @@
   <%= aktion.action_required %>
   <%= "</div>" if session[:cut_text]=='yes'%>
 </div>
+<%=link_to_remote "(full edit)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_action", :id => aktion } } %>

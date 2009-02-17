@@ -1,0 +1,12 @@
+<table class="blindlayouttable" width="100%">
+  <tr>
+    <td align="left">
+      <% for et in ActionType.find(:all) %>
+        <%= radio_button_tag "popup_action_type", et.name, (aktion.action_type_id == et.id ? true : false) %> <%= et.name %>
+      <% end %>
+    </td>
+    <td align="right">
+      &nbsp;Priority:&nbsp;<%= select_tag "aktion[action_priority_id]", create_collection_select_tag_options(aktion.action_priority, ActionPriority.find(:all), true, :id, :level), :id => :popup_aktion_action_priority_id %>
+    </td>
+  </tr>
+</table>

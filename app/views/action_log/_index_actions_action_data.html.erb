@@ -3,7 +3,7 @@
 <% action_required_title = "Click to edit: " + aktion.action_required if session[:cut_text]=='yes' %>
 <td id="<%=id%>-action_required" style="font-size:<%=session[:font_size]%>;" title="<%=action_required_title%>">
   <%= render :partial => 'action_log/table_cells/action_required', :locals => {:aktion => aktion} %>
-</td>
+ </td>
 <td id="<%=id%>-requested_by" style="font-size:<%=session[:font_size]%>;" title="Click to edit">
   <%= render :partial => 'action_log/table_cells/requested_by', :locals => {:aktion => aktion} %>
 </td>
@@ -13,13 +13,13 @@
 <td id="<%=id%>-due_date" style="font-size:<%=session[:font_size]%>; white-space: nowrap;" title="Click to edit">
   <%= render :partial => 'action_log/table_cells/due_date', :locals => {:aktion => aktion} %>
 </td>
-<td style="font-size:<%=session[:font_size]%>;"><div id="action-completion_date-<%=aktion.id%>"><%= aktion.actual_completion_date.blank? ? "&#160;" : h(aktion.actual_completion_date) %></div></td>
-<td>
+<td id="<%=id%>-completion_date" style="font-size:<%=session[:font_size]%>;"><%= aktion.actual_completion_date.blank? ? "&#160;" : h(aktion.actual_completion_date) %></td>
+<td id="<%=id%>-action_status">
   <% if aktion.action_status_id == ActionStatus::COMPLETED %>
     <%= image_tag("action-checked.png?", :alt => "Completed", :title=>"Completed") %>
   <% else %>
-    <a href="abc" id="closeout_comment_link_<%=aktion.id%>">
-      abc
+    <a id="closeout_comment_link_<%=aktion.id%>">
+      <%=image_tag("action-unchecked.png?", :alt => "Complete", :title=>"Mark as Complete", :mouseover => "action-checked.png?", :border=>"0")%>
     </a>
     <%= render :partial => 'action_log/actions/closeout_comment_popup', :locals => {:aktion => aktion} %>
   <% end %>

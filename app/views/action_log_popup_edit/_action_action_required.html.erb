@@ -1,0 +1,2 @@
+<%= text_area_tag "aktion[action_required]", aktion.action_required, :size => "40x4", :id => :popup_aktion_action_required %>
+<%= observe_field :popup_aktion_action_required, :url => { :action => :check_action_required }, :frequency => 2, :with => 'verb'%>

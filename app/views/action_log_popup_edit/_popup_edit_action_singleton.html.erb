@@ -1,0 +1,117 @@
+
+<div id="popup_action_title">
+  <%#= render :partial => 'action_log_popup_edit/action_title', :locals => { :aktion => aktion } %>
+</div>
+
+<%= form_remote_tag(
+  :html => { :onsubmit=>"document.getElementById('popup_my_event_id').value = document.getElementById('popup_aktion_event_id').value" },
+  :url => { :controller => "action_log_popup_edit", :action => "update_action", :id => aktion}) %>
+
+<div id="popup_action_id">
+  <%#= render :partial => 'action_log_popup_edit/action_id', :locals => { :aktion => aktion } %>
+</div>
+
+<table class="blindtable">
+  <tr>
+    <td>Area of Event</td>
+    <td>
+      <div id="popup_action_event_area_select">
+        <%#= render :partial => 'action_event_area_select', :locals => {:meeting_id => aktion.meeting_id, :aktion => aktion } %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>Event</td>
+    <td>
+      <div id="popup_action_event_select">
+        <%#= render :partial => 'action_event_select', :locals => {:event_area_id => aktion.event_area_id, :aktion => aktion } %>
+      </div>
+      <%= hidden_field_tag "popup_my_event_id", "" %>
+    </td>
+  </tr>
+  <tr>
+    <td>Assignment date</td>
+    <td>
+      <div id="popup_action_assignment_date">
+        <%#= render :partial => 'action_assignment_date', :locals => { :aktion => aktion } %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>Action type</td>
+    <td>
+      <div id="popup_action_type_and_priority">
+        <%#= render :partial => 'action_type_and_priority', :locals => { :aktion => aktion } %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>Action required</td>
+    <td>
+      <table class="blindlayouttable">
+        <tr>
+          <td>
+            <div id="popup_action_action_required">
+              <%#= render :partial => 'action_required', :locals => { :aktion => aktion } %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right">
+            Description quality: <%=progress_bar("popup_action_status_",0,false,true) %><!--&nbsp;&nbsp;<span id="action_status">&nbsp;</span>-->
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>Requested by</td>
+    <td>
+      <div id="popup_action_requested_by">
+        <%#= render :partial => 'action_requested_by', :locals => { :aktion => aktion } %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>Primary responsible</td>
+    <td>
+      <div id="popup_action_responsible">
+        <%#= render :partial => 'action_responsible', :locals => { :aktion => aktion } %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>Target date</td>
+    <td>
+      <div id="popup_action_target_date">
+        <%#= render :partial => 'action_target_date', :locals => { :aktion => aktion } %>
+      </div>
+    </td>
+  </tr>
+  <tr id="popup_action_review_date" style = "display: none;">
+    <td>
+      <%#= render :partial => 'action_review_date', :locals => { :aktion => aktion } %>
+    </td>
+  </tr>
+  <tr>
+    <td>Closeout comment</td>
+    <td>
+      <div id="popup_action_closeout_comment">
+        <%#= render :partial => 'action_closeout_comment', :locals => { :aktion => aktion } %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>Completion date</td>
+    <td>
+      <div id="popup_action_actual_completion_date_and_status">
+        <%#= render :partial => 'action_actual_completion_date_and_status', :locals => { :aktion => aktion } %>
+      </div>
+    </td>
+  </tr>
+</table>
+<hr/>
+<%= submit_tag 'Update', :class => 'popup_closebox' %>
+<a class="popup_closebox" href="#">Cancel</a>
+
+</form>

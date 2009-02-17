@@ -1,0 +1,10 @@
+<table class="blindlayouttable" width="100%">
+  <tr>
+    <td align="left">
+      <%= calendar_date_select_tag "aktion[actual_completion_date]", aktion.actual_completion_date, :size => 10, :maxlength => 10, :id => :popup_aktion_actual_completion_date %>
+    </td>
+    <td align="right">
+      &nbsp;Action status:&nbsp;<%= select_tag "aktion[action_status_id]", create_user_select_tag_options(aktion.action_status, ActionStatus.find(:all), false), :id => :popup_aktion_status_id_id %>
+    </td>
+  </tr>
+</table>

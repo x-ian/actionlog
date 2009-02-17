@@ -1,0 +1,2 @@
+<%= select_tag "aktion[event_area_id]", create_user_select_tag_options(aktion.event_area, EventArea.find_all_by_meeting_id(meeting_id), true), :id => :popup_aktion_event_area_id, :style=>"width:150px;" %>
+<%= observe_field :popup_aktion_event_area_id, :url => { :action => :fill_event_select_for_action }, :update => :popup_action_event_select, :with => :id %>

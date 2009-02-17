@@ -4,4 +4,4 @@
 <td id="<%=id%>-event" style="font-size:<%=session[:font_size]%>;" title="<%=event_title%>">
   <%= render :partial => "action_log/table_cells/event", :locals => { :aktion => aktion } %>
 </td>
-<%= render :partial => "index_actions_action_data", :locals => { :aktion => aktion } %>
+<%= render :partial => "action_log/index_actions_action_data", :locals => { :aktion => aktion } %>
