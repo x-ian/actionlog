@@ -13,7 +13,7 @@
       <% form_tag(:action => "set_paginate_size", :controller => "/action_log" ) do %>
         <%= "Actions per Page:" %>
         <%=select_tag "actions_per_page", create_select_tag_options2(session[:actions_per_page], [ "(all)", "10", "25", "50"]), :onchange=>"document.getElementById ('submit_paginate_size').click();" %>
-        <span style="display:none;"><input type=submit id='submit_paginate_size'></span>
+        <span style="display:none;"><input type=submit id='submit_paginate_size'/></span>
       <% end %>
 </td></tr></table>
 
