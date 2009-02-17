@@ -3,7 +3,6 @@
 <% CalendarDateSelect.image = "/images/calendar_date_select/calendar.gif"%>
 <%= progress_bar_includes %>
 
-<td colspan="8">
 <div class="roundedcornr_box_479185">
   <div class="roundedcornr_top_479185"><div></div></div>
   <div class="roundedcornr_content_479185">
@@ -24,7 +23,6 @@
           <td>
             Meeting:
             <% unless flash[:last_used_event_id] == nil %>
-              flash[:last_used_event_id]
               <% aktion.event = Event.find(flash[:last_used_event_id]) %>
               <%= "'#{aktion.meeting.name}' (in '#{aktion.organizational_unit.name}')" %>
             <% else %>
@@ -40,7 +38,7 @@
         <tr>
           <td colspan="2">
             <%= f.text_area :action_required, :size => "55x2" %>
-            <%= observe_field "aktion_action_required", :url => { :action => :check_action_required }, :frequency => 2, :with => 'verb'%><br>
+            <%= observe_field "aktion_action_required", :url => { :action => :check_action_required }, :frequency => 2, :with => 'verb'%><br/>
             Description quality: <%=progress_bar("action_status_",0,false,true) %>&nbsp;&nbsp;<span id="action_status">&nbsp;</span>
           </td>
           <td valign="top">
@@ -49,7 +47,7 @@
               <%= render :partial => 'action_log/actions/event_area_select', :locals => {:meeting_id => aktion.meeting_id, :aktion => aktion } %>
             </span>
             <br/>
-            <%= f.label :event%><br/>
+            Event<br/>
             <span id="action_event_select">
               <%= render :partial => 'action_log/actions/event_select', :locals => {:event_area_id => aktion.event_area_id, :aktion => aktion } %>
             </span>
@@ -87,4 +85,3 @@
      </div>
    <div class="roundedcornr_bottom_479185"><div></div></div>
 </div>
-</td>

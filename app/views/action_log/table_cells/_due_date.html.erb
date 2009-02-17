@@ -1,10 +1,10 @@
-<span onclick="<%=remote_function :update => 'action-' + aktion.id.to_s + '-due_date', :url => {:controller => "action_log_inplace_edit", :action=>"inplace_edit_due_date", :id=>aktion.id} %>">
+<div onclick="<%=remote_function :update => 'action-' + aktion.id.to_s + '-due_date', :url => {:controller => "action_log_inplace_edit", :action=>"inplace_edit_due_date", :id=>aktion.id} %>">
   <% date_text_exists = false %>
   <table class="blindlayouttable">
     <% if aktion.review_date != nil && aktion.review_date != "" %>
       <tr>
         <td>Review:</td>
-        <td><%=h aktion.review_date.to_s %><td/>
+        <td><%=h aktion.review_date.to_s %></td>
         <% date_text_exists = true %>
       </tr>
     <% end %>
@@ -23,4 +23,4 @@
   </table>
   <%= aktion.check_date_consistency ? "" : "(inconsistent)" %>
   <%= "&#160;" unless date_text_exists %>
-</span>
+</div>

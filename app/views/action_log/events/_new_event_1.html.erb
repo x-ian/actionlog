@@ -41,7 +41,7 @@
 
         </tr>
         <tr>
-          <td><%= f.label "Owner" %></td>
+          <td>Owner</td>
           <td><%= link_to_function("Risk Management", visual_effect(:toggle_blind,"risk_management"))%></td>
         </tr>
         <tr>
@@ -55,7 +55,7 @@
                 <td>
                   <% PriorityAxis.find(:all).each do |pa| %>
                     <%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options(event.priority_value_by_axis(pa.id), PriorityRange.find_all_by_priority_axis_id(pa.id), true) %>
-                    <%= label_tag "priority_axis_" + pa.name %><br/>
+                    Priority axis <%=pa.name%><br/>
                   <% end %>
                 </td>
               </tr>
