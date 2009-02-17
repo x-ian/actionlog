@@ -1,7 +1,13 @@
 <% id = "action-#{aktion.id}" %>
 <% event_title = "Click to edit" %>
 <% event_title = "Click to edit: " + aktion.event.name if session[:cut_text]=='yes' %>
-<td id="<%=id%>-event" style="font-size:<%=session[:font_size]%>;" title="<%=event_title%>">
-  <%= render :partial => "action_log/table_cells/event", :locals => { :aktion => aktion } %>
-</td>
+<% if session[:action_log_current_view] == "grouped_by_events" %>
+  <td id="<%=id%>-event" style="font-size:<%=session[:font_size]%>;" title="<%=event_title%>">
+    &nbsp;
+  </td>
+<% else %>
+  <td id="<%=id%>-event" style="font-size:<%=session[:font_size]%>;" title="<%=event_title%>">
+    <%= render :partial => "action_log/table_cells/event", :locals => { :aktion => aktion } %>
+  </td>
+<% end %>
 <%= render :partial => "action_log/index_actions_action_data", :locals => { :aktion => aktion } %>
