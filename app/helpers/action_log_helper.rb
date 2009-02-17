@@ -43,30 +43,19 @@ module ActionLogHelper
     return Aktion.find(aktion_id).review_date
   end
 
-  def review_date_necessary(target_date)
-    unless target_date.blank?
-      # if target_date - today > 60 days
-      days = (Time.parse(target_date) - Time.now) / 60 / 60 / 24
-      return (days > (6*7))
-    end
-    false
-  end
-
-  def initial_review_date_necessary(aktion)
-    return true unless aktion.review_date == nil
-    if aktion.new_target_date != nil
-      return review_date_necessary(aktion.new_target_date.to_s)
-    else
-      if aktion.new_target_date == nil && aktion.target_date != nil
-        return review_date_necessary(aktion.target_date.to_s)
-      end
-    end
-    false
-  end
-
   def get_table_row_class(aktion)
     aktion_class = cycle('record', 'even-record record')
     aktion_class = (aktion.overdue ? "highlighted-record " : "") + aktion_class
     aktion_class
+  end
+
+  def highlight_changed_row(page, aktion)
+    page.visual_effect(:highlight, "action-#{aktion.id}-event", :duration => 2)
+    page.visual_effect(:highlight, "action-#{aktion.id}-action_required", :duration => 2)
+    page.visual_effect(:highlight, "action-#{aktion.id}-requested_by", :duration => 2)
+    page.visual_effect(:highlight, "action-#{aktion.id}-responsible", :duration => 2)
+    page.visual_effect(:highlight, "action-#{aktion.id}-due_date", :duration => 2)
+    page.visual_effect(:highlight, "action-#{aktion.id}-completion_date", :duration => 2)
+    page.visual_effect(:highlight, "action-#{aktion.id}-action_status", :duration => 2)
   end
 end

@@ -154,8 +154,7 @@ class ActionLogController < ApplicationController
       a.complete! params[:closeout_comment]
       render :update do |page|
         page.replace_html "action-#{a.id}", :partial => "index_actions_grouped_by_actions_row", :locals => {:aktion => a}
-        page.visual_effect(:highlight, "action-closeout_comment-#{a.id}", :duration => 2)
-        page.visual_effect(:highlight, "action-completion_date-#{a.id}", :duration => 2)
+        highlight_changed_row page, a
       end
     end
   end
