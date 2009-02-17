@@ -3,12 +3,12 @@
     <div></div>
   </div>
   <div class="roundedcornr_content_479185">
-    <table>
-      <% form_for(event,
-        :html => { :onsubmit=>"document.getElementById('my_event_area_id').value = document.getElementById('event_event_area_id').value" },
-        :url => { :controller => "action_log", :action => "create_event"}) do |f| %>
-        <%= f.error_messages %>
-
+    <% form_for(event,
+      :html => { :onsubmit=>"document.getElementById('my_event_area_id').value = document.getElementById('event_event_area_id').value" },
+      :url => { :controller => "action_log", :action => "create_event"}) do |f| %>
+      <%= f.error_messages %>
+      <table>
+      
         <tr>
           <td>Event</td>
           <td>
@@ -50,24 +50,24 @@
           </td>
 
           <td>
-              <table id="risk_management" style="display: none;">
-                <tr>
-                  <td>
-            <% PriorityAxis.find(:all).each do |pa| %>
+            <table id="risk_management" style="display: none;">
+              <tr>
+                <td>
+                  <% PriorityAxis.find(:all).each do |pa| %>
                     <%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options(event.priority_value_by_axis(pa.id), PriorityRange.find_all_by_priority_axis_id(pa.id), true) %>
                     <%= label_tag "priority_axis_" + pa.name %><br/>
-            <% end %>
-                  </td>
-                </tr>
-              </table>
+                  <% end %>
+                </td>
+              </tr>
+            </table>
           </td>
 
           <td>
             <%= f.submit "Add" %>
           </td>
         </tr>
-      <% end %>
-    </table>
+      </table>
+    <% end %>
   </div>
   <div class="roundedcornr_bottom_479185">
     <div></div>
