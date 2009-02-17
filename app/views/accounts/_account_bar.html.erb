@@ -11,7 +11,7 @@
     <% form_tag(:action => "set_current_meeting", :controller => "/action_log" ) do %>
       <%= "Current meeting:" %>
       <%=select_tag "current_meeting", options_for_select_filter(self.current_account.user.meetings, meeting_id, false, true ), :onchange=>"document.getElementById ('submit_meeting_selector').click();" %>
-      <span style="display:none;"><input type=submit id='submit_meeting_selector'></span>
+      <span style="display:none;"><input type='submit' id='submit_meeting_selector'/></span>
     <% end %>
   </div>
 
