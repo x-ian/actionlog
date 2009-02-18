@@ -3,5 +3,5 @@
   <%= hidden_field_tag :id, event.id %>
   <br/>
   <%= submit_tag 'Save' %>
-  <%= link_to_remote 'Cancel', :url => {:action => "update_event_grouped_events", :id => event } %>
+  <%= link_to_remote 'Cancel', :url => {:action => "update_event_grouped_by_events", :id => event } %>
 <% end %>
