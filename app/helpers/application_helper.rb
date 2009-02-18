@@ -32,7 +32,6 @@ module ApplicationHelper
   end
 
   def current_meeting
-    logger.debug "CURRENT MEETING: #{session[:current_meeting]}"
     return session[:current_meeting] unless session[:current_meeting].blank?
     #session[:current_meeting] = current_user.meetings.first unless current_user.meetings.size < 1
   end
