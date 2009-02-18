@@ -3,22 +3,29 @@
   <table class="blindlayouttable">
     <% if aktion.review_date != nil && aktion.review_date != "" %>
       <tr>
-        <td>Review:</td>
+        <td>Review:&nbsp;</td>
         <td><%=h aktion.review_date.to_s %></td>
         <% date_text_exists = true %>
       </tr>
     <% end %>
     <tr>
-      <td>Target:</td>
-      <td>
-        <% if aktion.new_target_date == nil || aktion.new_target_date == "" %>
-          <%=aktion.target_date.to_s unless aktion.target_date == nil || aktion.target_date == "" %>
-          <% date_text_exists = true %>
+      <% if aktion.new_target_date == nil || aktion.new_target_date == "" %>
+        <% unless aktion.target_date == nil || aktion.target_date == "" %>
+          <td>Target:&nbsp;</td>
+          <td>
+            <%=aktion.target_date.to_s %>
+            <% date_text_exists = true %>
+          </td>
         <% else %>
-          <%=aktion.new_target_date.to_s unless aktion.new_target_date == nil || aktion.new_target_date == "" %>
-          <% date_text_exists = true %>
+          <td/><td/>
         <% end %>
-      </td>
+      <% else %>
+        <td>Target:&nbsp;</td>
+        <td>
+          <%=aktion.new_target_date.to_s %>
+          <% date_text_exists = true %>
+        </td>
+      <% end %>
     </tr>
   </table>
   <%= aktion.check_date_consistency ? "" : "(inconsistent)" %>
