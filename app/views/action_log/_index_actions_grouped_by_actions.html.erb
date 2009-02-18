@@ -30,7 +30,7 @@
   </tr>
 
   <% for aktion in @aktions %>
-      <%= render :partial => "index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion } %>
+      <%= render :partial => "action_log/index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion } %>
   <% end %>
 
 </table>

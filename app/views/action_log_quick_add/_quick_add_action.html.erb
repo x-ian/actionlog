@@ -1,0 +1,59 @@
+<% id = "action-#{temp_action_id}" %>
+<% event_title = "Click to edit" %>
+<% event_title = "Click to edit: " + aktion.event.name if session[:cut_text]=='yes' %>
+<% if session[:action_log_current_view] == "grouped_by_events" %>
+  <td id="<%=id%>-event" style="font-size:<%=session[:font_size]%>;" title="<%=event_title%>">
+    &nbsp;
+  </td>
+<% else %>
+  <td id="<%=id%>-event" style="font-size:<%=session[:font_size]%>;" title="<%=event_title%>">
+    &nbsp;
+  </td>
+<% end %>
+<td colspan="6">
+  <% form_remote_tag :url => { :controller => :action_log_quick_add, :action => "add_action"} do %>
+    <table class="blindtable">
+      <tr>
+        <td id="<%=id%>-action_required" style="font-size:<%=session[:font_size]%>;">
+          <%= text_area_tag "aktion[action_required]", aktion.action_required, :size => "40x4", :id => :quick_add_action_required %>
+        </td>
+        <td id="<%=id%>-requested_by" style="font-size:<%=session[:font_size]%>;">
+          <%= select_tag "aktion[requested_by_id]", create_user_select_tag_options(aktion.requested_by, User.find(:all), true), :id => :quick_add_action_requested_by_id %>
+        </td>
+        <td id="<%=id%>-responsible" style="font-size:<%=session[:font_size]%>;">
+          <table class="blindtable">
+            <tr>
+              <td>1st:</td>
+              <td><%= select_tag "aktion[primary_responsible_id]", create_user_select_tag_options(aktion.primary_responsible, User.find(:all), true), :id => :quick_add_primary_responsible_by_id %></td>
+            </tr>
+            <tr>
+              <td>2nd:</td>
+              <td><%= select_tag "aktion[secondary_responsible_id]", create_user_select_tag_options(aktion.secondary_responsible, User.find(:all), true), :id => :quick_add_secondary_responsible_id %></td>
+            </tr>
+          </table>
+        </td>
+        <td id="<%=id%>-due_date" style="font-size:<%=session[:font_size]%>; white-space: nowrap;" >
+          <% target_date = aktion.target_date %>
+          <% target_date = aktion.new_target_date unless aktion.new_target_date.nil? %>
+          <table class="blindtable">
+            <tr>
+              <td>Review:</td>
+              <td><%= calendar_date_select_tag "aktion[review_date]", aktion.review_date, :size => 10, :maxlength => 10, :id => :quick_add_review_date %></td>
+            </tr>
+            <tr>
+              <td>Target:</td>
+              <td><%= calendar_date_select_tag "aktion[target_date]", target_date, :size => 10, :maxlength => 10, :id => :quick_add_target_date %></td>
+            </tr>
+          </table>
+        </td>
+        <td id="<%=id%>-completion_date" valign="bottom" align="right">
+          <%= hidden_field_tag "aktion[event_id]", aktion.event.id, :id => :quick_add_event_id %>
+          <%= hidden_field_tag :temp_action_id, temp_action_id, :id => :quick_add_temp_action_id %>
+          <%= submit_tag 'Save' %>
+          <%= link_to_remote 'Cancel', :url => {:action => "cancel_add_action", :temp_action_id => temp_action_id } %>
+
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</td>

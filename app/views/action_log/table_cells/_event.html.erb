@@ -6,3 +6,4 @@
 </div>
 <%=link_to_remote "(full edit)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_event", :id => aktion.event } } %>
 <%=link_to_remote "(add action)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_add_action", :id => aktion.event, :current_dom_id => "action-#{aktion.id}" } } %>
+<%=link_to_remote "(quick add action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_action", :id => aktion.event, :current_dom_id => "action-#{aktion.id}" } } %>
