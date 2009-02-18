@@ -12,6 +12,11 @@ tr.even-record td {
     border-left:1px solid #DDDDDD;
 }
 
+tr.new-record td {
+    background-color:#EFFF70;
+    border-left:1px solid #DDDDDD;
+}
+
 tr.highlighted-record td {
     color:#F50000;
 }
