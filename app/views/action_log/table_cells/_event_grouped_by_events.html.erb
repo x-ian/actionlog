@@ -1,6 +1,7 @@
 <div onclick="<%=remote_function :update => 'event-' + event.id.to_s + '-event', :url => {:controller => "action_log_inplace_edit", :action=>"inplace_edit_event_grouped_by_events", :id=>event.id} %>">
-  <%=event.name %> (Event in <%=h event.event_area.name unless event.event_area.nil?%> of <%=h event.event_area.meeting.name unless event.event_area.nil? || event.event_area.meeting.nil? %>)
+  <%=h event.name %> (Event in <%=h event.event_area.name unless event.event_area.nil?%> of <%=h event.event_area.meeting.name unless event.event_area.nil? || event.event_area.meeting.nil? %>)
 </div>
 <%=link_to_remote "(full edit)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_event", :id => event } } %>
 <%=link_to_remote "(add action)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_add_action", :id => event, :current_dom_id => "event-#{event.id}-event-tr" } } %>
 <%=link_to_remote "(quick add action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_action", :id => event, :current_dom_id => "event-#{event.id}-event-tr" } } %>
+<%=link_to_remote "(quick add e&amp;a)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :current_dom_id => "event-#{event.id}-event-tr" } } %>

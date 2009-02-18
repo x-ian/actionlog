@@ -1,9 +1,10 @@
 <div onclick="<%=remote_function :update => 'action-' + aktion.id.to_s + '-event', :url => {:controller => "action_log_inplace_edit", :action=>"inplace_edit_event", :id=>aktion.id} %>">
   <%= "<div style='max-height:35px; max-width:125px; overflow:hidden;'>" if session[:cut_text]=='yes'%>
   <%#=link_to_remote aktion.event.name, :url => { :controller => "action_log", :action => "edit_event_remote", :id => aktion } %>
-  <%= aktion.event.name %>
+  <%= h aktion.event.name %>
   <%= "</div>" if session[:cut_text]=='yes'%>
 </div>
 <%=link_to_remote "(full edit)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_event", :id => aktion.event } } %>
 <%=link_to_remote "(add action)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_add_action", :id => aktion.event, :current_dom_id => "action-#{aktion.id}" } } %>
 <%=link_to_remote "(quick add action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_action", :id => aktion.event, :current_dom_id => "action-#{aktion.id}" } } %>
+<%=link_to_remote "(quick add e&amp;a)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :current_dom_id => "action-#{aktion.id}" } } %>
