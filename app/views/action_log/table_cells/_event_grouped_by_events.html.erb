@@ -4,4 +4,4 @@
 <%=link_to_remote "(full edit)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_event", :id => event } } %>
 <%=link_to_remote "(add action)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_add_action", :id => event, :current_dom_id => "event-#{event.id}-event-tr" } } %>
 <%=link_to_remote "(quick add action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_action", :id => event, :current_dom_id => "event-#{event.id}-event-tr" } } %>
-<br/><%=link_to_remote "(quick add event &amp; action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :current_dom_id => "event-#{event.id}-event-tr" } } %>
+&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to_remote "(quick add event &amp; action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :current_dom_id => "event-#{event.id}-event-tr" } } %>

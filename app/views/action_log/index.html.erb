@@ -64,7 +64,7 @@
   <% end %>
         -->
 
-  <%= link_to_function "Events without Actions", visual_effect(:toggle_blind,"index_events_without_actions")%>
+  <%= link_to_function "Events without Actions (experimental)", visual_effect(:toggle_blind,"index_events_without_actions")%>
   <div id="index_events_without_actions" style = "display: none;">
     <%= render :partial => 'index_events_without_actions', :locals => { } %>
   </div>
