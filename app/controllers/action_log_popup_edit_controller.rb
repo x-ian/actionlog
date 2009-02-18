@@ -2,6 +2,29 @@ class ActionLogPopupEditController < ApplicationController
 
   # Aktion
 
+  def show_popup_add_action
+    aktion = Aktion.new
+    aktion.event = Event.find(params[:id])
+    render :update do |page|
+      page.replace_html "popup_action_action_required", :partial => "action_log_popup_edit/action_action_required", :locals => {:aktion => aktion }
+      page.replace_html "popup_action_actual_completion_date_and_status", :partial => "action_log_popup_edit/action_actual_completion_date_and_status", :locals => {:aktion => aktion }
+      page.replace_html "popup_action_assignment_date", :partial => "action_log_popup_edit/action_assignment_date", :locals => {:aktion => aktion }
+      page.replace_html "popup_action_closeout_comment", :partial => "action_log_popup_edit/action_closeout_comment", :locals => {:aktion => aktion }
+      page.replace_html "popup_action_event_area_select", :partial => "action_log_popup_edit/action_event_area_select", :locals => {:aktion => aktion, :meeting_id => aktion.meeting_id }
+      page.replace_html "popup_action_event_select", :partial => "action_log_popup_edit/action_event_select", :locals => {:aktion => aktion, :event_area_id => aktion.event_area_id }
+      page.replace_html "popup_action_id", :partial => "action_log_popup_edit/action_id_add", :locals => {:aktion => aktion, :current_dom_id => params[:current_dom_id] }
+      page.replace_html "popup_action_requested_by", :partial => "action_log_popup_edit/action_requested_by", :locals => {:aktion => aktion }
+      page.replace_html "popup_action_responsible", :partial => "action_log_popup_edit/action_responsible", :locals => {:aktion => aktion }
+      page.replace_html "popup_action_review_date", :partial => "action_log_popup_edit/action_review_date", :locals => {:aktion => aktion }
+      page.replace_html "popup_action_target_date", :partial => "action_log_popup_edit/action_target_date", :locals => {:aktion => aktion }
+      page['popup_action_review_date'].hide
+      page.replace_html "popup_action_title", :partial => "action_log_popup_edit/action_title_add", :locals => {:aktion => aktion }
+      page.replace_html "popup_action_type_and_priority", :partial => "action_log_popup_edit/action_type_and_priority", :locals => {:aktion => aktion }
+      page << "$('edit_action_popup').popup.show();"
+    end
+  end
+
+
   def show_popup_edit_action
     aktion = Aktion.find(params[:id])
     render :update do |page|
@@ -28,7 +51,10 @@ class ActionLogPopupEditController < ApplicationController
   end
 
   def update_action
-    aktion = Aktion.find(params[:id])
+    add_mode = params[:id].blank?
+    aktion = Aktion.new if add_mode
+    aktion = Aktion.find(params[:id]) unless add_mode
+
     aktion.action_type = ActionType.find_by_name(params["popup_action_type"]) unless params["popup_action_type"].blank?
     aktion.event_id = params[:my_event_id] unless params[:popup_my_event_id].blank?
 
@@ -41,7 +67,11 @@ class ActionLogPopupEditController < ApplicationController
       format.js {
         render :update do |page|
           page << "$('edit_action_popup').popup.hide();"
-          page.replace_html "action-#{aktion.id}", :partial => "action_log/index_actions_grouped_by_actions_row", :locals => {:aktion => aktion}
+          if add_mode
+            page.insert_html :after, params[:current_dom_id], :partial => "index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion }
+          else
+            page.replace_html "action-#{aktion.id}", :partial => "action_log/index_actions_grouped_by_actions_row", :locals => {:aktion => aktion} unless add_mode
+          end
           highlight_changed_row page, aktion
         end
       }
@@ -113,8 +143,10 @@ class ActionLogPopupEditController < ApplicationController
             page.visual_effect(:highlight, "event-#{event.id}-event") unless params[:event] == nil
           else
             for aktion in event.aktions
+              page << "if ($('action-#{aktion.id}')) {"
               page.replace_html "action-#{aktion.id}", :partial => "action_log/index_actions_grouped_by_actions_row", :locals => {:aktion => aktion}
               highlight_changed_row page, aktion
+              page << "}"
             end
           end
         end

@@ -28,8 +28,10 @@ class ActionLogInplaceEditController < ApplicationController
     end
     render :update do |page|
       for a in aktion.event.aktions
+        page << "if ($('action-#{a.id}-event')) {"
         page.replace_html "action-#{a.id}-event", :partial => "action_log/table_cells/event", :locals => {:aktion => a}
         page.visual_effect(:highlight, "action-#{a.id}-event") unless params[:event] == nil
+        page << "}"
       end
     end
   end

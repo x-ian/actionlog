@@ -22,4 +22,10 @@ module ActionLogPopupEditHelper
     false
   end
 
+  def get_new_table_row_class(aktion)
+    aktion_class = 'record new-record'
+    aktion_class = (aktion.overdue ? "highlighted-record " : "") + aktion_class
+    aktion_class
+  end
+
 end

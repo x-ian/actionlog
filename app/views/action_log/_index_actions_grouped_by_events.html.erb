@@ -13,7 +13,7 @@
 
   <% for event in @events %>
     <%  clazz = "record" %>
-    <tr class="<%=clazz %>">
+    <tr class="<%=clazz %>" id="event-<%=event.id%>-event-tr">
       <td colspan="8" title="Click to edit" id="event-<%=event.id%>-event">
         <%= render :partial => "action_log/table_cells/event_grouped_by_events", :locals => { :event => event } %>
       </td>

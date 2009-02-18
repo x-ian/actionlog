@@ -1,0 +1,3 @@
+    <tr class="<%=get_new_table_row_class(aktion)%>" id="action-<%=aktion.id%>">
+      <%= render :partial => "action_log/index_actions_grouped_by_actions_row", :locals => { :aktion => aktion } %>
+    </tr>
