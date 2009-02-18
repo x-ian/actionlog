@@ -29,4 +29,8 @@ class ApplicationController < ActionController::Base
     #session[:current_meeting] = current_user.meetings.first unless current_user.meetings.size < 1
   end
 
+  def random_dom_id
+    "temp_id_#{rand(64000)}"
+  end
+
 end

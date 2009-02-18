@@ -1,0 +1,1 @@
+<%= select_tag :event_id, create_user_select_tag_options(aktion.nil? ? nil : aktion.event, Event.find_all_by_event_area_id(event_area_id), true), :id => "#{id}-quick_add_event_id", :style=>"width:150px;" %>

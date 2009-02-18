@@ -50,4 +50,7 @@ module ApplicationHelper
     return tag
   end
 
+  def random_dom_id
+    "temp_id_#{rand(64000)}"
+  end
 end

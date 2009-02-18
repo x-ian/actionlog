@@ -94,8 +94,13 @@ class Event < ActiveRecord::Base
     sql += ") "
     sql += "AND meeting_id = #{meeting.id} " unless meeting == "(all)"
     sql += "ORDER BY meeting_date"
-      logger.debug(sql)
     return Event.find_by_sql(sql)
+  end
+
+  def self.find_all_events_of_meeting(meeting)
+    return [] if meeting == nil
+
+    Event.find(:all, :joins => [ :event_area ], :conditions => [ "event_areas.meeting_id = ?",  meeting.id])
   end
 
   def status_by_actions

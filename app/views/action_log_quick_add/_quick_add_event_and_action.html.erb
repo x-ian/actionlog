@@ -1,11 +1,34 @@
 <% id = "action-#{temp_action_id}" %>
-<td id="<%=id%>-event" style="font-size:<%=session[:font_size]%>;">
-  &nbsp;
-</td>
-<td colspan="6">
-  <% form_remote_tag :url => { :controller => :action_log_quick_add, :action => "add_action"} do %>
-    <table class="blindtable">
+<td colspan="7">
+  <% form_remote_tag :url => { :controller => :action_log_quick_add, :action => "add_event_and_action"} do %>
+    <table class="blindtable" title="Choose existing or create new event">
       <tr>
+        <td id="<%=id%>-event" style="font-size:<%=session[:font_size]%>;">
+          <table class="blindlayouttable">
+            <tr>
+              <td width="100%">Existing Area of event</td>
+              <td>Existing event</td>
+            </tr>
+            <tr>
+              <td>
+                <span id="<%=id%>-quick_add_area_select">
+                  <%= render :partial => 'action_log_quick_add/event_area_select', :locals => {:meeting_id => current_meeting.id, :aktion => aktion, :dom_id => id } %>
+                </span>
+              </td>
+              <td>
+                <span id="<%=id%>-quick_add_event_select">
+                  <%= render :partial => 'action_log_quick_add/event_select', :locals => {:event_area_id => aktion.event_area_id, :aktion => aktion, :dom_id => id } %>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                New event<br/>
+                <%= text_area_tag :event_name, nil, :size => "40x1", :id => :quick_add_event_name %>
+              </td>
+            </tr>
+          </table>
+        </td>
         <td id="<%=id%>-action_required" style="font-size:<%=session[:font_size]%>;">
           Action required<br/>
           <%= text_area_tag "aktion[action_required]", aktion.action_required, :size => "40x3", :id => :quick_add_action_required %>
@@ -30,10 +53,9 @@
           <%= calendar_date_select_tag "aktion[target_date]", target_date, :size => 10, :maxlength => 10, :id => :quick_add_target_date %>
         </td>
         <td id="<%=id%>-completion_date" valign="bottom" align="right" width="100%">
-          <%= hidden_field_tag "aktion[event_id]", aktion.event.id, :id => :quick_add_event_id %>
           <%= hidden_field_tag :temp_action_id, temp_action_id, :id => :quick_add_temp_action_id %>
           <%= submit_tag 'Save' %><br/>
-          <%= link_to_remote 'Cancel', :url => {:action => "cancel_add_action", :temp_action_id => temp_action_id } %>
+          <%= link_to_remote 'Cancel', :url => {:action => "cancel_add_event_and_action", :temp_action_id => temp_action_id } %>
 
         </td>
       </tr>
