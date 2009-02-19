@@ -1,75 +1,65 @@
-<div class="roundedcornr_box_479185">
-  <div class="roundedcornr_top_479185">
-    <div></div>
-  </div>
-  <div class="roundedcornr_content_479185">
-    <% form_for(event,
-      :html => { :onsubmit=>"document.getElementById('my_event_area_id').value = document.getElementById('event_event_area_id').value" },
-      :url => { :controller => "action_log", :action => "create_event"}) do |f| %>
-      <%= f.error_messages %>
-      <table>
-      
-        <tr>
-          <td>Event</td>
-          <td>
-            Type:
-            <% for et in EventType.find(:all) %>
-              <%= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false) %> <%= et.name %>
-            <% end %>
+<% form_for(event,
+  :html => { :onsubmit=>"document.getElementById('my_event_area_id').value = document.getElementById('event_event_area_id').value" },
+  :url => { :controller => "action_log", :action => "create_event"}) do |f| %>
+  <%= f.error_messages %>
+  <table>
 
-          </td>
-          <td>
-            Meeting:
-            <% if current_meeting == nil || current_meeting == "(all)" %>
-              (use Current Meeting selector)
-            <% else %>
-              <% event.default_meeting = current_meeting %>
-              <%= "'#{event.meeting.name}' (in '#{event.organizational_unit.name}')" %>
-            <% end %>
-          </td>
-        </tr>
+    <tr>
+      <td>Event</td>
+      <td>
+        Type:
+        <% for et in EventType.find(:all) %>
+          <%= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false) %> <%= et.name %>
+        <% end %>
 
-        <tr>
-          <td colspan="2"><%= f.text_area :name, :size=>"55x2" %></td>
-          <td valign="top">
-            Area of Event<br/>
-            <div id="event_area_select">
-              <%= render :partial => 'action_log/events/event_area_select', :locals => {:meeting_id => event.meeting_id, :event => event } %>
-            </div>
-            <%= hidden_field_tag "my_event_area_id", "" %>
-          </td>
+      </td>
+      <td>
+        Meeting:
+        <% if current_meeting == nil || current_meeting == "(all)" %>
+          (use Current Meeting selector)
+        <% else %>
+          <% event.default_meeting = current_meeting %>
+          <%= "'#{event.meeting.name}' (in '#{event.organizational_unit.name}')" %>
+        <% end %>
+      </td>
+    </tr>
 
-        </tr>
-        <tr>
-          <td>Owner</td>
-          <td><%= link_to_function("Risk Management", visual_effect(:toggle_blind,"risk_management"))%></td>
-        </tr>
-        <tr>
-          <td>
-            <%= f.collection_select :user_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:200px;" %>
-          </td>
+    <tr>
+      <td colspan="2"><%= f.text_area :name, :size=>"55x2" %></td>
+      <td valign="top">
+        Area of Event<br/>
+        <div id="event_area_select">
+          <%= render :partial => 'action_log/events/event_area_select', :locals => {:meeting_id => event.meeting_id, :event => event } %>
+        </div>
+        <%= hidden_field_tag "my_event_area_id", "" %>
+      </td>
 
-          <td>
-            <table id="risk_management" style="display: none;">
-              <tr>
-                <td>
-                  <% PriorityAxis.find(:all).each do |pa| %>
-                    <%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options(event.priority_value_by_axis(pa.id), PriorityRange.find_all_by_priority_axis_id(pa.id), true) %>
-                    Priority axis <%=pa.name%><br/>
-                  <% end %>
-                </td>
-              </tr>
-            </table>
-          </td>
+    </tr>
+    <tr>
+      <td>Owner</td>
+      <td><%= link_to_function("Risk Management", visual_effect(:toggle_blind,"risk_management"))%></td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.collection_select :user_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:200px;" %>
+      </td>
 
-          <td>
-            <%= f.submit "Add" %>
-          </td>
-        </tr>
-      </table>
-    <% end %>
-  </div>
-  <div class="roundedcornr_bottom_479185">
-    <div></div>
-  </div>
-</div>
+      <td>
+        <table id="risk_management" style="display: none;">
+          <tr>
+            <td>
+              <% PriorityAxis.find(:all).each do |pa| %>
+                <%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options(event.priority_value_by_axis(pa.id), PriorityRange.find_all_by_priority_axis_id(pa.id), true) %>
+                Priority axis <%=pa.name%><br/>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      </td>
+
+      <td>
+        <%= f.submit "Add" %>
+      </td>
+    </tr>
+  </table>
+<% end %>
