@@ -5,6 +5,10 @@ class ActionLogPopupEditController < ApplicationController
   def show_popup_add_action
     aktion = Aktion.new
     aktion.event = Event.find(params[:id])
+    aktion.requested_by_id = current_user.id
+    aktion.primary_responsible_id = current_user.id
+    aktion.assignment_date = Time.now.to_date
+    
     render :update do |page|
       page.replace_html "popup_action_action_required", :partial => "action_log_popup_edit/action_action_required", :locals => {:aktion => aktion }
       page.replace_html "popup_action_actual_completion_date_and_status", :partial => "action_log_popup_edit/action_actual_completion_date_and_status", :locals => {:aktion => aktion }
@@ -12,7 +16,11 @@ class ActionLogPopupEditController < ApplicationController
       page.replace_html "popup_action_closeout_comment", :partial => "action_log_popup_edit/action_closeout_comment", :locals => {:aktion => aktion }
       page.replace_html "popup_action_event_area_select", :partial => "action_log_popup_edit/action_event_area_select", :locals => {:aktion => aktion, :meeting_id => aktion.meeting_id }
       page.replace_html "popup_action_event_select", :partial => "action_log_popup_edit/action_event_select", :locals => {:aktion => aktion, :event_area_id => aktion.event_area_id }
-      page.replace_html "popup_action_id", :partial => "action_log_popup_edit/action_id_add", :locals => {:aktion => aktion, :current_dom_id => params[:current_dom_id] }
+      if params[:remove_dom_id]
+        page.replace_html "popup_action_id", :partial => "action_log_popup_edit/action_id_add", :locals => {:aktion => aktion, :insert_after_dom_id => params[:insert_after_dom_id], :remove_dom_id => params[:remove_dom_id]}
+      else
+        page.replace_html "popup_action_id", :partial => "action_log_popup_edit/action_id_add", :locals => {:aktion => aktion, :insert_after_dom_id => params[:insert_after_dom_id], :remove_dom_id => nil }
+      end
       page.replace_html "popup_action_requested_by", :partial => "action_log_popup_edit/action_requested_by", :locals => {:aktion => aktion }
       page.replace_html "popup_action_responsible", :partial => "action_log_popup_edit/action_responsible", :locals => {:aktion => aktion }
       page.replace_html "popup_action_review_date", :partial => "action_log_popup_edit/action_review_date", :locals => {:aktion => aktion }
@@ -52,6 +60,7 @@ class ActionLogPopupEditController < ApplicationController
 
   def update_action
     add_mode = params[:id].blank?
+
     aktion = Aktion.new if add_mode
     aktion = Aktion.find(params[:id]) unless add_mode
 
@@ -68,7 +77,9 @@ class ActionLogPopupEditController < ApplicationController
         render :update do |page|
           page << "$('edit_action_popup').popup.hide();"
           if add_mode
-            page.insert_html :after, params[:current_dom_id], :partial => "index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion }
+            page.insert_html :after, params[:insert_after_dom_id], :partial => "index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion }
+            page.remove params[:remove_dom_id] unless params[:remove_dom_id].blank?
+            page.visual_effect(:blind_up, "index_events_without_actions") if Event.find_events_without_actions(current_meeting).empty?
           else
             page.replace_html "action-#{aktion.id}", :partial => "action_log/index_actions_grouped_by_actions_row", :locals => {:aktion => aktion} unless add_mode
           end
@@ -117,8 +128,10 @@ class ActionLogPopupEditController < ApplicationController
 
   def show_popup_edit_event
     event = Event.find(params[:id])
+    from_events_without_actions = params[:from_events_without_actions].blank? ? :false : params[:from_events_without_actions]
+
     render :update do |page|
-      page.replace_html "popup_event_table", :partial => "action_log_popup_edit/event_table", :locals => {:event => event }
+      page.replace_html "popup_event_table", :partial => "action_log_popup_edit/event_table", :locals => {:event => event, :from_events_without_actions => from_events_without_actions }
       page.replace_html "popup_event_title", :partial => "action_log_popup_edit/event_title", :locals => {:event => event }
       page << "$('edit_event_popup').popup.show();"
     end
@@ -141,6 +154,13 @@ class ActionLogPopupEditController < ApplicationController
           if session[:action_log_current_view] == "grouped_by_events"
             page.replace_html "event-#{event.id}-event", :partial => "action_log/table_cells/event_grouped_by_events", :locals => {:event => event}
             page.visual_effect(:highlight, "event-#{event.id}-event") unless params[:event] == nil
+          elsif params[:from_events_without_actions] == "true"
+            page.replace_html "event-without-action-#{event.id}", :partial => "action_log/index_events_without_actions_tr", :locals => {:event => event}
+            page.visual_effect(:highlight, "event-without-action-#{event.id}-area")
+            page.visual_effect(:highlight, "event-without-action-#{event.id}-meeting")
+            page.visual_effect(:highlight, "event-without-action-#{event.id}-name")
+            page.visual_effect(:highlight, "event-without-action-#{event.id}-owner")
+            page.visual_effect(:highlight, "event-without-action-#{event.id}-actions")
           else
             for aktion in event.aktions
               page << "if ($('action-#{aktion.id}')) {"
