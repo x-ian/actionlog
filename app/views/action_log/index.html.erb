@@ -3,7 +3,6 @@
 <% CalendarDateSelect.image = "/images/calendar_date_select/calendar.gif"%>
 <%= progress_bar_includes %>
 <%= stylesheet_link_tag 'popup-kit/popup.css' %>
-<%= stylesheet_link_tag 'moo.fx/accordion.css' %>
 <%= javascript_include_tag 'popup-kit/popup.js' %>
 
 <% if current_meeting.nil? %>
@@ -58,20 +57,20 @@
   <!--
   <% if !@edit_event && !@edit_action %>
     <%= link_to_function "Add events and actions (old)", visual_effect(:toggle_blind,"add")%>
-                                                        <div id="add" style="<%=style%>">
-                                                          <table>
-                                                            <tr>
-                                                              <td valign="top">
+                                                                <div id="add" style="<%=style%>">
+                                                                  <table>
+                                                                    <tr>
+                                                                      <td valign="top">
     <%#= render :partial => 'action_log/events/new_event', :locals => { :event => @event } if !@edit_event && @event != nil %>
-                                                              </td>
-                                                              <td>
+                                                                      </td>
+                                                                      <td>
     <%#= render :partial => 'action_log/actions/new_action', :locals => { :aktion => @aktion} if !@edit_aktion && @aktion != nil %>
-                                                              </td>
-                                                            </tr>
-                                                          </table>
-                                                        </div>
+                                                                      </td>
+                                                                    </tr>
+                                                                  </table>
+                                                                </div>
   <% end %>
-                        -->
+                            -->
 
   <% events_without_actions = !Event.find_events_without_actions(current_meeting).empty? %>
   <% if events_without_actions %>
@@ -114,19 +113,20 @@
     <%= javascript_tag "new Popup('edit_action_popup','null',{modal:true,position:'center'})" %>
   </div>
 
-  <%= link_to_function "Action Log", visual_effect(:toggle_blind,"index_action_log")%>
-  <div id="index_action_log">
-  <h3 class="tab" title="first"><div class="tabtxt">Grouped by:</div></h3>
-  <h3 class="tab" title="first"><div class="tabtxt"><%=link_to_remote("Actions", :url => { :action => "index_grouped_by_actions" }) %></div></h3>
-  <h3 class="tab" title="first"><div class="tabtxt"><%=link_to_remote("Events", :url => { :action => "index_grouped_by_events" }) %></div></h3>
-  <div class="boxholder"/>
-    <div id="index_actions">
-      <% if session[:action_log_current_view] == "grouped_by_events" %>
-        <%= render :partial => 'index_actions_grouped_by_events', :locals => {} %>
-      <% else %>
-        <%= render :partial => 'index_actions_grouped_by_actions', :locals => {} %>
-      <% end %>
+  <div class="roundedcornr_box_479185">
+    <div class="roundedcornr_top_479185"><div></div></div>
+    <div class="roundedcornr_content_479185">
+      <div id="index_action_log">
+        <div id="index_actions">
+          <% if session[:action_log_current_view] == "grouped_by_events" %>
+            <%= render :partial => 'index_actions_grouped_by_events', :locals => {} %>
+          <% else %>
+            <%= render :partial => 'index_actions_grouped_by_actions', :locals => {} %>
+          <% end %>
+        </div>
+      </div>
     </div>
+    <div class="roundedcornr_bottom_479185"><div></div></div>
   </div>
 
 <% end %>

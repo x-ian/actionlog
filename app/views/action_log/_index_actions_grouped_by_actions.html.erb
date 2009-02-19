@@ -1,4 +1,9 @@
-<table width="100%"><tr><td align="right">
+<table width="100%" class="blindlayouttable">
+  <tr>
+    <td align="left">
+      <b><u>Action Log</u></b> - Grouped by: Actions <%=link_to_remote("Events", :url => { :action => "index_grouped_by_events" }) %>
+    </td>
+    <td align="right">
       <% form_tag(:action => "set_table_properties", :controller => "/action_log" ) do %>
         <%= "Cut long texts:" %>
         <%=select_tag "cut_text", create_select_tag_options2(session[:cut_text], [ "no", "yes"]), :onchange=>"document.getElementById ('submit_table_properties').click();" %>
@@ -8,30 +13,32 @@
         <%=select_tag "table_width", create_select_tag_options2(session[:table_width], [ "auto", "800px", "1024px", "1280px"]), :onchange=>"document.getElementById ('submit_table_properties').click();" %>
         <span style="display:none;"><input type='submit' id='submit_table_properties'/></span>
       <% end %>
-</td>
-<td align="right">
+    </td>
+    <td align="right">
       <% form_tag(:action => "set_paginate_size", :controller => "/action_log" ) do %>
         <%= "Actions per Page:" %>
         <%=select_tag "actions_per_page", create_select_tag_options2(session[:actions_per_page], [ "(all)", "10", "25", "50"]), :onchange=>"document.getElementById ('submit_paginate_size').click();" %>
         <span style="display:none;"><input type='submit' id='submit_paginate_size'/></span>
       <% end %>
-</td></tr></table>
+    </td>
+  </tr>
+</table>
 
 <table style="width: <%=session[:table_width]%>;" cellspacing="0" cellpadding="0">
   <colgroup span="8"></colgroup>
   <tr>
-    <th class="header">Event<br/><%=link_to_remote "(quick add event &amp; action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :insert_after_dom_id => "first_empty_row" } } %></th>
-    <th style="white-space: nowrap;" class="header">Action required</th>
-    <th style="white-space: nowrap;" class="header">Requested by</th>
-    <th class="header">Responsible</th>
-    <th style="white-space: nowrap;" class="header">Due date</th>
-    <th class="header">Completion date</th>
-    <th class="header"></th>
+    <th class="blueheader">Event<br/><%=link_to_remote "(quick add event &amp; action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :insert_after_dom_id => "first_empty_row" } } %></th>
+    <th style="white-space: nowrap;" class="blueheader">Action required</th>
+    <th style="white-space: nowrap;" class="blueheader">Requested by</th>
+    <th class="blueheader">Responsible</th>
+    <th style="white-space: nowrap;" class="blueheader">Due date</th>
+    <th class="blueheader">Completion date</th>
+    <th class="blueheader"></th>
   </tr>
 
   <tr id="first_empty_row"><td colspan="7"></td></tr>
   <% for aktion in @aktions %>
-      <%= render :partial => "action_log/index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion } %>
+    <%= render :partial => "action_log/index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion } %>
   <% end %>
 
 </table>

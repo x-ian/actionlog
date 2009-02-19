@@ -1,14 +1,15 @@
+<b><u>Action Log</u></b> - Grouped by: <%=link_to_remote("Actions", :url => { :action => "index_grouped_by_actions" }) %> Events
 
 <table cellspacing="0" cellpadding="0">
   <colgroup span="8"></colgroup>
   <tr>
-    <th class="header">Event</th>
-    <th class="header">Action required<br/><%=link_to_remote "(quick add event &amp; action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :insert_after_dom_id => "first_empty_row" } } %></th>
-    <th class="header">Requested by</th>
-    <th class="header">Responsible</th>
-    <th class="header">Due date</th>
-    <th class="header">Completion date</th>
-    <th class="header"></th>
+    <th class="blueheader">Event</th>
+    <th class="blueheader">Action required<br/><%=link_to_remote "(quick add event &amp; action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :insert_after_dom_id => "first_empty_row" } } %></th>
+    <th class="blueheader">Requested by</th>
+    <th class="blueheader">Responsible</th>
+    <th class="blueheader">Due date</th>
+    <th class="blueheader">Completion date</th>
+    <th class="blueheader"></th>
   </tr>
 
   <tr id="first_empty_row"><td colspan="7"></td></tr>
