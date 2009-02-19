@@ -6,11 +6,15 @@ class ActionLogController < ApplicationController
     @event = Event.new
     #@event.default_meeting = current_account.user.meeting unless current_account.nil? || current_account.user.nil?
     @event.event_area_id = Event.find(flash[:last_used_event_id]).event_area_id unless flash[:last_used_event_id] == nil
+    @event.meeting_date = Time.now.to_date
 
     @aktion = Aktion.new
     #@aktion.default_meeting = current_account.user.meeting unless current_account.nil? || current_account.user.nil?
     @aktion.event_id = flash[:last_used_event_id] unless flash[:last_used_event_id] == nil
-
+    @aktion.assignment_date = Time.now.to_date
+    @aktion.requested_by_id = current_user.id
+    @aktion.primary_responsible_id = current_user.id
+    
     @edit_event = false
     if params.key?(:edit_event)
       @event = Event.find(params[:edit_event])
