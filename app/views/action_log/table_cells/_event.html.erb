@@ -4,7 +4,5 @@
   <%= h aktion.event.name %>
   <%= "</div>" if session[:cut_text]=='yes'%>
 </div>
-<%=link_to_remote "(full edit)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_event", :id => aktion.event } } %>
-<%=link_to_remote "(add action)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_add_action", :id => aktion.event, :insert_after_dom_id => "action-#{aktion.id}" } } %>
-<%=link_to_remote "(quick add action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_action", :id => aktion.event, :insert_after_dom_id => "action-#{aktion.id}" } } %>
-<br/><%=link_to_remote "(quick add event &amp; action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :insert_after_dom_id => "action-#{aktion.id}" } } %>
+<%=link_to_remote "(full&nbsp;edit)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_event", :id => aktion.event } } %>&nbsp;<%=link_to_remote "(add&nbsp;action)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_add_action", :id => aktion.event, :insert_after_dom_id => "action-#{aktion.id}" } } %>&nbsp;<%=link_to_remote "(quick&nbsp;add&nbsp;action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_action", :id => aktion.event, :insert_after_dom_id => "action-#{aktion.id}" } } %>
+

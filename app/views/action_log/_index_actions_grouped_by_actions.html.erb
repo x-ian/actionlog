@@ -20,7 +20,7 @@
 <table style="width: <%=session[:table_width]%>;" cellspacing="0" cellpadding="0">
   <colgroup span="8"></colgroup>
   <tr>
-    <th class="header">Event</th>
+    <th class="header">Event<br/><%=link_to_remote "(quick add event &amp; action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :insert_after_dom_id => "first_empty_row" } } %></th>
     <th style="white-space: nowrap;" class="header">Action required</th>
     <th style="white-space: nowrap;" class="header">Requested by</th>
     <th class="header">Responsible</th>

@@ -3,7 +3,7 @@
   <colgroup span="8"></colgroup>
   <tr>
     <th class="header">Event</th>
-    <th class="header">Action required</th>
+    <th class="header">Action required<br/><%=link_to_remote "(quick add event &amp; action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :insert_after_dom_id => "first_empty_row" } } %></th>
     <th class="header">Requested by</th>
     <th class="header">Responsible</th>
     <th class="header">Due date</th>

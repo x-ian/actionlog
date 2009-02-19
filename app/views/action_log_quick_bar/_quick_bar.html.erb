@@ -1,0 +1,26 @@
+<div class="quick-bar">
+  <div class="roundedcornr_box_479185">
+    <div class="roundedcornr_top_479185"><div></div></div>
+    <div class="roundedcornr_content_479185">
+
+      <%= link_to_function "<b>Action summary</b>", visual_effect(:toggle_blind,"quick-bar-content")%>
+      <div id="quick-bar-content">
+        <%#
+        <b>Next useful actions</b><br/>
+        - meeting selector<br/>
+        <%=link_to_remote "(quick add event &amp; action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :insert_after_dom_id => "first_empty_row" } } <br/>
+        - add event<br/>
+        - add action
+        <hr/>
+        %>
+        <table class="blindtable" id="meeting_summary">
+          <%= render :partial => 'action_log_quick_bar/meeting_summary_content', :locals => { :meeting_summary => ValueObjectMeetingSummary.new} %>
+        </table>
+        <%= periodically_call_remote(:url => { :controller => :action_log_quick_bar, :action => :update_meeting_summary }, :frequency => '20', :update => 'meeting_summary')%>
+      </div>
+
+    </div>
+    <div class="roundedcornr_bottom_479185"><div></div></div>
+  </div>
+
+</div>
