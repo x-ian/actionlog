@@ -37,6 +37,12 @@ th.header {
     padding:5px 4px;
 }
 
+th.blueheader {
+    background-color:#AFD5FB;
+    text-align:left;
+    padding:5px 4px;
+}
+
 .roundedcornr_box_479185 {
    background: #ffffff url(../images/roundedcornr_479185_grad.gif) no-repeat;
 }
