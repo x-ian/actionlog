@@ -52,20 +52,20 @@
   <!--
   <% if !@edit_event && !@edit_action %>
     <%= link_to_function "Add events and actions (old)", visual_effect(:toggle_blind,"add")%>
-                                        <div id="add" style="<%=style%>">
-                                          <table>
-                                            <tr>
-                                              <td valign="top">
+                                                <div id="add" style="<%=style%>">
+                                                  <table>
+                                                    <tr>
+                                                      <td valign="top">
     <%#= render :partial => 'action_log/events/new_event', :locals => { :event => @event } if !@edit_event && @event != nil %>
-                                              </td>
-                                              <td>
+                                                      </td>
+                                                      <td>
     <%#= render :partial => 'action_log/actions/new_action', :locals => { :aktion => @aktion} if !@edit_aktion && @aktion != nil %>
-                                              </td>
-                                            </tr>
-                                          </table>
-                                        </div>
+                                                      </td>
+                                                    </tr>
+                                                  </table>
+                                                </div>
   <% end %>
-                -->
+                    -->
 
   <% events_without_actions = !Event.find_events_without_actions(current_meeting).empty? %>
   <% if events_without_actions %>
@@ -85,15 +85,19 @@
   </div>
   <br/>
 
-  <div id="edit_event_popup" class="popup" style="display:none">
-    <%= render :partial => 'action_log_popup_edit/popup_edit_event_singleton', :locals => { :event => Event.new }  %>
+  <div class="centered-popup">
+    <div id="edit_event_popup" class="popup" style="display:none">
+      <%= render :partial => 'action_log_popup_edit/popup_edit_event_singleton', :locals => { :event => Event.new }  %>
+    </div>
+    <%= javascript_tag "new Popup('edit_event_popup','null',{modal:true,position:'center'})" %>
   </div>
-  <%= javascript_tag "new Popup('edit_event_popup','null',{modal:true,position:'center'})" %>
-
-  <div id="edit_action_popup" class="popup" style="display:none">
-    <%= render :partial => 'action_log_popup_edit/popup_edit_action_singleton', :locals => { :aktion => Aktion.new }  %>
+  
+  <div class="centered-popup">
+    <div id="edit_action_popup" class="popup" style="display:none">
+      <%= render :partial => 'action_log_popup_edit/popup_edit_action_singleton', :locals => { :aktion => Aktion.new }  %>
+    </div>
+    <%= javascript_tag "new Popup('edit_action_popup','null',{modal:true,position:'center'})" %>
   </div>
-  <%= javascript_tag "new Popup('edit_action_popup','null',{modal:true,position:'center'})" %>
 
   <%= link_to_function "Action Log", visual_effect(:toggle_blind,"index_action_log")%>
   <div id="index_action_log">
