@@ -152,6 +152,15 @@ class ActionLogController < ApplicationController
     end
   end
 
+  def show_popup_closeout_comment
+    aktion = Aktion.find(params[:id])
+
+    render :update do |page|
+      page.replace_html "popup_action_complete_closeout_comment", :partial => "action_log/actions/popup_action_closeout_comment", :locals => {:aktion => aktion }
+      page << "$('action_closeout_comment_popup').popup.show();"
+    end
+  end
+
   def complete_action
     unless params[:id].blank?
       a = Aktion.find(params[:id])

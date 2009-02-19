@@ -1,0 +1,9 @@
+<%= form_remote_tag(:url => { :controller => :action_log, :action => :complete_action, :id => aktion } )%>
+    <div id="popup_action_complete_closeout_comment">
+      <%#= render :partial => 'action_log/actions/popup_action_closeout_comment', :locals => { :event => event } %>
+    </div>
+    <%= submit_tag 'Mark as complete', :class => 'popup_closebox' %>
+    <a class="popup_closebox" href="#">Cancel</a>
+    <%#= tag :input, :type => 'button', :value => 'Cancel', :class => 'popup_closebox' %>
+    <%#= hidden_field_tag :back, :value => request.path %>
+</form>

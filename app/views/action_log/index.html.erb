@@ -113,6 +113,13 @@
     <%= javascript_tag "new Popup('edit_action_popup','null',{modal:true,position:'center'})" %>
   </div>
 
+  <div class="centered-popup">
+    <div id="action_closeout_comment_popup" class="popup" style="display:none">
+      <%= render :partial => 'action_log/actions/popup_action_closeout_comment_singleton', :locals => { :aktion => Aktion.new }  %>
+    </div>
+    <%= javascript_tag "new Popup('action_closeout_comment_popup','null',{modal:true,position:'center'})" %>
+  </div>
+
   <div class="roundedcornr_box_479185">
     <div class="roundedcornr_top_479185"><div></div></div>
     <div class="roundedcornr_content_479185">
