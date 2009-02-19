@@ -1,20 +1,22 @@
+<div class="roundedcornr_box_479185">
+  <div class="roundedcornr_top_479185"><div></div></div>
+  <div class="roundedcornr_content_479185">
 
-<table cellspacing="0" cellpadding="0">
-  <tr>
-    <th class="header">Area of Event</th>
-    <th class="header">Meeting date</th>
-    <th class="header">Event</th>
-    <th class="header">Owner</th>
-    <th class="header"></th>
-  </tr>
+    <table cellspacing="0" cellpadding="0" width="100%">
+      <tr>
+        <th class="blueheader">Area of Event</th>
+        <th class="blueheader">Meeting&nbsp;date</th>
+        <th class="blueheader" width="100%">Event</th>
+        <th class="blueheader">Owner</th>
+        <th class="blueheader"></th>
+      </tr>
 
-  <% for event in Event.find_events_without_actions(current_meeting) %>
-    <tr id="event-without-action-<%=event.id%>" class="<%=cycle('even-record record', 'record')%>">
-      <td><%=event.event_area.name %></td>
-      <td><%=event.meeting_date.nil? ? "&#160;" : event.meeting_date %></td>
-      <td><%=link_to_remote event.name, :url => { :controller => "action_log", :action => "edit_event_remote_for_events_without_actions", :id => event } %></td>
-      <td><%=event.user.nil? ? "&#160;" : event.user.name %></td>
-      <td><%=link_to_remote "Add action", :url => { :controller => "action_log", :action => "add_action_to_event_remote", :id => event } %></td>
-    </tr>
-  <% end %>
-</table>
+      <% for event in Event.find_events_without_actions(current_meeting) %>
+        <tr id="event-without-action-<%=event.id%>" class="even-record record">
+          <%= render :partial => 'index_events_without_actions_tr', :locals => { :event => event } %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="roundedcornr_bottom_479185"><div></div></div>
+</div>

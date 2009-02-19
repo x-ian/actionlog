@@ -49,25 +49,31 @@
   <!--
   <% if !@edit_event && !@edit_action %>
     <%= link_to_function "Add events and actions (old)", visual_effect(:toggle_blind,"add")%>
-                        <div id="add" style="<%=style%>">
-                          <table>
-                            <tr>
-                              <td valign="top">
+                                    <div id="add" style="<%=style%>">
+                                      <table>
+                                        <tr>
+                                          <td valign="top">
     <%#= render :partial => 'action_log/events/new_event', :locals => { :event => @event } if !@edit_event && @event != nil %>
-                              </td>
-                              <td>
+                                          </td>
+                                          <td>
     <%#= render :partial => 'action_log/actions/new_action', :locals => { :aktion => @aktion} if !@edit_aktion && @aktion != nil %>
-                              </td>
-                            </tr>
-                          </table>
-                        </div>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
   <% end %>
-        -->
+              -->
 
-  <%= link_to_function "Events without Actions (experimental)", visual_effect(:toggle_blind,"index_events_without_actions")%>
-  <div id="index_events_without_actions" style = "display: none;">
-    <%= render :partial => 'index_events_without_actions', :locals => { } %>
-  </div>
+  <% events_without_actions = !Event.find_events_without_actions(current_meeting).empty? %>
+  <% if events_without_actions %>
+    <br/><br/>
+    <% style = "display: none;" %>
+    <% style = "" if events_without_actions %>
+    <%= link_to_function "Events without Actions", visual_effect(:toggle_blind,"index_events_without_actions")%>
+    <div id="index_events_without_actions" style = "<%=style%>">
+      <%= render :partial => 'index_events_without_actions', :locals => { } %>
+    </div>
+  <% end %>
   <br/>
 
   <%= link_to_function "Toggle filter", visual_effect(:toggle_blind,"index_filter")%>

@@ -29,6 +29,7 @@
     <th class="header"></th>
   </tr>
 
+  <tr id="first_empty_row"><td colspan="7"></td></tr>
   <% for aktion in @aktions %>
       <%= render :partial => "action_log/index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion } %>
   <% end %>

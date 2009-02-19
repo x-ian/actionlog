@@ -1,0 +1,8 @@
+<td style="white-space: nowrap" id="event-without-action-<%=event.id%>-area"><%=event.event_area.name %></td>
+<td id="event-without-action-<%=event.id%>-meeting"><%=event.meeting_date.nil? ? "&#160;" : event.meeting_date %></td>
+<td id="event-without-action-<%=event.id%>-name"><%=h event.name %></td>
+<td id="event-without-action-<%=event.id%>-owner"style="white-space: nowrap"><%=event.user.nil? ? "&#160;" : event.user.name %></td>
+<td id="event-without-action-<%=event.id%>-actions">
+  <%=link_to_remote "(full&nbsp;edit)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_event", :id => event, :from_events_without_actions => :true } } %>&nbsp;<%=link_to '(delete)', { :controller => :action_log, :action => :destroy_event, :id => event.id}, :confirm => 'Are you sure?', :method => :delete %><br/>
+  <%=link_to_remote "(add&nbsp;action)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_add_action", :id => event, :insert_after_dom_id => "first_empty_row", :remove_dom_id => "event-without-action-#{event.id}" } } %>
+</td>

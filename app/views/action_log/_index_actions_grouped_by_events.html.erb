@@ -11,6 +11,7 @@
     <th class="header"></th>
   </tr>
 
+  <tr id="first_empty_row"><td colspan="7"></td></tr>
   <% for event in @events %>
     <%  clazz = "record" %>
     <tr class="<%=clazz %>" id="event-<%=event.id%>-event-tr">

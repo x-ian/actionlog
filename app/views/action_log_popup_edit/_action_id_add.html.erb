@@ -1,3 +1,5 @@
 <%# without id to indicate add mode %>
 <%#= hidden_field_tag :id, aktion.id %>
-<%= hidden_field_tag :current_dom_id, current_dom_id %>
+<%= hidden_field_tag :insert_after_dom_id, insert_after_dom_id %>
+<%# indicate if add action is invoked from "events without actions" %>
+<%= hidden_field_tag :remove_dom_id, remove_dom_id %>
