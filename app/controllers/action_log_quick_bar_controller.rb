@@ -1,4 +1,7 @@
 class ActionLogQuickBarController < ApplicationController
+
+  before_filter :login_required
+
   def update_meeting_summary
     sql = "SELECT DISTINCT COUNT(aktions.id) FROM aktions, events, event_areas "
     sql += "WHERE event_id = events.id AND events.event_area_id = event_areas.id AND event_areas.meeting_id=#{current_meeting.id} "

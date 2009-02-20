@@ -1,5 +1,7 @@
 class ActionLogPopupEditController < ApplicationController
 
+  before_filter :login_required
+
   # Aktion
 
   def show_popup_add_action

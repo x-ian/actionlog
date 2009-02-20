@@ -1,5 +1,7 @@
 class ActionLogInplaceEditController < ApplicationController
 
+  before_filter :login_required
+
   def inplace_edit_event_grouped_by_events
     render :partial => "inplace_edit_event_grouped_by_events", :locals => { :event => Event.find(params[:id]) }
   end

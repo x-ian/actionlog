@@ -1,5 +1,7 @@
 class ActionLogQuickAddController < ApplicationController
 
+  before_filter :login_required
+
   def quick_add_action
     aktion = Aktion.new
     aktion.event = Event.find(params[:id])
