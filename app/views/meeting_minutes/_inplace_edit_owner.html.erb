@@ -1,0 +1,7 @@
+<% form_remote_tag :url => { :action => "update_owner"} do %>
+  <%= select_tag :user, create_user_select_tag_options(minute.user, User.find(:all), true) %>
+  <%= hidden_field_tag :id, minute.id %>
+  <br/>
+  <%= submit_tag 'Save' %>
+  <%= link_to_remote 'Cancel', :url => {:action => "update_owner", :id => minute } %>
+<% end %>

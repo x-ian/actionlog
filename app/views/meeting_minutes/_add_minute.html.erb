@@ -1,0 +1,18 @@
+<% remote_form_for(minute, :url => { :action => "create_minute"}) do |f| %>
+  <table>
+    <tr>
+      <td>Area of Event</td>
+      <td>Meeting date</td>
+      <td>Minute/Agreement</td>
+      <td>Owner</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><%= f.collection_select(:event_area_id, EventArea.find_all_by_meeting_id(meeting_id), :id, :name, {}, { :style=>"width:200px;"}) %></td>
+      <td><%= f.calendar_date_select :meeting_date, :size => 10, :maxlength => 10 %></td>
+      <td><%= f.text_area :name, :size=>"40x4" %></td>
+      <td><%= f.collection_select :user_id, User.find(:all), :id, :name, { :include_blank => true } %></td>
+      <td><%= f.submit "Add" %></td>
+    </tr>
+  </table>
+<% end %>

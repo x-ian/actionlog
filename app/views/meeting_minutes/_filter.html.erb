@@ -1,0 +1,30 @@
+<% form_remote_tag(:url => { :action => "apply_filter" }, :method => :get) do %>
+  <table>
+    <tr>
+      <td>
+        Area&nbsp;of&nbsp;Event<br/>
+        <%=select_tag "event_area", options_for_select_filter(EventArea.find_all_by_meeting_id(meeting_id), event_area ), :style=>"width:200px;", :onchange=>"document.getElementById ('submit_location_id').click();", :id => "filter_event_area" %>
+      </td>
+      <td>
+        Meeting date<br/>
+        <%= calendar_date_select_tag "meeting_date", meeting_date, :size => 10, :maxlength => 10, :onchange=>"document.getElementById ('submit_location_id').click();", :id => :filter_meeting_date %>
+      </td>
+      <td>
+        Owner<br/>
+        <%=select_tag "owner", options_for_select_filter(User.find(:all), owner, true ), :onchange=>"document.getElementById ('submit_location_id').click();", :id => :filter_owner %>
+      </td>
+      <td>
+        <%= link_to_remote "Reset filter", :url => { :action => "apply_filter" } %>
+        <span style="display:none;"><input type='submit' id='submit_location_id'/></span>
+      </td>
+      <td>
+        URL for current filter<br/>
+        <% url = "http://localhost:3000/meeting_minutes?meeting=#{meeting_id}" %>
+        <% url += "&event_area=#{event_area}" unless event_area.blank? %>
+        <% url += "&owner=#{owner}" unless owner.blank? %>
+        <% url += "&meeting_date=#{meeting_date}" unless meeting_date.blank? %>
+        <%=link_to url, url, :popup => true, :confirm => "Open the current filter URL in a new window?" %>
+      </td>
+    </tr>
+  </table>
+<% end %>

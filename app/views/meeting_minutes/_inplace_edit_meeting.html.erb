@@ -1,0 +1,7 @@
+<% form_remote_tag :url => { :action => "update_meeting"} do %>
+  <%= calendar_date_select_tag :meeting_date, minute.meeting_date, :size => 10, :maxlength => 10 %>
+  <%= hidden_field_tag :id, minute.id %>
+  <br/>
+  <%= submit_tag 'Save' %>
+  <%= link_to_remote 'Cancel', :url => {:action => "update_meeting", :id => minute } %>
+<% end %>

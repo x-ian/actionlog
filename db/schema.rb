@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090202142223) do
+ActiveRecord::Schema.define(:version => 20090220093621) do
 
   create_table "accounts", :force => true do |t|
     t.string   "login",                     :limit => 40
@@ -111,6 +111,15 @@ ActiveRecord::Schema.define(:version => 20090202142223) do
   create_table "meetings_users", :id => false, :force => true do |t|
     t.integer "meeting_id"
     t.integer "user_id"
+  end
+
+  create_table "minutes", :force => true do |t|
+    t.text     "name"
+    t.integer  "event_area_id"
+    t.integer  "user_id"
+    t.date     "meeting_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "organizational_units", :force => true do |t|

@@ -1,0 +1,14 @@
+<table cellspacing="0" cellpadding="0" width="100%">
+  <tr>
+    <th class="blueheader">Area&nbsp;of&nbsp;Event</th>
+    <th class="blueheader">Meeting&nbsp;date</th>
+    <th class="blueheader" width="100%">Minute/Agreement</th>
+    <th class="blueheader">Owner</th>
+    <th class="blueheader"></th>
+  </tr>
+
+  <tr id="first_empty_row"><td colspan="5"></td></tr>
+  <% for minute in @minutes %>
+    <%= render :partial => 'minutes_tr', :locals => { :minute => minute } %>
+  <% end %>
+</table>

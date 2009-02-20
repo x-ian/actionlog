@@ -1,0 +1,7 @@
+<% form_remote_tag :url => { :action => "update_area"} do %>
+  <%= select_tag :event_area, create_collection_select_tag_options(minute.event_area, EventArea.find_all_by_meeting_id(meeting_id), false, :id, :name) %>
+  <%= hidden_field_tag :id, minute.id %>
+  <br/>
+  <%= submit_tag 'Save' %>
+  <%= link_to_remote 'Cancel', :url => {:action => "update_area", :id => minute } %>
+<% end %>

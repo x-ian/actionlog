@@ -1,0 +1,7 @@
+<% form_remote_tag :url => { :action => "update_name"} do %>
+  <%= text_area_tag :name, minute.name, :size => "40x4" %>
+  <%= hidden_field_tag :id, minute.id %>
+  <br/>
+  <%= submit_tag 'Save' %>
+  <%= link_to_remote 'Cancel', :url => {:action => "update_name", :id => minute } %>
+<% end %>

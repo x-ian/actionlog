@@ -1,0 +1,51 @@
+<%= javascript_include_tag :defaults %>
+<%= stylesheet_link_tag 'global' %>
+<%= calendar_date_select_includes %>
+<% CalendarDateSelect.format = :iso_date  %>
+<% CalendarDateSelect.image = "/images/calendar_date_select/calendar.gif"%>
+
+<% if current_meeting.nil? %>
+  <br/><br/><br/><br/><br/>
+  <p align="center"><b>Choose current meeting with Meeting Selector in top right corner.</b></p>
+  <%= update_page_tag do |page|
+    page.visual_effect(:pulsate, "cmeeting_selector", :duration => 2, :pulses=>5)
+  end %>
+
+<% else %>
+
+  <div class="roundedcornr_box_479185">
+    <div class="roundedcornr_top_479185"><div></div></div>
+    <div class="roundedcornr_content_479185">
+      <% if !@edit_event %>
+        <%= link_to_function "<b>Add minute</b>", visual_effect(:toggle_blind,"add_minute")%>
+        <div id="add_minute" style="display:none;">
+          <%= render :partial => 'add_minute', :locals => { :minute => Minute.new_with_defaults, :meeting_id => current_meeting.id } %>
+        </div>
+      <% end %>
+    </div>
+    <div class="roundedcornr_bottom_479185"><div></div></div>
+  </div>
+
+  <div class="roundedcornr_box_479185">
+    <div class="roundedcornr_top_479185"><div></div></div>
+    <div class="roundedcornr_content_479185">
+      <%= link_to_function "<b>Filter</b>", visual_effect(:toggle_blind,"filter")%>
+      <div id="filter" style = "display:none;">
+        <%= render :partial => 'filter', :locals => {  :meeting_id => current_meeting.id, :event_area => params[:event_area], :meeting_date => params[:meeting_date], :owner => params[:owner] } %>
+      </div>
+    </div>
+    <div class="roundedcornr_bottom_479185"><div></div></div>
+  </div>
+
+  <div class="roundedcornr_box_479185">
+    <div class="roundedcornr_top_479185"><div></div></div>
+    <div class="roundedcornr_content_479185">
+      <%= link_to_function "<b>Meeting minutes</b>", visual_effect(:toggle_blind,"minutes")%>
+      <div id="minutes">
+        <%= render :partial => 'minutes', :locals => { } %>
+      </div>
+    </div>
+    <div class="roundedcornr_bottom_479185"><div></div></div>
+  </div>
+
+<% end %>
