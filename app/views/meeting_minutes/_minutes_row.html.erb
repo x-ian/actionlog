@@ -1,19 +1,19 @@
-<td style="white-space: nowrap" id="minute-<%=minute.id%>-area">
+<td style="white-space: nowrap" id="minute-<%=minute.id%>-area" title="Click to edit">
   <div onclick="<%=remote_function :update => 'minute-' + minute.id.to_s + '-area', :url => { :action=>"inplace_edit_area", :id=>minute.id} %>">
     <%=minute.event_area.name %>
   </div>
 </td>
-<td style="white-space: nowrap" id="minute-<%=minute.id%>-meeting">
+<td style="white-space: nowrap" id="minute-<%=minute.id%>-meeting" title="Click to edit">
   <div onclick="<%=remote_function :update => 'minute-' + minute.id.to_s + '-meeting', :url => { :action=>"inplace_edit_meeting", :id=>minute.id} %>">
     <%=minute.meeting_date.nil? ? "&#160;" : minute.meeting_date %>
   </div>
 </td>
-<td id="minute-<%=minute.id%>-name">
+<td id="minute-<%=minute.id%>-name" title="Click to edit">
   <div onclick="<%=remote_function :update => 'minute-' + minute.id.to_s + '-name', :url => { :action=>"inplace_edit_name", :id=>minute.id} %>">
     <%= h minute.name %>
   </div>
 </td>
-<td id="minute-<%=minute.id%>-owner"style="white-space: nowrap">
+<td id="minute-<%=minute.id%>-owner"style="white-space: nowrap" title="Click to edit">
   <div onclick="<%=remote_function :update => 'minute-' + minute.id.to_s + '-owner', :url => { :action=>"inplace_edit_owner", :id=>minute.id} %>">
     <%=minute.user.nil? ? "&#160;" : minute.user.name %>
   </div>
