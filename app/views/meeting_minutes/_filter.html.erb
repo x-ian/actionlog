@@ -19,7 +19,7 @@
       </td>
       <td>
         URL for current filter<br/>
-        <% url = "http://actionlog.dynalias.com/meeting_minutes?meeting=#{meeting_id}" %>
+        <% url = controller_url + "?meeting=#{meeting_id}" %>
         <% url += "&event_area=#{event_area}" unless event_area.blank? %>
         <% url += "&owner=#{owner}" unless owner.blank? %>
         <% url += "&meeting_date=#{meeting_date}" unless meeting_date.blank? %>
