@@ -1,0 +1,58 @@
+--- !ruby/object:Gem::Specification 
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - '>='
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+email: 
+cert_chain: []
+
+summary: 
+post_install_message: 
+extra_rdoc_files: []
+
+homepage: 
+signing_key: 
+name: calendar_date_select
+rdoc_options: []
+
+autorequire: 
+rubyforge_project: 
+executables: []
+
+description: 
+specification_version: 2
+default_executable: 
+files: 
+- lib
+- lib/calendar_date_select
+- lib/calendar_date_select.rb
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - '>='
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+extensions: []
+
+rubygems_version: 1.2.0
+requirements: []
+
+authors: []
+
+date: 2009-02-22 23:00:00 +00:00
+platform: ruby
+test_files: []
+
+version: !ruby/object:Gem::Version 
+  version: "1.13"
+require_paths: 
+- bin
+- bin
+- bin
+- lib
+dependencies: []
+
+bindir: bin
+has_rdoc: false
