@@ -87,6 +87,8 @@ CalendarDateSelect.prototype = {
       close_on_click: nil,
       minute_interval: 5,
       popup_by: this.target_element,
+      // CN
+      parent_div: nil,
       month_year: "dropdowns",
       onchange: this.target_element.onchange,
       valid_date_check: nil
@@ -105,9 +107,15 @@ CalendarDateSelect.prototype = {
   },
   positionCalendarDiv: function() {
     var above = false;
-    var c_pos = this.calendar_div.cumulativeOffset(), c_left = c_pos[0], c_top = c_pos[1], c_dim = this.calendar_div.getDimensions(), c_height = c_dim.height, c_width = c_dim.width; 
+    var c_pos = this.calendar_div.cumulativeOffset(), c_left = c_pos[0], c_top = c_pos[1]+1000, c_dim = this.calendar_div.getDimensions(), c_height = c_dim.height, c_width = c_dim.width;
     var w_top = window.f_scrollTop(), w_height = window.f_height();
-    var e_dim = $(this.options.get("popup_by")).cumulativeOffset(), e_top = e_dim[1], e_left = e_dim[0], e_height = $(this.options.get("popup_by")).getDimensions().height, e_bottom = e_top + e_height;
+    // CN
+    var parent = this.options.get("parent_div");
+    if (parent == nil) {
+      var e_dim = $(this.options.get("popup_by")).cumulativeOffset(), e_top = e_dim[1], e_left = e_dim[0], e_height = $(this.options.get("popup_by")).getDimensions().height, e_bottom = e_top + e_height;
+    } else {
+      var e_dim = $(this.options.get("popup_by")).cumulativeOffset(), e_top = e_dim[1]-document.getElementById(parent).cumulativeOffset()[1], e_left = e_dim[0]-document.getElementById(parent).cumulativeOffset()[0], e_height = $(this.options.get("popup_by")).getDimensions().height, e_bottom = e_top + e_height;
+    }
     
     if ( (( e_bottom + c_height ) > (w_top + w_height)) && ( e_bottom - c_height > w_top )) above = true;
     var left_px = e_left.toString() + "px", top_px = (above ? (e_top - c_height ) : ( e_top + e_height )).toString() + "px";
@@ -117,14 +125,24 @@ CalendarDateSelect.prototype = {
     this.calendar_div.setStyle({visibility:""});
     
     // draw an iframe behind the calendar -- ugly hack to make IE 6 happy
-    if(navigator.appName=="Microsoft Internet Explorer") this.iframe = $(document.body).build("iframe", {src: "javascript:false", className: "ie6_blocker"}, { left: left_px, top: top_px, height: c_height.toString()+"px", width: c_width.toString()+"px", border: "0px"})
+    // CN
+    if (parent == nil) {
+      if(navigator.appName=="Microsoft Internet Explorer") this.iframe = $(document.body).build("iframe", {src: "javascript:false", className: "ie6_blocker"}, { left: left_px, top: top_px, height: c_height.toString()+"px", width: c_width.toString()+"px", border: "0px"})
+    } else {
+      if(navigator.appName=="Microsoft Internet Explorer") this.iframe = $(document.getElementById(this.options.get("parent_div"))).build("iframe", {src: "javascript:false", className: "ie6_blocker"}, { left: left_px, top: top_px, height: c_height.toString()+"px", width: c_width.toString()+"px", border: "0px"})
+    }
   },
   initCalendarDiv: function() {
     if (this.options.get("embedded")) {
       var parent = this.target_element.parentNode;
       var style = {}
     } else {
-      var parent = document.body
+      // CN
+      if (this.options.get("parent_div") == nil) {
+        var parent = document.body
+      } else {
+        var parent = document.getElementById(this.options.get("parent_div"));
+      }
       var style = { position:"absolute", visibility: "hidden", left:0, top:0 }
     }
     this.calendar_div = $(parent).build('div', {className: "calendar_date_select"}, style);
