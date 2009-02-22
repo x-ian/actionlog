@@ -1,4 +1,4 @@
-<%= calendar_date_select_tag "aktion[new_target_date]", aktion.new_target_date, :size => 10, :maxlength => 10,
+<%= calendar_date_select_tag "aktion[new_target_date]", aktion.new_target_date, :size => 10, :maxlength => 10, :parent_div=>"'edit_action_popup'" ,
   :onchange => remote_function(:url => { :action => :show_review_date, :id => aktion.id }, :with => "'value=' + $('aktion[new_target_date]').value")%>
 <%= aktion.new_target_date_changed ? "(already changed)" : "" %>
 <%= aktion.target_date.blank? ? "" : "(initial: " + aktion.target_date.to_s + ")"%>

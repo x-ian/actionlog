@@ -1,5 +1,5 @@
   <td>Review date</td>
   <td>
-    <%= calendar_date_select_tag "aktion[review_date]", aktion.review_date, :size => 10, :maxlength => 10, :id => :popup_aktion_review_date %>
+    <%= calendar_date_select_tag "aktion[review_date]", aktion.review_date, :size => 10, :maxlength => 10, :id => :popup_aktion_review_date, :parent_div=>"'edit_action_popup'"  %>
     (Target date more than 6 weeks ahead)
   </td>

@@ -26,7 +26,7 @@
   </tr>
   <tr>
     <td>Meeting date</td>
-    <td><%= calendar_date_select_tag "event[meeting_date]", event.meeting_date, :size => 10, :maxlength => 10, :id => :popup_event_meeting_date %></td>
+    <td><%= calendar_date_select_tag "event[meeting_date]", event.meeting_date, :size => 10, :maxlength => 10, :id => :popup_event_meeting_date, :parent_div=>"'edit_event_popup'" %></td>
   </tr>
   <tr>
     <td>Owner</td>
