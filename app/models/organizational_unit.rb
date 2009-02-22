@@ -8,6 +8,7 @@ class OrganizationalUnit < ActiveRecord::Base
   has_and_belongs_to_many :users
   belongs_to :parent, :class_name=>"OrganizationalUnit"
   has_many :meetings
+  belongs_to :responsible_user, :class_name=>"User"
 
   def correct_parent
     write_attribute :parent_id, 0 if parent.nil?

@@ -18,6 +18,15 @@ class Event < ActiveRecord::Base
     write_attribute :log_date, Time.now.to_date
   end
 
+  def self.new_with_defaults(meeting)
+    e = Event.new
+    e.user_id = meeting.organizational_unit.responsible_user_id unless meeting.organizational_unit.responsible_user.blank?
+    e.meeting_date = Time.now.to_date
+    e.event_type_id = EventType::ISSUE
+    e.event_area = EventArea.find_by_meeting_id(meeting)
+    return e
+  end
+
   # BEGIN possible mixin or whatever for aktion and event
   def default_meeting=(v)
     @default_meeting = v

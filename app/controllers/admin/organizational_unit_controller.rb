@@ -12,5 +12,6 @@ class Admin::OrganizationalUnitController < ApplicationController
     #columns[:phone].label = "Phone #"
     #columns[:phone].description = "(Format: ###-###-####)"
     config.columns[:parent].ui_type = :select
+    config.columns[:responsible_user].ui_type = :select
   end
 end

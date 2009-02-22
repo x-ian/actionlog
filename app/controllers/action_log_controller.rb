@@ -3,10 +3,10 @@ class ActionLogController < ApplicationController
   before_filter :login_required
 
   def index
-    @event = Event.new
+    @event = Event.new_with_defaults current_meeting
     #@event.default_meeting = current_account.user.meeting unless current_account.nil? || current_account.user.nil?
     @event.event_area_id = Event.find(flash[:last_used_event_id]).event_area_id unless flash[:last_used_event_id] == nil
-    @event.meeting_date = Time.now.to_date
+    #@event.meeting_date = Time.now.to_date
 
     @aktion = Aktion.new
     #@aktion.default_meeting = current_account.user.meeting unless current_account.nil? || current_account.user.nil?

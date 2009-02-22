@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090222180258) do
+ActiveRecord::Schema.define(:version => 20090222183506) do
 
   create_table "accounts", :force => true do |t|
     t.string   "login",                     :limit => 40
@@ -129,9 +129,10 @@ ActiveRecord::Schema.define(:version => 20090222180258) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "lft",                         :null => false
-    t.integer  "rgt",                         :null => false
-    t.integer  "lock_version", :default => 0
+    t.integer  "lft",                                :null => false
+    t.integer  "rgt",                                :null => false
+    t.integer  "lock_version",        :default => 0
+    t.integer  "responsible_user_id"
   end
 
   create_table "organizational_units_users", :id => false, :force => true do |t|

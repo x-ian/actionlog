@@ -48,12 +48,8 @@ class ActionLogQuickAddController < ApplicationController
 
   def add_event_and_action
     if params[:event_id].blank?
-      event = Event.new
-      # defaults for event
-      event.meeting_date = Time.now.to_date
-      event.event_type_id = EventType::ISSUE
+      event = Event.new_with_defaults current_meeting
       event.name = params[:event_name]
-      event.event_area = EventArea.find_by_meeting_id(current_meeting)
       event.save
     else
       event = Event.find(params[:event_id])
