@@ -12,7 +12,7 @@ class ActionLogQuickBarController < ApplicationController
     # all completed actions of current meeting and actual_completion_date = today
     s.completed_actions_today = Aktion.count_by_sql sql + " AND action_status_id=#{ActionStatus::COMPLETED} AND actual_completion_date='#{Time.now.to_date}'"
     # all completed actions of current meeting by current_user
-    s.completed_actions_by_user ="-?-"
+    s.completed_actions_by_user = Aktion.count_by_sql sql + " AND action_status_id=#{ActionStatus::COMPLETED} AND closed_by_id=#{current_user.id}"
     # all uncompleted actions of current meeting
     s.uncompleted_actions = Aktion.count_by_sql sql + " AND action_status_id=#{ActionStatus::UNCOMPLETED}"
 

@@ -11,6 +11,7 @@ class Aktion < ActiveRecord::Base
   belongs_to :requested_by, :class_name=>"User"
   belongs_to :primary_responsible, :class_name=>"User"
   belongs_to :secondary_responsible, :class_name=>"User"
+  belongs_to :closed_by, :class_name=>"User"
 
   def save
     # timestamp every change
@@ -30,10 +31,11 @@ class Aktion < ActiveRecord::Base
     super
   end
 
-  def complete!(closeout_comment)
+  def complete!(closeout_comment, closed_by)
     self.actual_completion_date = Time.now.to_date
     self.action_status_id = ActionStatus::COMPLETED
     self.closeout_comment = closeout_comment if closeout_comment != nil
+    self.closed_by = closed_by
     save
   end
 

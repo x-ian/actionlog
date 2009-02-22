@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090220093621) do
+ActiveRecord::Schema.define(:version => 20090222180258) do
 
   create_table "accounts", :force => true do |t|
     t.string   "login",                     :limit => 40
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20090220093621) do
     t.datetime "updated_at"
     t.date     "internal_due_date_for_sorting"
     t.integer  "action_type_id"
+    t.integer  "closed_by_id"
   end
 
   create_table "event_areas", :force => true do |t|

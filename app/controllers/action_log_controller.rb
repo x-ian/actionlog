@@ -164,7 +164,7 @@ class ActionLogController < ApplicationController
   def complete_action
     unless params[:id].blank?
       a = Aktion.find(params[:id])
-      a.complete! params[:closeout_comment]
+      a.complete! params[:closeout_comment], current_user
       render :update do |page|
         page.replace_html "action-#{a.id}", :partial => "index_actions_grouped_by_actions_row", :locals => {:aktion => a}
         highlight_changed_row page, a
