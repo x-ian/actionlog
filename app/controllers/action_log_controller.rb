@@ -32,7 +32,7 @@ class ActionLogController < ApplicationController
     session[:actions_per_page] = "(all)" if session[:actions_per_page].blank?
     session[:cut_text] ="no" if session[:cut_text].blank?
     session[:font_size] = "auto" if session[:font_size].blank?
-    session[:table_width] = "auto" if session[:table_width].blank?
+    session[:table_width] = "100%" if session[:table_width].blank?
     
     @aktions = []
     @events = []

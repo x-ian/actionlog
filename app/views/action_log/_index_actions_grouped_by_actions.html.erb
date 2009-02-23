@@ -10,7 +10,7 @@
         <%= "Font size:" %>
         <%=select_tag "font_size", create_select_tag_options2(session[:font_size], [ "auto", "10px", "11px", "12px", "13px"]), :onchange=>"document.getElementById ('submit_table_properties').click();" %>
         <%= "Table width:" %>
-        <%=select_tag "table_width", create_select_tag_options2(session[:table_width], [ "auto", "800px", "1024px", "1280px"]), :onchange=>"document.getElementById ('submit_table_properties').click();" %>
+        <%=select_tag "table_width", create_select_tag_options2(session[:table_width], [ "100%", "auto", "800px", "1024px", "1280px"]), :onchange=>"document.getElementById ('submit_table_properties').click();" %>
         <span style="display:none;"><input type='submit' id='submit_table_properties'/></span>
       <% end %>
     </td>
