@@ -9,10 +9,19 @@
   end %>
 
 <% else %>
-
   <h3 align="center"><%=current_user.name%>'s Daily Digest Dashboard at <%=Time.now.to_date%></h3>
-
-  <div class="roundedcornr_box_479185">
+  <% if params[:print].blank? %>
+    <p align="center">
+      <b>Go to:</b>
+      <%= link_to "Actions I'm responsible for", :action => :index, :anchor => :my_responsible_actions_anchor %> |
+      <%= link_to "My requested Actions", :action => :index, :anchor => :my_requested_actions_anchor %> |
+      <%= link_to "Events I own", :action => :index, :anchor => :my_events_anchor %> |
+      <%= link_to "Lastest Meeting Minutes", :action => :index, :anchor => :last_meeting_minutes_anchor %>
+      &nbsp;&nbsp;&nbsp;<b>Print:</b>
+      <%= link_to "Preview", :action => :index, :print => true %>
+    </p>
+  <% end %>
+  <div class="roundedcornr_box_479185" id="my_responsible_actions_anchor">
     <div class="roundedcornr_top_479185"><div></div></div>
     <div class="roundedcornr_content_479185">
       <%= link_to_function "<h4 align='center'>Actions I'm responsible for</h4>", visual_effect(:toggle_blind,"my_responsible_actions")%>
@@ -23,7 +32,7 @@
     <div class="roundedcornr_bottom_479185"><div></div></div>
   </div>
 
-  <div class="roundedcornr_box_479185">
+  <div class="roundedcornr_box_479185" id="my_requested_actions_anchor">
     <div class="roundedcornr_top_479185"><div></div></div>
     <div class="roundedcornr_content_479185">
       <%= link_to_function "<h4 align='center'>My requested Actions</h4>", visual_effect(:toggle_blind,"my_requested_actions")%>
@@ -34,22 +43,22 @@
     <div class="roundedcornr_bottom_479185"><div></div></div>
   </div>
 
-  <div class="roundedcornr_box_479185">
+  <div class="roundedcornr_box_479185" id="my_events_anchor">
     <div class="roundedcornr_top_479185"><div></div></div>
     <div class="roundedcornr_content_479185">
       <%= link_to_function "<h4 align='center'>Events I own</h4>", visual_effect(:toggle_blind,"my_events")%>
-      <div id="my_events" style="display:none;">
+      <div id="my_events">
         <%= render :partial => 'my_events' %>
       </div>
     </div>
     <div class="roundedcornr_bottom_479185"><div></div></div>
   </div>
 
-  <div class="roundedcornr_box_479185">
+  <div class="roundedcornr_box_479185" id="last_meeting_minutes_anchor">
     <div class="roundedcornr_top_479185"><div></div></div>
     <div class="roundedcornr_content_479185">
       <%= link_to_function "<h4 align='center'>Lastest Meeting Minutes</h4>", visual_effect(:toggle_blind,"last_meeting_minutes")%>
-      <div id="last_meeting_minutes" style = "display:none;">
+      <div id="last_meeting_minutes">
         <%= render :partial => 'meeting_minutes/minutes', :locals => {  :meeting_id => current_meeting.id, :event_area => nil, :meeting_date => nil, :owner => nil } %>
       </div>
     </div>

@@ -6,22 +6,32 @@
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <title>Daily Digest Dashboard: <%= controller.action_name %></title>
     <%= stylesheet_link_tag 'scaffold' %>
-    <%= stylesheet_link_tag 'global' %>
+    <%= stylesheet_link_tag 'global', :media=>:all %>
   </head>
   <body>
     <div>
-      <div style="position:absolute; left:400px" id="overlay" align="center" >
-        <div id="spinner">
-          <%=image_tag("spinner/progress_bar.gif?", :id => "busy")%>
-          <br/>Please wait while processing request...</div></div>
+      <% if params[:print].blank? %>
+        <div style="position:absolute; left:400px" id="overlay" align="center" >
+          <div id="spinner">
+            <%=image_tag("spinner/progress_bar.gif?", :id => "busy")%>
+            <br/>Please wait while processing request...
+          </div>
+        </div>
+      <% end %>
       <div >
-        <%= render :partial => 'layouts/menu' %>
-
+        <% if params[:print].blank? %>
+          <%= render :partial => 'layouts/menu' %>
+        <% else %>
+          <b>Go to:</b> <%=link_to "Back to Daily Digest Dashboard", :controller => :daily_digest_dashboard %>
+          &nbsp;&nbsp;&nbsp;<b>Print:</b> <%=link_to_function("This Page", "javascript:print()")%>
+        <% end %>
         <%= yield  %>
       </div>
     </div>
-    <%= update_page_tag do |page|
-      page["overlay"].hide
-    end %>
+    <% if params[:print].blank? %>
+      <%= update_page_tag do |page|
+        page["overlay"].hide
+      end %>
+    <% end %>
   </body>
 </html>
