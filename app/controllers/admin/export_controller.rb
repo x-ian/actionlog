@@ -15,7 +15,7 @@ class Admin::ExportController < ApplicationController
       l += ";;;;"
       l += nil2empty(a.event.log_date) unless a.event_id == nil
       l += ";"
-      l += a.event.event_type.name unless a.event_id == nil
+      l += nil2empty(a.event.event_type.name) unless a.event == nil || a.event.event_type == nil
       l += ";"
       l += a.event.name unless a.event_id == nil
       l += ";"
@@ -32,7 +32,7 @@ class Admin::ExportController < ApplicationController
       l += nil2empty(a.actual_completion_date) + ";"
       l += a.requested_by.name unless a.requested_by_id == nil
       l += ";"
-      l += a.closeout_comment
+      l +=  nil2empty(a.closeout_comment)
       l += "\n"
     end
     l
