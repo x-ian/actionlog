@@ -4,7 +4,7 @@
     <% if aktion.review_date != nil && aktion.review_date != "" %>
       <tr>
         <td style="font-size:<%=session[:font_size]%>;">Review:&nbsp;</td>
-        <td style="font-size:<%=session[:font_size]%>;"><%=h aktion.review_date.to_s %></td>
+        <td style="font-size:<%=session[:font_size]%>;white-space: pre;"><%=h aktion.review_date.to_s %></td>
         <% date_text_exists = true %>
       </tr>
     <% end %>
@@ -12,19 +12,15 @@
       <% if aktion.new_target_date == nil || aktion.new_target_date == "" %>
         <% unless aktion.target_date == nil || aktion.target_date == "" %>
           <td style="font-size:<%=session[:font_size]%>;">Target:&nbsp;</td>
-          <td style="font-size:<%=session[:font_size]%>;">
-            <%=aktion.target_date.to_s %>
-            <% date_text_exists = true %>
-          </td>
+          <td style="font-size:<%=session[:font_size]%>;white-space: pre;"><%=aktion.target_date.to_s %></td>
+          <% date_text_exists = true %>
         <% else %>
           <td/><td/>
         <% end %>
       <% else %>
         <td style="font-size:<%=session[:font_size]%>;">Target:&nbsp;</td>
-        <td style="font-size:<%=session[:font_size]%>;">
-          <%=aktion.new_target_date.to_s %>
-          <% date_text_exists = true %>
-        </td>
+        <td style="font-size:<%=session[:font_size]%>;white-space: pre;"><%=aktion.new_target_date.to_s %></td>
+        <% date_text_exists = true %>
       <% end %>
     </tr>
   </table>
