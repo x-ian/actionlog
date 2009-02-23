@@ -39,21 +39,21 @@
         </ul>
       </div>
     </td>
-    <% if is_ie6? %>
-    <td align="center" >
-      <div style="text-align:center;" id="overlay" valign="top" align="center" >
-        <div id="spinner">
-          <%=image_tag("spinner/progress_bar.gif?", :id => "busy")%>
-          <br/>Please wait while processing request...
+    <% if is_ie6? && controller.controller_name == "action_log" %>
+      <td align="center" >
+        <div style="text-align:center;" id="overlay" valign="top" align="center" >
+          <div id="spinner">
+            <%=image_tag("spinner/progress_bar.gif?", :id => "busy")%>
+            <br/>Please wait while processing request...
+          </div>
         </div>
-      </div>
-    </td>
+      </td>
     <% end %>
     <td align="right" valign="top">
       <%= render :partial => 'accounts/account_bar' %>
     </td>
   </tr>
   <tr>
-    <td colspan="3" bgcolor="#00A5A5" height="4px"/>
+    <td colspan="3" bgcolor="#00A5A5" height="4px"></td>
   </tr>
 </table>
