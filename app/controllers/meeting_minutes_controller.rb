@@ -58,7 +58,7 @@ class MeetingMinutesController < ApplicationController
       a.save
     end
     render :update do |page|
-      page.replace_html "minute-#{a.id}", :partial => "minutes_row", :locals => {:minute => a}
+      page.replace_html "minute-#{a.id}", :partial => "minutes_row", :locals => { :minute => a }
       page.visual_effect(:highlight, "minute-#{a.id}-area") unless params[:event_area] == nil
     end
   end
@@ -74,7 +74,7 @@ class MeetingMinutesController < ApplicationController
       a.save
     end
     render :update do |page|
-      page.replace_html "minute-#{a.id}", :partial => "minutes_row", :locals => {:minute => a}
+      page.replace_html "minute-#{a.id}", :partial => "minutes_row", :locals => { :minute => a }
       page.visual_effect(:highlight, "minute-#{a.id}-meeting") unless params[:meeting_date] == nil
     end
   end
@@ -90,7 +90,7 @@ class MeetingMinutesController < ApplicationController
       a.save
     end
     render :update do |page|
-      page.replace_html "minute-#{a.id}", :partial => "minutes_row", :locals => {:minute => a}
+      page.replace_html "minute-#{a.id}", :partial => "minutes_row", :locals => { :minute => a }
       page.visual_effect(:highlight, "minute-#{a.id}-name") unless params[:name] == nil
     end
   end
@@ -106,7 +106,7 @@ class MeetingMinutesController < ApplicationController
       a.save
     end
     render :update do |page|
-      page.replace_html "minute-#{a.id}", :partial => "minutes_row", :locals => {:minute => a}
+      page.replace_html "minute-#{a.id}", :partial => "minutes_row", :locals => { :minute => a }
       page.visual_effect(:highlight, "minute-#{a.id}-owner") unless params[:user] == nil
     end
   end
@@ -115,7 +115,7 @@ class MeetingMinutesController < ApplicationController
     @minutes = Minute.find_all_by_filter_form(params, current_meeting)
     render :update do |page|
       page[:filter].replace_html :partial => 'filter',  :locals => { :meeting_id => current_meeting.id, :event_area => params[:event_area], :meeting_date => params[:meeting_date], :owner => params[:owner] }
-      page[:minutes].replace_html :partial => 'minutes', :locals => {}
+      page[:minutes].replace_html :partial => 'minutes', :locals => { }
     end
   end
 

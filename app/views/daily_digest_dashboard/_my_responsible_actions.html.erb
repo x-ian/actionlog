@@ -1,0 +1,20 @@
+<table style="width: 100%;" cellspacing="0" cellpadding="0">
+  <colgroup span="8"></colgroup>
+  <tr>
+    <th class="blueheader">Event<br/></th>
+    <th style="white-space: nowrap;" class="blueheader">Action required</th>
+    <th style="white-space: nowrap;" class="blueheader">Requested by</th>
+    <th class="blueheader">Responsible</th>
+    <th style="white-space: nowrap;" class="blueheader">Due date</th>
+    <th class="blueheader">Completion date</th>
+    <th class="blueheader"></th>
+  </tr>
+
+  <tr id="first_empty_row"><td colspan="7"></td></tr>
+  <% for aktion in @responsible_actions %>
+    <%= render :partial => "action_log/index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion } %>
+  <% end %>
+
+</table>
+
+<br/>

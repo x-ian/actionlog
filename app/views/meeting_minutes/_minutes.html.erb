@@ -9,6 +9,6 @@
 
   <tr id="first_empty_row"><td colspan="5"></td></tr>
   <% for minute in @minutes %>
-    <%= render :partial => 'minutes_tr', :locals => { :minute => minute } %>
+    <%= render :partial => 'meeting_minutes/minutes_tr', :locals => { :minute => minute } %>
   <% end %>
 </table>

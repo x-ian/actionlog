@@ -15,6 +15,12 @@ class Minute < ActiveRecord::Base
     Minute.find(:all, :joins => [ :event_area ], :conditions => [ "event_areas.meeting_id = ?",  meeting.id], :order => "minutes.event_area_id")
   end
 
+  def self.find_latest_minutes_of_meeting(meeting)
+    return [] if meeting == nil
+    latest_meeting_date = Minute.calculate(:max, :meeting_date, :joins => [ :event_area ], :conditions => [ "event_areas.meeting_id = ?",  meeting.id] )
+    Minute.find(:all, :joins => [ :event_area ], :conditions => [ "event_areas.meeting_id = ? AND meeting_date = ?",  meeting.id, latest_meeting_date], :order => "minutes.event_area_id")
+  end
+
   def self.find_all_by_filter_form(params, meeting)
     return [] if meeting.nil?
     filter_conditions = self.extract_filter_conditions(params, meeting)

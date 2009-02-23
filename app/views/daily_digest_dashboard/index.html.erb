@@ -1,0 +1,59 @@
+<%= javascript_include_tag :defaults %>
+<%= stylesheet_link_tag 'global' %>
+
+<% if current_meeting.nil? %>
+  <br/><br/><br/><br/><br/>
+  <p align="center"><b>Choose current meeting with Meeting Selector in top right corner.</b></p>
+  <%= update_page_tag do |page|
+    page.visual_effect(:pulsate, "cmeeting_selector", :duration => 2, :pulses=>5)
+  end %>
+
+<% else %>
+
+  <h3 align="center"><%=current_user.name%>'s Daily Digest Dashboard at <%=Time.now.to_date%></h3>
+
+  <div class="roundedcornr_box_479185">
+    <div class="roundedcornr_top_479185"><div></div></div>
+    <div class="roundedcornr_content_479185">
+      <%= link_to_function "<h4 align='center'>Actions I'm responsible for</h4>", visual_effect(:toggle_blind,"my_responsible_actions")%>
+      <div id="my_responsible_actions">
+        <%= render :partial => 'my_responsible_actions', :locals => { } %>
+      </div>
+    </div>
+    <div class="roundedcornr_bottom_479185"><div></div></div>
+  </div>
+
+  <div class="roundedcornr_box_479185">
+    <div class="roundedcornr_top_479185"><div></div></div>
+    <div class="roundedcornr_content_479185">
+      <%= link_to_function "<h4 align='center'>My requested Actions</h4>", visual_effect(:toggle_blind,"my_requested_actions")%>
+      <div id="my_requested_actions">
+        <%= render :partial => 'my_requested_actions', :locals => { } %>
+      </div>
+    </div>
+    <div class="roundedcornr_bottom_479185"><div></div></div>
+  </div>
+
+  <div class="roundedcornr_box_479185">
+    <div class="roundedcornr_top_479185"><div></div></div>
+    <div class="roundedcornr_content_479185">
+      <%= link_to_function "<h4 align='center'>Events I own</h4>", visual_effect(:toggle_blind,"my_events")%>
+      <div id="my_events" style="display:none;">
+        <%= render :partial => 'my_events' %>
+      </div>
+    </div>
+    <div class="roundedcornr_bottom_479185"><div></div></div>
+  </div>
+
+  <div class="roundedcornr_box_479185">
+    <div class="roundedcornr_top_479185"><div></div></div>
+    <div class="roundedcornr_content_479185">
+      <%= link_to_function "<h4 align='center'>Lastest Meeting Minutes</h4>", visual_effect(:toggle_blind,"last_meeting_minutes")%>
+      <div id="last_meeting_minutes" style = "display:none;">
+        <%= render :partial => 'meeting_minutes/minutes', :locals => {  :meeting_id => current_meeting.id, :event_area => nil, :meeting_date => nil, :owner => nil } %>
+      </div>
+    </div>
+    <div class="roundedcornr_bottom_479185"><div></div></div>
+  </div>
+
+<% end %>

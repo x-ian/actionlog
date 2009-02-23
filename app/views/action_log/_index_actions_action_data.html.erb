@@ -22,6 +22,6 @@
       <%#=image_tag("action-unchecked.png?", :alt => "Complete", :title=>"Mark as Complete", :mouseover => "action-checked.png?", :border=>"0")%>
     </a>
     <%=link_to_remote image_tag("action-unchecked.png?", :alt => "Complete", :title=>"Mark as Complete", :mouseover => "action-checked.png?", :border=>"0"),
-      { :url => { :controller => "action_log", :action => "show_popup_closeout_comment", :id => aktion.id } } %>
+      { :url => { :controller => "action_log", :action => "show_popup_closeout_comment", :id => aktion.id } } unless @readonly %>
   <% end %>
 </td>
