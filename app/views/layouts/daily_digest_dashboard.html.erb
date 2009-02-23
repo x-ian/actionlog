@@ -23,7 +23,7 @@
           <%= render :partial => 'layouts/menu' %>
         <% else %>
           <b>Go to:</b> <%=link_to "Back to Daily Digest Dashboard", :controller => :daily_digest_dashboard %>
-          &nbsp;&nbsp;&nbsp;<b>Print:</b> <%=link_to_function("This Page", "javascript:print()")%>
+          &nbsp;&nbsp;&nbsp;<b>Print:</b> <%=link_to_function("This Page", "javascript:window.print();")%>
         <% end %>
         <%= yield  %>
       </div>
