@@ -48,20 +48,16 @@ class User < ActiveRecord::Base
 
   def is_user?
     return false if self.role_id == nil
-        logger.debug "is_user " + self.role_id.to_s
-
     (self.role_id == Role::USER) ? true : false
   end
 
   def is_administrator?
     return false if self.role_id == nil
-    logger.debug "is_admin " + self.role_id.to_s
     (self.role_id == Role::ADMINISTRATOR) ? true : false
   end
 
   def is_customizator?
     return false if self.role_id == nil
-    logger.debug "is_cust " + self.role_id.to_s
     (self.role_id == Role::CUSTOMIZATOR) ? true : false
   end
 end
