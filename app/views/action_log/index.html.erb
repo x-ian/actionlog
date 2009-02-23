@@ -101,6 +101,7 @@
 
   <div class="centered-popup" style="width:950px; z-index:5000;">
     <div id="edit_event_popup" class="popup" style="display:none">
+      
       <%= render :partial => 'action_log_popup_edit/popup_edit_event_singleton', :locals => { :event => Event.new }  %>
     </div>
     <%= javascript_tag "new Popup('edit_event_popup','null',{modal:true,position:'center'})" %>

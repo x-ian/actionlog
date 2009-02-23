@@ -53,4 +53,9 @@ module ApplicationHelper
   def random_dom_id
     "temp_id_#{rand(64000)}"
   end
+
+  def is_ie6?
+    (request.env["HTTP_USER_AGENT"].index("Mozilla/4.0 (compatible; MSIE 6.0; ") != nil && request.env["HTTP_USER_AGENT"].index("Mozilla/4.0 (compatible; MSIE 6.0; ") > -1)
+  end
+
 end

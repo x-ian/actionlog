@@ -4,7 +4,7 @@
     <div class="roundedcornr_content_479185">
 
       <%= link_to_function "<b>Action summary</b>", visual_effect(:toggle_blind,"quick-bar-content")%>
-      <div id="quick-bar-content">
+      <div id="quick-bar-content" <%= "style='display:none'" if is_ie6? %>>
         <%#
         <b>Next useful actions</b><br/>
         - meeting selector<br/>

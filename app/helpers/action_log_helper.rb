@@ -58,4 +58,14 @@ module ActionLogHelper
     page.visual_effect(:highlight, "action-#{aktion.id}-completion_date", :duration => 2)
     page.visual_effect(:highlight, "action-#{aktion.id}-action_status", :duration => 2)
   end
+
+  def toggle_select_boxes_for_popups page
+    if is_ie6?
+      page.toggle "cut_text", "font_size", "table_width", "actions_per_page" unless session[:action_log_current_view] == "grouped_by_events"
+      page.toggle "event_user_id", "event_event_area_id"
+      page.toggle "aktion_requested_by_id", "aktion_primary_responsible_id", "aktion_secondary_responsible_id", "aktion_event_area_id", "aktion_event_id"
+      page.toggle "filter_action_status", "filter_requested", "filter_responsible"
+    end
+  end
+
 end

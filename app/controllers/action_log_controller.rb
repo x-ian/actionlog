@@ -156,16 +156,25 @@ class ActionLogController < ApplicationController
     aktion = Aktion.find(params[:id])
 
     render :update do |page|
+      toggle_select_boxes_for_popups page
       page.replace_html "popup_action_complete_closeout_comment", :partial => "action_log/actions/popup_action_closeout_comment", :locals => {:aktion => aktion }
       page << "$('action_closeout_comment_popup').popup.show();"
     end
   end
 
   def complete_action
+    if params[:aktion]=="cancel"
+      render :update do |page|
+        toggle_select_boxes_for_popups page
+      page << "$('action_closeout_comment_popup').popup.hide();"
+      end
+      return
+    end
     unless params[:id].blank?
       a = Aktion.find(params[:id])
       a.complete! params[:closeout_comment], current_user
       render :update do |page|
+        toggle_select_boxes_for_popups page
         page.replace_html "action-#{a.id}", :partial => "index_actions_grouped_by_actions_row", :locals => {:aktion => a}
         highlight_changed_row page, a
       end

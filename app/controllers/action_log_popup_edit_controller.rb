@@ -12,6 +12,7 @@ class ActionLogPopupEditController < ApplicationController
     aktion.assignment_date = Time.now.to_date
     
     render :update do |page|
+      toggle_select_boxes_for_popups page
       page.replace_html "popup_action_action_required", :partial => "action_log_popup_edit/action_action_required", :locals => {:aktion => aktion }
       page.replace_html "popup_action_actual_completion_date_and_status", :partial => "action_log_popup_edit/action_actual_completion_date_and_status", :locals => {:aktion => aktion }
       page.replace_html "popup_action_assignment_date", :partial => "action_log_popup_edit/action_assignment_date", :locals => {:aktion => aktion }
@@ -38,6 +39,7 @@ class ActionLogPopupEditController < ApplicationController
   def show_popup_edit_action
     aktion = Aktion.find(params[:id])
     render :update do |page|
+      toggle_select_boxes_for_popups page
       page.replace_html "popup_action_action_required", :partial => "action_log_popup_edit/action_action_required", :locals => {:aktion => aktion }
       page.replace_html "popup_action_actual_completion_date_and_status", :partial => "action_log_popup_edit/action_actual_completion_date_and_status", :locals => {:aktion => aktion }
       page.replace_html "popup_action_assignment_date", :partial => "action_log_popup_edit/action_assignment_date", :locals => {:aktion => aktion }
@@ -61,6 +63,13 @@ class ActionLogPopupEditController < ApplicationController
   end
 
   def update_action
+    if params[:aktion]=="cancel"
+      render :update do |page|
+        toggle_select_boxes_for_popups page
+      page << "$('edit_action_popup').popup.hide();"
+      end
+      return
+    end
     add_mode = params[:id].blank?
 
     aktion = Aktion.new if add_mode
@@ -77,6 +86,7 @@ class ActionLogPopupEditController < ApplicationController
       end
       format.js {
         render :update do |page|
+          toggle_select_boxes_for_popups page
           page << "$('edit_action_popup').popup.hide();"
           if add_mode
             page.insert_html :after, params[:insert_after_dom_id], :partial => "index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion }
@@ -133,13 +143,21 @@ class ActionLogPopupEditController < ApplicationController
     from_events_without_actions = params[:from_events_without_actions].blank? ? :false : params[:from_events_without_actions]
 
     render :update do |page|
-      page.replace_html "popup_event_table", :partial => "action_log_popup_edit/event_table", :locals => {:event => event, :from_events_without_actions => from_events_without_actions }
+    page.replace_html "popup_event_table", :partial => "action_log_popup_edit/event_table", :locals => {:event => event, :from_events_without_actions => from_events_without_actions }
+      toggle_select_boxes_for_popups page
       page.replace_html "popup_event_title", :partial => "action_log_popup_edit/event_title", :locals => {:event => event }
       page << "$('edit_event_popup').popup.show();"
     end
   end
 
   def update_event
+    if params[:aktion]=="cancel"
+      render :update do |page|
+        toggle_select_boxes_for_popups page
+      page << "$('edit_event_popup').popup.hide();"
+      end
+      return
+    end
     event = Event.find(params[:id])
     event.assign_priorities(collect_priority_values(params))
     event.event_type = EventType.find_by_name(params["popup_event_type"]) unless params["popup_event_type"].blank?
@@ -152,6 +170,7 @@ class ActionLogPopupEditController < ApplicationController
       end
       format.js {
         render :update do |page|
+          toggle_select_boxes_for_popups page
           page << "$('edit_event_popup').popup.hide();"
           if session[:action_log_current_view] == "grouped_by_events"
             page.replace_html "event-#{event.id}-event", :partial => "action_log/table_cells/event_grouped_by_events", :locals => {:event => event}

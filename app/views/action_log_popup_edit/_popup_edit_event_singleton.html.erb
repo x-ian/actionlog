@@ -12,6 +12,5 @@
 </table>
 <hr/>
 <%= submit_tag 'Update', :class => 'popup_closebox' %>
-<a class="popup_closebox" href="#">Cancel</a>
-
+<%= link_to_remote 'Cancel', :url => { :controller => "action_log_popup_edit", :action => "update_event", :aktion => :cancel } %>
 </form>
