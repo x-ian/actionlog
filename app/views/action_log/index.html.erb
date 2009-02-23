@@ -99,14 +99,14 @@
     <div class="roundedcornr_bottom_479185"><div></div></div>
   </div>
 
-  <div class="centered-popup" style="z-index:5000">
+  <div class="centered-popup" style="width:950px; z-index:5000;">
     <div id="edit_event_popup" class="popup" style="display:none">
       <%= render :partial => 'action_log_popup_edit/popup_edit_event_singleton', :locals => { :event => Event.new }  %>
     </div>
     <%= javascript_tag "new Popup('edit_event_popup','null',{modal:true,position:'center'})" %>
   </div>
 
-  <div class="centered-popup" style="z-index:5000;">
+  <div class="centered-popup" style="width:950px; z-index:5000;">
     <div id="edit_action_popup" class="popup" style="z-index:auto; display:none">
       <%= render :partial => 'action_log_popup_edit/popup_edit_action_singleton', :locals => { :aktion => Aktion.new }  %>
     </div>
