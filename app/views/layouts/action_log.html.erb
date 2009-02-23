@@ -10,10 +10,12 @@
   </head>
   <body>
     <div>
-      <div style="position:absolute; left:400px" id="overlay" align="center" >
+      <div style="width:100%; position:fixed; text-align:center;" id="overlay" align="center" >
         <div id="spinner">
           <%=image_tag("spinner/progress_bar.gif?", :id => "busy")%>
-          <br/>Please wait while processing request...</div></div>
+          <br/><span style="width:auto; background-color:white;">Please wait while processing request...</span>
+        </div>
+      </div>
       <div >
         <%= render :partial => 'layouts/menu' %>
 
