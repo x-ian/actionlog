@@ -1,3 +1,6 @@
+/* fix for IE 6 (only ?) to remove line breaks around form tags */
+form {margin: 0px; padding: 0px; display: inline;}
+
 .quick-bar
 {
     position: fixed;

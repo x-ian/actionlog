@@ -4,7 +4,7 @@
 
 <table width="100%" cellpadding="0px" cellspacing="0px">
   <tr >
-    <td align="left" width="350px" >
+    <td align="left" width="350px" valign="bottom">
       <div id="menu">
         <ul class="level1" id="root">
           <li>
@@ -39,11 +39,21 @@
         </ul>
       </div>
     </td>
+    <% if is_ie6? %>
+    <td align="center" >
+      <div style="text-align:center;" id="overlay" valign="top" align="center" >
+        <div id="spinner">
+          <%=image_tag("spinner/progress_bar.gif?", :id => "busy")%>
+          <br/>Please wait while processing request...
+        </div>
+      </div>
+    </td>
+    <% end %>
     <td align="right" valign="top">
       <%= render :partial => 'accounts/account_bar' %>
     </td>
   </tr>
   <tr>
-    <td colspan="2" bgcolor="#00A5A5" height="4px"/>
+    <td colspan="3" bgcolor="#00A5A5" height="4px"/>
   </tr>
 </table>

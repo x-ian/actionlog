@@ -7,13 +7,11 @@
   meeting_id  = current_meeting.id unless current_meeting.nil? || current_meeting == "(all)"
   meeting_id  = "(all)" if current_meeting == "(all)"
 %>
-  <div id="cmeeting_selector">
     <% form_tag(:action => "set_current_meeting", :controller => "/action_log" ) do %>
       <%= "Current meeting:" %>
       <%=select_tag "current_meeting", options_for_select_filter(self.current_account.user.meetings, meeting_id, false, true ), :onchange=>"document.getElementById ('submit_meeting_selector').click();" %>
       <span style="display:none;"><input type='submit' id='submit_meeting_selector'/></span>
     <% end %>
-  </div>
 
 <% else -%>
   Not logged in <span id="account-bar-greeting"><%= link_to_login_with_IP '(Log in)', :style => 'border: none;' %></span>
