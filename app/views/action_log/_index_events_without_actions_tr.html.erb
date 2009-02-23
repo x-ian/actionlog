@@ -1,6 +1,11 @@
-<td style="white-space: nowrap" id="event-without-action-<%=event.id%>-area"><%=event.event_area.name %></td>
+<td style="white-space: nowrap" id="event-without-action-<%=event.id%>-area">
+  <%=event.event_area.name %>
+</td>
 <td id="event-without-action-<%=event.id%>-meeting"><%=event.meeting_date.nil? ? "&#160;" : event.meeting_date %></td>
-<td id="event-without-action-<%=event.id%>-name"><%=h event.name %></td>
+<td id="event-without-action-<%=event.id%>-name">
+  <%=h event.name %>
+  <%= " (escalated from Meeting '#{event.event_area.meeting.name}')" if event.escalated_meeting_id == current_meeting.id %>
+</td>
 <td id="event-without-action-<%=event.id%>-owner"style="white-space: nowrap"><%=event.user.nil? ? "&#160;" : event.user.name %></td>
 <td id="event-without-action-<%=event.id%>-actions">
   <%=link_to_remote "(full&nbsp;edit)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_event", :id => event, :from_events_without_actions => :true } } %>&nbsp;<%=link_to '(delete)', { :controller => :action_log, :action => :destroy_event, :id => event.id}, :confirm => 'Are you sure?', :method => :delete %><br/>

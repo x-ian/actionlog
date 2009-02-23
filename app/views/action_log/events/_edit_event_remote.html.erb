@@ -45,7 +45,7 @@
 
       <tr>
         <td><%= f.label "Owner" %></td>
-        <td><%= f.label "Escalated Event Area" %></td>
+        <td><%= f.label "Escalated to Meeting" %></td>
         <td><%= f.label "Risk Management"%></td>
       </tr>
 
@@ -53,7 +53,7 @@
         <td valign="top">
           <%= f.collection_select :user_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:200px;" %>
         </td>
-        <td valign="top"><%= f.collection_select :escalated_event_area_id, EventArea.find(:all), :id, :name, { :include_blank => true } %></td>
+        <td valign="top"><%= f.collection_select :escalated_meeting_id, Meeting.find(:all), :id, :name, { :include_blank => true } %></td>
         <td>
           <table id="risk_management">
             <tr>

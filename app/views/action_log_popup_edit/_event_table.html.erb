@@ -33,8 +33,8 @@
     <td><%= select_tag "event[user_id]", create_user_select_tag_options(event.user, User.find(:all), true), :id => :popup_event_user_id %>
   </tr>
   <tr>
-    <td>Escalated event area</td>
-    <td><%= select_tag "event[escalated_event_area_id]", create_collection_select_tag_options(event.escalated_event_area, EventArea.find(:all), true, :id, :name), :id => :popup_event_escalated_event_area_id %>
+    <td>Escalated to Meeting</td>
+    <td><%= select_tag "event[escalated_meeting_id]", create_collection_select_tag_options(event.escalated_meeting, Meeting.find(:all), true, :id, :name), :id => :popup_event_escalated_meeting_id %>
   </tr>
 
   <%= render :partial => 'event_risk_management', :locals => {:event => event } %>

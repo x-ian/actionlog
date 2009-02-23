@@ -46,8 +46,8 @@
       <td><%= f.collection_select :user_id, User.find(:all), :id, :name, { :include_blank => true } %></td>
     </tr>
     <tr>
-      <td><%= f.label :escalated_event_area_id %></td>
-      <td><%= f.collection_select :escalated_event_area_id, EventArea.find(:all), :id, :name, { :include_blank => true } %></td>
+      <td>Escalated to meeting</td>
+      <td><%= f.collection_select :escalated_meeting_id, Meeting.find(:all), :id, :name, { :include_blank => true } %></td>
     </tr>
 
     <%= render :partial => 'action_log/events/risk_management', :locals => {:event => event } %>

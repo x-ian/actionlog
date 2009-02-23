@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
   validates_presence_of :event_area
   
   belongs_to :event_area
-  belongs_to :escalated_event_area, :class_name => "EventArea"
+  belongs_to :escalated_meeting, :class_name => "Meeting"
 
   has_many :aktions, :dependent => :destroy
 
@@ -99,9 +99,9 @@ class Event < ActiveRecord::Base
     sql += "LEFT JOIN event_areas ON event_areas.id = event_area_id LEFT JOIN meetings ON meetings.id = event_areas.meeting_id "
     sql += "WHERE events.id NOT IN "
     sql += "(SELECT event_id FROM aktions LEFT JOIN events ON events.id = event_id LEFT JOIN event_areas on event_areas.id = events.event_area_id LEFT JOIN meetings ON meetings.id = event_areas.meeting_id "
-    sql += "WHERE meeting_id = #{meeting.id}" unless meeting == "(all)"
+    sql += "WHERE (meeting_id = #{meeting.id} OR escalated_meeting_id=#{meeting.id})" unless meeting == "(all)"
     sql += ") "
-    sql += "AND meeting_id = #{meeting.id} " unless meeting == "(all)"
+    sql += "AND (meeting_id = #{meeting.id} OR escalated_meeting_id=#{meeting.id}) " unless meeting == "(all)"
     sql += "ORDER BY meeting_date"
     return Event.find_by_sql(sql)
   end

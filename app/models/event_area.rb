@@ -4,5 +4,4 @@ class EventArea < ActiveRecord::Base
 
   belongs_to :meeting
   has_many :events
-  has_many :escalated_event_area, :class_name => "Event"
 end

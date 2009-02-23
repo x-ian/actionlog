@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090222183506) do
+ActiveRecord::Schema.define(:version => 20090223094724) do
 
   create_table "accounts", :force => true do |t|
     t.string   "login",                     :limit => 40
@@ -92,13 +92,13 @@ ActiveRecord::Schema.define(:version => 20090222183506) do
     t.string   "name"
     t.date     "log_date"
     t.integer  "event_area_id"
-    t.integer  "escalated_event_area_id"
     t.integer  "event_type_id"
     t.integer  "user_id"
     t.integer  "priority_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "meeting_date"
+    t.integer  "escalated_meeting_id"
   end
 
   create_table "meetings", :force => true do |t|

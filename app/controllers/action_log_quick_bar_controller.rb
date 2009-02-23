@@ -4,7 +4,7 @@ class ActionLogQuickBarController < ApplicationController
 
   def update_meeting_summary
     sql = "SELECT DISTINCT COUNT(aktions.id) FROM aktions, events, event_areas "
-    sql += "WHERE event_id = events.id AND events.event_area_id = event_areas.id AND event_areas.meeting_id=#{current_meeting.id} "
+    sql += "WHERE event_id = events.id AND events.event_area_id = event_areas.id AND (event_areas.meeting_id=#{current_meeting.id} OR events.escalated_meeting_id=#{current_meeting.id})"
     s = ValueObjectMeetingSummary.new
 
     # all completed actions of current meeting

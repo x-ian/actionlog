@@ -7,7 +7,7 @@ class Admin::EventAreaController < ApplicationController
     config.actions.exclude :nested
     #config.label = "Customers"
     #config.columns = [:name, :phone, :company_type, :comments]
-    config.columns.exclude :events, :escalated_event_area
+    config.columns.exclude :events, :escalated_meeting
     #list.sorting = {:name => 'ASC'}
     #columns[:phone].label = "Phone #"
     #columns[:phone].description = "(Format: ###-###-####)"

@@ -141,8 +141,8 @@ class Aktion < ActiveRecord::Base
     end
 
     unless meeting == "(all)"
-      c = c + " AND meetings.id = ?"
-      conditions.insert(-1, meeting.id)
+      c = c + " AND (meetings.id = ? OR events.escalated_meeting_id = ?)"
+      conditions.insert(-1, meeting.id, meeting.id)
     end
     
     c = c + " AND actual_completion_date <= ?" unless params[:to].blank?
