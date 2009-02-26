@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
   def server_address
     address = request.env["SERVER_NAME"]
-    address += ( ":" + request.env["SERVER_PORT"] unless request.env["SERVER_PORT"] == "80")
+    address += ":" + request.env["SERVER_PORT"] unless request.env["SERVER_PORT"] == "80"
     address
   end
 
