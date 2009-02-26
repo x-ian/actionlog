@@ -23,7 +23,7 @@ class DailyDigestDashboardController < ApplicationController
     for user in current_meeting.users
       unless user.email.blank?
         Notifications.deliver_daily_digest_dashboard(user, current_meeting, controller_url, create_meeting_summary)
-        mails_sent=+1
+        mails_sent+=1
       end
     end
 
