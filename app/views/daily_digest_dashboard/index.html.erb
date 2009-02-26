@@ -9,16 +9,34 @@
   end %>
 
 <% else %>
+  <p style="color: green"><%= flash[:info] %></p>
+
   <h3 align="center"><%=current_user.name%>'s Daily Digest Dashboard at <%=Time.now.to_date%></h3>
   <% if params[:print].blank? %>
     <p align="center">
-      <b>Go to:</b>
-      <%= link_to "Actions I'm responsible for", :action => :index, :anchor => :my_responsible_actions_anchor %> |
-      <%= link_to "My requested Actions", :action => :index, :anchor => :my_requested_actions_anchor %> |
-      <%= link_to "Events I own", :action => :index, :anchor => :my_events_anchor %> |
-      <%= link_to "Lastest Meeting Minutes", :action => :index, :anchor => :last_meeting_minutes_anchor %>
-      &nbsp;&nbsp;&nbsp;<b>Print:</b>
-      <%= link_to "Preview", :action => :index, :print => true %>
+      <table class="blindtable" align="center" cellpadding="15px">
+        <tr>
+          <td><b>Print:&nbsp;</b></td>
+          <td><%= link_to "Preview", :action => :index, :print => true %></td>
+          <td>&nbsp;</td>
+          <td><b>Notify:&nbsp;</b></td>
+          <td><%= link_to "Meeting participants", { :action => :notify_participants }, { :confirm => 'Send Email notification to all participants?' } %></td>
+          <td>&nbsp;</td>
+          <td><b>Go to:&nbsp;</b></td>
+          <td>
+            <table>
+              <tr>
+                <td align="center"><%= link_to "Actions I'm responsible for", :action => :index, :anchor => :my_responsible_actions_anchor %></td>
+                <td align="center"><%= link_to "My requested Actions", :action => :index, :anchor => :my_requested_actions_anchor %></td>
+              </tr>
+              <tr>
+                <td align="center"><%= link_to "Events I own", :action => :index, :anchor => :my_events_anchor %></td>
+                <td align="center"><%= link_to "Lastest Meeting Minutes", :action => :index, :anchor => :last_meeting_minutes_anchor %></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
     </p>
   <% end %>
   <div class="roundedcornr_box_479185" id="my_responsible_actions_anchor">

@@ -58,4 +58,8 @@ module ApplicationHelper
     (request.env["HTTP_USER_AGENT"].index("Mozilla/4.0 (compatible; MSIE 6.0; ") != nil && request.env["HTTP_USER_AGENT"].index("Mozilla/4.0 (compatible; MSIE 6.0; ") > -1)
   end
 
+  def server_address
+    request.env["SERVER_NAME"] + ( ":" + request.env["SERVER_PORT"] unless request.env["SERVER_PORT"] == "80")
+  end
+
 end

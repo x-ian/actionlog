@@ -117,6 +117,14 @@ class Aktion < ActiveRecord::Base
     end
   end
 
+  def self.find_actions_of_meetings_requested_by(meeting, user)
+    Aktion.find_all_by_filter_form({ :action_status => ActionStatus::UNCOMPLETED, :requested => user.id}, meeting)
+  end
+
+  def self.find_actions_of_meetings_by_responsible(meeting, user)
+    Aktion.find_all_by_filter_form({ :action_status => ActionStatus::UNCOMPLETED, :responsible => user.id}, meeting)
+  end
+
   def self.extract_filter_conditions(params, meeting)
     unassigned_value = "(unassigned)"
     conditions = []

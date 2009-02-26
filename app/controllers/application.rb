@@ -29,8 +29,42 @@ class ApplicationController < ActionController::Base
     #session[:current_meeting] = current_user.meetings.first unless current_user.meetings.size < 1
   end
 
+  def set_current_meeting(meeting)
+    session[:current_meeting] = meeting
+  end
+
   def random_dom_id
     "temp_id_#{rand(64000)}"
+  end
+
+  def server_address
+    request.env["SERVER_NAME"] + ( ":" + request.env["SERVER_PORT"] unless request.env["SERVER_PORT"] == "80")
+  end
+
+  # provide TextHelper methods from Views in Controllers
+  # seen under http://snippets.dzone.com/posts/show/1799
+  def help
+    Helper.instance
+  end
+  class Helper
+    include Singleton
+    include ActionView::Helpers::TextHelper
+  end
+
+  def create_meeting_summary
+    sql = "SELECT DISTINCT COUNT(aktions.id) FROM aktions, events, event_areas "
+    sql += "WHERE event_id = events.id AND events.event_area_id = event_areas.id AND (event_areas.meeting_id=#{current_meeting.id} OR events.escalated_meeting_id=#{current_meeting.id})"
+    s = ValueObjectMeetingSummary.new
+
+    # all completed actions of current meeting
+    s.completed_actions = Aktion.count_by_sql sql + " AND action_status_id=#{ActionStatus::COMPLETED}"
+    # all completed actions of current meeting and actual_completion_date = today
+    s.completed_actions_today = Aktion.count_by_sql sql + " AND action_status_id=#{ActionStatus::COMPLETED} AND actual_completion_date='#{Time.now.to_date}'"
+    # all completed actions of current meeting by current_user
+    s.completed_actions_by_user = Aktion.count_by_sql sql + " AND action_status_id=#{ActionStatus::COMPLETED} AND closed_by_id=#{current_user.id}"
+    # all uncompleted actions of current meeting
+    s.uncompleted_actions = Aktion.count_by_sql sql + " AND action_status_id=#{ActionStatus::UNCOMPLETED}"
+    return s
   end
 
 end
