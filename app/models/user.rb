@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   has_many :primary_responsibles, :class_name=>"Aktion"
   has_many :secondary_responsibles, :class_name=>"Aktion"
 
+  has_many :responsible_users, :class_name=>"User"
+
   belongs_to :account, :dependent => :destroy
 
   belongs_to :role

@@ -15,5 +15,6 @@ class Admin::MeetingController < ApplicationController
     config.columns[:organizational_unit].ui_type = :select
     config.columns[:event_areas].ui_type = :select
     config.columns[:description].options = {:rows => 4, :cols => 41}
+    config.columns[:responsible_user].ui_type = :select
   end
 end

@@ -7,7 +7,7 @@ class Admin::UserController < ApplicationController
     #config.label = "Customers"
     #config.columns = [:name, :phone, :company_type, :comments]
     config.actions.exclude :nested
-    config.columns.exclude :events, :primary_responsibles, :secondary_responsibles, :requested_bys, :account
+    config.columns.exclude :events, :primary_responsibles, :secondary_responsibles, :requested_bys, :account, :responsible_users
     config.columns << :login
     config.columns[:login].label = 'Login'
     #list.sorting = {:name => 'ASC'}
