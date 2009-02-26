@@ -1,0 +1,20 @@
+Gruezi <%= @user.name %>,
+
+The chairman of the Meeting <%=@meeting.name%> (<%=@meeting.responsible_user.name unless @meeting.responsible_user.blank?%>) has sent you this summary of your Daily Digest from <%=Time.now.to_date%>.
+
+<%=Aktion.find_actions_of_meetings_by_responsible(@meeting, @user).size%> Actions you're responsible for
+<%=Aktion.find_actions_of_meetings_requested_by(@meeting, @user).size%> Actions you've requested
+<%=Event.find_all_by_user_id(@user.id).size%> Events you own
+<%=Minute.find_latest_minutes_of_meeting(@meeting).size%> Latest Meeting Minutes
+
+<%=@meeting_summary.completed_actions%> completed Actions
+<%=@meeting_summary.completed_actions_by_user%> Actions completed by you
+<%=@meeting_summary.completed_actions_today%> Actions completed today
+<%=@meeting_summary.uncompleted_actions%> uncompleted Actions
+
+You can view and print your always updated version under <%=@server_path%>?meeting_id=<%=@meeting.id%>.
+
+Adieu says your friendly ActionLog.
+(a member of the dazzling WebOMT tool suite)
+
+[Side note: Please don't reply (yet) to this mailaddress]

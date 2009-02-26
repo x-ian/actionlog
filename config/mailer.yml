@@ -1,0 +1,7 @@
+---
+  :address: smtp.googlemail.com
+  :port: 587
+  :user_name: webomt@actionlog.dynalias.com
+  :reply_to: christianneumann@web.de
+  :password: webomt
+  :authentication: :plain
