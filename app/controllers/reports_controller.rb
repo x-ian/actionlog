@@ -48,7 +48,7 @@ class ReportsController < ApplicationController
     send_data(g.to_blob,
       :disposition => 'inline',
       :type => 'image/png',
-      :filename => "uncompleted_actions_by_person.png")
+      :filename => "uncompleted_actions_by_person.png?" + rand(64000).to_s)
   end
 
   def timely_completion_of_actions_by_person
@@ -92,7 +92,7 @@ class ReportsController < ApplicationController
     send_data(g.to_blob,
       :disposition => 'inline',
       :type => 'image/png',
-      :filename => "timely_completion_of_actions_by_person.png")
+      :filename => "timely_completion_of_actions_by_person.png?" + rand(64000).to_s)
   end
 
   def number_of_actions_assigned_per_week
@@ -135,7 +135,7 @@ class ReportsController < ApplicationController
     send_data(g.to_blob,
       :disposition => 'inline',
       :type => 'image/png',
-      :filename => "number_of_actions_assigned_per_week.png")
+      :filename => "number_of_actions_assigned_per_week.png?" + rand(64000).to_s)
   end
 
   def index
