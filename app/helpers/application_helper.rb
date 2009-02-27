@@ -59,7 +59,9 @@ module ApplicationHelper
   end
 
   def server_address
-    request.env["SERVER_NAME"] + ( ":" + request.env["SERVER_PORT"] unless request.env["SERVER_PORT"] == "80")
+    address = request.env["SERVER_NAME"]
+    address += ":" + request.env["SERVER_PORT"] unless request.env["SERVER_PORT"] == "80"
+    address
   end
 
 end
