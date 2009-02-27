@@ -1,0 +1,22 @@
+
+<% if current_meeting.nil? %>
+  <br/><br/><br/><br/><br/>
+  <p align="center"><b>Choose current meeting with Meeting Selector in top right corner.</b></p>
+  <%= update_page_tag do |page|
+    page.visual_effect(:pulsate, "cmeeting_selector", :duration => 2, :pulses=>5)
+  end %>
+
+<% else %>
+
+  <p align="center">
+    <%= image_tag url_for(:controller => 'reports', :action => 'uncompleted_actions_by_person')%>
+  </p>
+  <br/>
+
+  <p align="center">
+    <%= image_tag url_for(:controller => 'reports', :action => 'timely_completion_of_actions_by_person')%>
+  </p>
+
+  <%#= image_tag url_for(:controller => 'reports', :action => 'number_of_actions_assigned_per_week')%>
+
+<% end %>

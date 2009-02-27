@@ -82,6 +82,12 @@ class Aktion < ActiveRecord::Base
     #return actual_completion_date != nil && actual_completion_date <= Time.now.to_date
   end
 
+  def completed_on_time
+    return new_target_date >= actual_completion_date if new_target_date != nil && actual_completion_date != nil
+    return target_date >= actual_completion_date if target_date != nil && actual_completion_date != nil
+    return false
+  end
+
   def check_date_consistency
     # new_target without target
     return false if new_target_date != nil && target_date == nil
@@ -161,6 +167,13 @@ class Aktion < ActiveRecord::Base
     conditions.insert(0, c)
 
     return conditions
+  end
+
+  def self.find_by_meeting(meeting)
+    j = "LEFT JOIN events ON events.id = aktions.event_id "
+    j += "LEFT JOIN event_areas on event_areas.id = events.event_area_id "
+    j += "LEFT JOIN meetings ON meetings.id = event_areas.meeting_id"
+    Aktion.find(:all, :select => "DISTINCT(aktions.id), aktions.*", :conditions => [ "meetings.id = ?", meeting.id], :joins => j, :order => "id")
   end
 
   # BEGIN possible mixin or whatever for aktion and event

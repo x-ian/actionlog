@@ -62,4 +62,14 @@ class User < ActiveRecord::Base
     return false if self.role_id == nil
     (self.role_id == Role::CUSTOMIZATOR) ? true : false
   end
+
+  def self.find_participated_primary_responsibles_users_of_meeting(meeting)
+#    User.find(:all, :order => "id").collect{|d| [d.name]}
+    j = "LEFT JOIN aktions ON aktions.primary_responsible_id = users.id "
+    j += "LEFT JOIN events ON events.id = aktions.event_id "
+    j += "LEFT JOIN event_areas on event_areas.id = events.event_area_id "
+    j += "LEFT JOIN meetings ON meetings.id = event_areas.meeting_id"
+    User.find(:all, :select => "DISTINCT(users.id), users.*", :conditions => [ "meetings.id = ?", meeting.id], :joins => j, :order => "name")
+  end
+
 end
