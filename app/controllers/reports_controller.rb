@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
     users = User.find_participated_primary_responsibles_users_of_meeting(current_meeting)
     i = 0
     users.each do |u|
-      labels.store(i, u.name)
+      labels.store(i, u.initials)
       i = i + 1
     end
     g.labels = labels
@@ -60,7 +60,7 @@ class ReportsController < ApplicationController
     users=User.find_participated_primary_responsibles_users_of_meeting(current_meeting)
     i = 0
     users.each do |u|
-      labels.store(i, u.name)
+      labels.store(i, u.initials)
       i = i + 1
     end
     g.labels = labels

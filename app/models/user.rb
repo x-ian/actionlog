@@ -72,4 +72,14 @@ class User < ActiveRecord::Base
     User.find(:all, :select => "DISTINCT(users.id), users.*", :conditions => [ "meetings.id = ?", meeting.id], :joins => j, :order => "name")
   end
 
+  def first_name
+    (name.split(" "))[0]
+  end
+
+  def initials
+    initials = ""
+    parts = name.split(" ")
+    parts.collect { |item| initials += item[0..0].upcase }
+    initials
+  end
 end
