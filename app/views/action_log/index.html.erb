@@ -91,7 +91,7 @@
   <div class="roundedcornr_box_479185">
     <div class="roundedcornr_top_479185"><div></div></div>
     <div class="roundedcornr_content_479185">
-      <%= link_to_function "<b>Toggle filter</b>", visual_effect(:toggle_blind,"index_filter")%>
+      <%= link_to_function "<b>Filter</b>", visual_effect(:toggle_blind,"index_filter")%>
       <div id="index_filter" style = "display: none;">
         <%= render :partial => 'index_filter', :locals => { :action_status => params[:action_status], :requested => params[:requested], :responsible => params[:responsible], :to => params[:to], :from => params[:from], } %>
       </div>
