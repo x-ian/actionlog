@@ -13,8 +13,7 @@
               <li><%= link_to "Daily Digest Dashboard", :controller => "/daily_digest_dashboard" %></li>
               <li><%= link_to "Action Log", :controller => "/action_log" %></li>
               <li><%= link_to "Meeting Minutes", :controller => "/meeting_minutes" %></li>
-              <li><%= link_to "Reports", :controller => "reports" %></li>
-              <li><%= link_to "Export data", :controller => "admin/export" %></li>
+              <li><%= link_to "Reports", :controller => "/reports" %></li>
             </ul>
           </li>
           <% deny :user => :is_user? do %>
@@ -24,7 +23,8 @@
                 <li><%= link_to "Users", :controller => "admin/user" %></li>
                 <li><%= link_to "Organizational Units", :controller => "admin/organizational_unit" %></li>
                 <li><%= link_to "Meetings", :controller => "admin/meeting" %></li>
-                <li><%= link_to "Event Area", :controller => "admin/event_area" %></li>
+                <li><%= link_to "Event Areas", :controller => "admin/event_area" %></li>
+                <li><%= link_to "Export data", :controller => "admin/export" %></li>
               </ul>
             </li>
             <% deny :user => :is_administrator? do %>
