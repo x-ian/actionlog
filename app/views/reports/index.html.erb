@@ -11,10 +11,22 @@
   <p align="center">
     <%= image_tag url_for(:controller => 'reports', :action => 'uncompleted_actions_by_person')%>
   </p>
+  <p align="left" style="font-size: 8pt;">
+    with:
+    <% User.find_participated_primary_responsibles_users_of_meeting(current_meeting).each do |u| %>
+      <%= u.initials %>&nbsp;=&nbsp;<%= u.name %>,
+    <% end %>
+  </p>
   <br/>
 
   <p align="center">
     <%= image_tag url_for(:controller => 'reports', :action => 'timely_completion_of_actions_by_person')%>
+  </p>
+  <p align="left" style="font-size: 8pt;">
+    with:
+    <% User.find_participated_primary_responsibles_users_of_meeting(current_meeting).each do |u| %>
+      <%= u.initials %>&nbsp;=&nbsp;<%= u.name %>,
+    <% end %>
   </p>
 
   <%#= image_tag url_for(:controller => 'reports', :action => 'number_of_actions_assigned_per_week')%>
