@@ -7,9 +7,10 @@
   <%= " (escalated from Meeting '#{event.event_area.meeting.name}')" if event.escalated_meeting_id == current_meeting.id %>
 </td>
 <td id="event-without-action-<%=event.id%>-owner"style="white-space: nowrap"><%=event.user.nil? ? "&#160;" : event.user.name %></td>
-<td id="event-without-action-<%=event.id%>-actions">
+<td id="event-without-action-<%=event.id%>-actions" style="white-space: nowrap;" valign="bottom">
   <% unless @readonly %>
-    <%=link_to_remote "(full&nbsp;edit)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_event", :id => event, :from_events_without_actions => :true } } %>&nbsp;<%=link_to '(delete)', { :controller => :action_log, :action => :destroy_event, :id => event.id}, :confirm => 'Are you sure?', :method => :delete %><br/>
-    <%=link_to_remote "(add&nbsp;action)", { :url => { :controller => "action_log_popup_edit", :action => "show_popup_add_action", :id => event, :insert_after_dom_id => "first_empty_row", :remove_dom_id => "event-without-action-#{event.id}" } } %>
+    <%=link_to_remote image_tag("Document-Write-48x48.png?", :alt => "(full edit)", :size => "12x12", :title=>"Full edit of the Event", :border=>"0"), { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_event", :id => event, :from_events_without_actions => :true } } %>
+    <%=link_to image_tag("Crystal_Clear_action_edit_remove.png?", :alt => "(delete)", :size => "12x12", :title=>"Delete the Event", :border=>"0"), { :controller => :action_log, :action => :destroy_event, :id => event.id}, :confirm => 'Are you sure to delete this Event?', :method => :delete %>
+    <%=link_to_remote image_tag("Crystal_Clear_action_window_new_mine.png?", :alt => "(add action)", :size => "12x12", :title=>"Add Action to the Event", :border=>"0"), { :url => { :controller => "action_log_popup_edit", :action => "show_popup_add_action", :id => event, :insert_after_dom_id => "first_empty_row", :remove_dom_id => "event-without-action-#{event.id}" } } %>
   <% end %>
 </td>

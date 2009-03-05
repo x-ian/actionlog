@@ -19,5 +19,5 @@
   </div>
 </td>
 <td id="minute-<%=minute.id%>-actions">
-  <%=link_to '(delete)', { :action => :destroy_minute, :id => minute.id}, :confirm => 'Are you sure?', :method => :delete unless @readonly %>
+  <%=link_to image_tag("Crystal_Clear_action_edit_remove.png?", :alt => "(delete)", :size => "12x12", :title=>"Delete the Minute", :border=>"0"), { :action => :destroy_minute, :id => minute.id}, :confirm => 'Are you sure to delete this Minute?', :method => :delete unless @readonly %>
 </td>

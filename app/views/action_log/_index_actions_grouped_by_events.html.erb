@@ -3,8 +3,8 @@
 <table cellspacing="0" cellpadding="0" width="100%">
   <colgroup span="8"></colgroup>
   <tr>
-    <th class="blueheader">Event</th>
-    <th class="blueheader">Action required<br/><%=link_to_remote "(quick add event &amp; action)", { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :insert_after_dom_id => "first_empty_row" } } %></th>
+    <th class="blueheader">Event<br/><%=link_to_remote image_tag("Crystal_Clear_action_edit_add.png?", :alt => "(quick add event &amp; action)", :size => "12x12", :title=>"Quick add of Event and Action", :border=>"0", :style => "float: middle;"), { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :insert_after_dom_id => "first_empty_row" } } %></th>
+    <th class="blueheader">Action required</th>
     <th class="blueheader">Requested by</th>
     <th class="blueheader">Responsible</th>
     <th class="blueheader">Due date</th>
