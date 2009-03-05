@@ -45,6 +45,8 @@ class ReportsController < ApplicationController
       g.data(data[0], data[1])
     end
 
+    g.theme_37signals
+
     send_data(g.to_blob,
       :disposition => 'inline',
       :type => 'image/png',
@@ -88,6 +90,8 @@ class ReportsController < ApplicationController
     datasets.each do |data|
       g.data(data[0], data[1])
     end
+
+    g.theme_37signals
 
     send_data(g.to_blob,
       :disposition => 'inline',
