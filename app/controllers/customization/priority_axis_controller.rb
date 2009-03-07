@@ -12,6 +12,6 @@ class Customization::PriorityAxisController < ApplicationController
     #columns[:phone].label = "Phone #"
     #columns[:phone].description = "(Format: ###-###-####)"
     config.columns[:description].options = {:rows => 4, :cols => 41}
-    config.columns[:description].inplace_edit = true
+    #config.columns[:description].inplace_edit = true
   end
 end
