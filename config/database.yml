@@ -28,7 +28,7 @@ central_development:
   adapter: mysql
 #  adapter: jdbcmysql
   encoding: utf8
-  database: actionlog_development
+  database: actionlog_central_development
   username: neumann
   password:
   host: localhost
