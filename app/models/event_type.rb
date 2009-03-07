@@ -4,8 +4,8 @@ class EventType < ActiveRecord::Base
 
   has_many :events
 
-  ISSUE = EventType.find(1).id
-  VARIANCE = EventType.find(2).id
-  RISK = EventType.find(3).id
+  ISSUE = EventType.exists?(1) ? EventType.find(1).id : nil
+  VARIANCE = EventType.exists?(2) ? EventType.find(2).id : nil
+  RISK = EventType.exists?(3) ? EventType.find(3).id : nil
 
 end
