@@ -25,11 +25,11 @@ development:
 
 # Central dev on amazon
 central_development:
-  adapter: mysql #jdbcmysql #
+  adapter: mysql
 #  adapter: jdbcmysql
   encoding: utf8
   database: actionlog_development
-  username: root
+  username: neumann
   password:
   host: localhost
 
