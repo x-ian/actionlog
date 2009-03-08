@@ -49,7 +49,7 @@ production:
   adapter: mysql
   encoding: utf8
   database: actionlog_production
-  username: root
+  username: neumann
   password:
   host: localhost
 

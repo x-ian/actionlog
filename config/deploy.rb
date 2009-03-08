@@ -18,3 +18,27 @@ set :deploy_via, :remote_cache
 role :app, "s15339212.onlinehome-server.info"
 role :web, "s15339212.onlinehome-server.info"
 role :db,  "s15339212.onlinehome-server.info", :primary => true
+
+#deploy.task :start, :roles => :app do
+#    run "cd #{current_path} && #{try_runner} nohup script/spin-central_development"
+#end
+
+namespace :passenger do
+  task :restart do
+    invoke_command "touch #{current_path}/tmp/restart.txt"
+  end
+end
+
+namespace :deploy do
+  task :restart do
+    passenger.restart
+  end
+
+  task :start do
+    # NOP
+  end
+
+  task :stop do
+    # NOP
+  end
+end
