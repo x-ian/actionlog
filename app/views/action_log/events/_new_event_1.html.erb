@@ -5,13 +5,14 @@
   <table>
 
     <tr>
-      <td>Event</td>
-      <td>
+      <td align="right" colspan="2" style="white-space: nowrap;">
         Type:
         <% for et in EventType.find(:all) %>
-          <%= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false) %> <%= et.name %>
+          <%= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false),
+          :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.show('risk_management_header');"%> <%= et.name %>
         <% end %>
-
+        <%= radio_button_tag "event_type", "Minute", false,
+          :onclick => "Element.show('minute_meeting_date'); Element.show('minute_meeting_date_header'); Element.hide('risk_management'); Element.hide('risk_management_header');" %> Minute &nbsp;&nbsp;
       </td>
       <td>
         Meeting:
@@ -37,7 +38,18 @@
     </tr>
     <tr>
       <td>Owner</td>
-      <td><%= link_to_function("Risk Management", visual_effect(:toggle_blind,"risk_management"))%></td>
+      <td>
+        <table id="risk_management_header" class="blindlayouttable">
+          <tr>
+            <td><%= link_to_function("Risk Management", visual_effect(:toggle_blind,"risk_management"))%></td>
+          </tr>
+        </table>
+        <table id="minute_meeting_date_header" style="display: none;" class="blindlayouttable">
+          <tr>
+            <td>Meeting date</td>
+          </tr>
+        </table>
+      </td>
     </tr>
     <tr>
       <td>
@@ -45,7 +57,7 @@
       </td>
 
       <td>
-        <table id="risk_management" style="display: none;">
+        <table id="risk_management" style="display: none;" class="blindlayouttable">
           <tr>
             <td>
               <% PriorityAxis.find(:all).each do |pa| %>
@@ -53,6 +65,11 @@
                 Priority axis <%=pa.name%><br/>
               <% end %>
             </td>
+          </tr>
+        </table>
+        <table id="minute_meeting_date" style="display: none;" class="blindlayouttable">
+          <tr>
+            <td><%=calendar_date_select_tag :meeting_date, Time.now.to_date, :size => 10, :maxlength => 10 %></td>
           </tr>
         </table>
       </td>

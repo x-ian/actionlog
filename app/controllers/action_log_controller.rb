@@ -106,23 +106,44 @@ class ActionLogController < ApplicationController
   end
 
   def create_event
-    @event = Event.new(params[:event])
-    @event.assign_priorities(collect_priority_values(params))
-    @event.event_type = EventType.find_by_name(params["event_type"]) unless params["event_type"].blank?
-    @event.event_area_id = params[:my_event_area_id] unless params[:my_event_area_id].blank?
-    @event.meeting_date = Time.now.to_date if params[:aktion_assignment_date].blank?
+    if params[:event_type] == "Minute"
+      # hack to create a meeting minute as a faked event
+      m = Minute.new
+      m.meeting_date = params[:meeting_date]
+      m.user_id = params[:event][:user_id]
+      m.event_area_id = params[:my_event_area_id]
+      m.name = params[:event][:name]
+      respond_to do |format|
+        if m.save
+          flash[:notice] = 'Minute was successfully created (see ActionLog - Meeting Minutes)'
+          format.html { redirect_to(:action => "index") }
+          format.js
+        else
+          flash[:error] = 'Error while creating minute.'
+          @events = []
+          @aktions = []
+          format.html { render :action => "index" }
+        end
+      end
+    else
+      @event = Event.new(params[:event])
+      @event.assign_priorities(collect_priority_values(params))
+      @event.event_type = EventType.find_by_name(params["event_type"]) unless params["event_type"].blank?
+      @event.event_area_id = params[:my_event_area_id] unless params[:my_event_area_id].blank?
+      @event.meeting_date = Time.now.to_date if params[:aktion_assignment_date].blank?
 
-    respond_to do |format|
-      if @event.save
-        flash[:notice] = 'Event was successfully created.'
-        flash[:last_used_event_id] = @event.id
-        format.html { redirect_to(:action => "index") }
-        format.js
-      else
-        flash[:error] = 'Error while creating event.'
-        @events = []
-        @aktions = []
-        format.html { render :action => "index" }
+      respond_to do |format|
+        if @event.save
+          flash[:notice] = 'Event was successfully created.'
+          flash[:last_used_event_id] = @event.id
+          format.html { redirect_to(:action => "index") }
+          format.js
+        else
+          flash[:error] = 'Error while creating event.'
+          @events = []
+          @aktions = []
+          format.html { render :action => "index" }
+        end
       end
     end
   end
@@ -166,7 +187,7 @@ class ActionLogController < ApplicationController
     if params[:aktion]=="cancel"
       render :update do |page|
         toggle_select_boxes_for_popups page
-      page << "$('action_closeout_comment_popup').popup.hide();"
+        page << "$('action_closeout_comment_popup').popup.hide();"
       end
       return
     end
