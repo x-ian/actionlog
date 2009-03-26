@@ -2,10 +2,14 @@ one:
   id: 1
   name: Program A
   parent_id: 0
-  description: 
+  description:
+  lft: 1
+  rgt: 4
 
 two:
   id: 2
   name: Site A of A
   parent_id: 1
-  description: 
+  description:
+  lft: 2
+  rgt: 3
