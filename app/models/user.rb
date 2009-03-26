@@ -63,6 +63,10 @@ class User < ActiveRecord::Base
     (self.role_id == Role::CUSTOMIZATOR) ? true : false
   end
 
+  def is_superuser?
+    return self.login == "superuser"
+  end
+
   def self.find_participated_primary_responsibles_users_of_meeting(meeting)
     #    User.find(:all, :order => "id").collect{|d| [d.name]}
     j = "LEFT JOIN aktions ON aktions.primary_responsible_id = users.id "
