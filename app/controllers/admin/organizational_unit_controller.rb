@@ -2,6 +2,11 @@ class Admin::OrganizationalUnitController < ApplicationController
   before_filter :login_required
   deny :user => [ :is_user? ]
 
+  # hook for ActiveScaffold to update betternestedset
+  def after_create_save(record)
+    record.move_to_child_of record.parent.id unless record.parent.nil?
+  end
+
   layout "admin"
   active_scaffold :organizational_unit do |config|
     config.actions.exclude :nested
