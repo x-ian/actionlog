@@ -64,12 +64,28 @@ class User < ActiveRecord::Base
   end
 
   def self.find_participated_primary_responsibles_users_of_meeting(meeting)
-#    User.find(:all, :order => "id").collect{|d| [d.name]}
+    #    User.find(:all, :order => "id").collect{|d| [d.name]}
     j = "LEFT JOIN aktions ON aktions.primary_responsible_id = users.id "
     j += "LEFT JOIN events ON events.id = aktions.event_id "
     j += "LEFT JOIN event_areas on event_areas.id = events.event_area_id "
     j += "LEFT JOIN meetings ON meetings.id = event_areas.meeting_id"
     User.find(:all, :select => "DISTINCT(users.id), users.*", :conditions => [ "meetings.id = ?", meeting.id], :joins => j, :order => "name")
+  end
+
+  def self.find_all_users_of_organizational_unit(organizational_unit)
+    return User.find(:all) if organizational_unit == nil
+
+    return self.find_all_users_of_organizational_units([organizational_unit])
+  end
+
+  def self.find_all_users_of_organizational_units(organizational_units)
+    return User.find(:all) if organizational_units == nil || organizational_units.empty?
+
+    a = []
+    organizational_units.each{ |organizational_unit|
+      a = a | [organizational_unit.id] | organizational_unit.all_children
+    }
+    return User.find(:all, :joins => :organizational_units, :conditions => [ "organizational_units_users.organizational_unit_id in (?)", a])
   end
 
   def first_name

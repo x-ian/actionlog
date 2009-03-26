@@ -13,4 +13,14 @@ class OrganizationalUnit < ActiveRecord::Base
   def correct_parent
     write_attribute :parent_id, 0 if parent.nil?
   end
+
+  def self.find_all_organizational_units(organizational_units)
+    return OrganizationalUnit.find(:all) if organizational_units == nil || organizational_units.empty?
+
+    os = []
+    organizational_units.each{ |organizational_unit|
+      os = os | [organizational_unit.id] | organizational_unit.all_children
+    }
+    return os
+  end
 end
