@@ -5,9 +5,9 @@ class Admin::MeetingController < ApplicationController
   layout "admin"
   active_scaffold :meeting do |config|
     config.actions.exclude :nested
-    config.columns = [:name, :description, :responsible_user, :organizational_unit]
+    config.columns = [:organizational_unit, :name, :responsible_user, :description]
     config.columns.exclude :event_areas, :users
-    list.sorting = {:name => 'ASC'}
+    list.sorting = {:organizational_unit => 'ASC'}
     config.columns[:organizational_unit].form_ui = :select
     config.columns[:description].options = {:rows => 4, :cols => 41}
     config.columns[:responsible_user].form_ui = :select
