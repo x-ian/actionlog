@@ -5,13 +5,16 @@ class Admin::EventAreaController < ApplicationController
   layout "admin"
   active_scaffold :event_area do |config|
     config.actions.exclude :nested
-    #config.label = "Customers"
-    #config.columns = [:name, :phone, :company_type, :comments]
+    config.columns = [:meeting, :name, :description]
     config.columns.exclude :events, :escalated_meeting
-    #list.sorting = {:name => 'ASC'}
-    #columns[:phone].label = "Phone #"
-    #columns[:phone].description = "(Format: ###-###-####)"
-    config.columns[:meeting].ui_type = :select
+    list.sorting = {:meeting => 'ASC'}
+    config.columns[:meeting].form_ui = :select
     config.columns[:description].options = {:rows => 4, :cols => 41}
+  end
+
+  def conditions_for_collection
+    if current_user.organizational_units != nil && !current_user.organizational_units.empty?
+      ['meetings.organizational_unit_id IN (?)', OrganizationalUnit.find_all_organizational_units(current_user.organizational_units)]
+    end
   end
 end
