@@ -1,0 +1,15 @@
+development:
+  open_for_all: false
+
+central_development:
+  open_for_all: false
+
+test:
+  open_for_all: false
+
+production:
+  open_for_all: false
+
+public_production:
+  open_for_all: true
+

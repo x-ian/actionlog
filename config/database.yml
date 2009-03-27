@@ -53,3 +53,11 @@ production:
   password:
   host: localhost
 
+public_production:
+  adapter: mysql
+  encoding: utf8
+  database: actionlog_public_production
+  username: neumann
+  password:
+  host: localhost
+
