@@ -15,6 +15,7 @@ namespace :utils do
     u = User.new(:name=>"Franklin")
     u.login="franklin"
     u.pw = "franklin"
+    u.email="christianneumann@web.de"
     u.role_id=1
     u.save
   end
@@ -24,6 +25,7 @@ namespace :utils do
     u = User.new(:name=>"Neumann")
     u.login="neumann"
     u.pw = "neumann"
+    u.email="christianneumann@web.de"
     u.role_id=1
     u.save
   end
@@ -33,6 +35,7 @@ namespace :utils do
     u = User.new(:name=>"Superuser")
     u.login="superuser"
     u.pw = "superuser"
+    u.email="christianneumann@web.de"
     u.role_id=3
     u.save
   end
@@ -42,6 +45,7 @@ namespace :utils do
     u = User.new(:name=>"Administrator")
     u.login="administrator"
     u.pw = "administrator"
+    u.email="christianneumann@web.de"
     u.role_id=2
     u.save
   end
