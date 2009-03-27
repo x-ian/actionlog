@@ -9,6 +9,10 @@ class Meeting < ActiveRecord::Base
   #has_many :escalated_meetings, :class_name => "Event"
   belongs_to :responsible_user, :class_name=>"User"
 
+  def invalid?
+    organizational_unit.nil? 
+  end
+
   def self.find_all_meetings_of_organizational_units(organizational_units)
     return Meeting.find(:all) if organizational_units == nil || organizational_units.empty?
 

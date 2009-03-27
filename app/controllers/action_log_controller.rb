@@ -50,7 +50,12 @@ class ActionLogController < ApplicationController
     elsif params[:current_meeting] == "(all)"
       session[:current_meeting] = "(all)"
     else
-      session[:current_meeting] = Meeting.find(params[:current_meeting])
+      if Meeting.find(params[:current_meeting]).invalid?
+        flash[:error] = "Selected meeting is invalid."
+        session[:current_meeting] = nil
+      else
+        session[:current_meeting] = Meeting.find(params[:current_meeting])
+      end
     end
     respond_to do |format|
       format.html { redirect_to(:action => "index") }
