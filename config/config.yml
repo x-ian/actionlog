@@ -4,7 +4,7 @@ development:
 
 central_development:
   open_for_all: false
-  server_address: "http://al-dev.firstprinciplesmanagement.de/"
+  server_address: "http://al-dev.firstprinciplesmanagement.de"
 
 test:
   open_for_all: false
@@ -12,9 +12,9 @@ test:
 
 production:
   open_for_all: false
-  server_address: "http://al-prod.firstprinciplesmanagement.de/"
+  server_address: "http://al-prod.firstprinciplesmanagement.de"
 
 public_production:
   open_for_all: true
-  server_address: "http://al-public.firstprinciplesmanagement.de/"
+  server_address: "http://al-public.firstprinciplesmanagement.de"
 
