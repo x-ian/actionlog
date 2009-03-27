@@ -1,4 +1,4 @@
-set :stages, %w(central_development production)
+set :stages, %w(central_development production public_production)
 set :default_stage, "central_development"
 require 'capistrano/ext/multistage'
 
