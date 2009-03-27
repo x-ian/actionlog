@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     config.ignore_columns.add [:created_at, :updated_at, :lock_version]
   end
 
-  # Be sure to include AuthenticationSystem in Application Controller instead
+  # restful_authentication
   include AuthenticatedSystem
 
   def current_user

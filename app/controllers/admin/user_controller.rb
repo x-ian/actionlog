@@ -6,7 +6,7 @@ class Admin::UserController < ApplicationController
   active_scaffold :user do |config|
     config.actions.exclude :nested
     config.columns.exclude :events, :primary_responsibles, :secondary_responsibles, :requested_bys, :account, :responsible_users
-    config.columns = [:name, :login, :pw, :email, :inactive, :role, :organizational_units, :meetings]
+    config.columns = [:name, :login, :pw, :email, :inactive, :public_user, :role, :organizational_units, :meetings]
     config.columns[:login].label = 'Login'
     list.sorting = {:name => 'ASC'}
     config.columns[:role].form_ui = :select

@@ -26,6 +26,8 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
 
+  config.gem "rubyist-aasm", :lib => "aasm", :source => "http://gems.github.com"
+
   config.gem "calendar_date_select"
 
   config.gem 'mislav-will_paginate', :version => '2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
@@ -71,4 +73,8 @@ Rails::Initializer.run do |config|
 
   # HTML mails
   #config.action_mailer.default_content_type = "text/html"
+
+  # restful_authentication
+  config.active_record.observers = :account_observer
+
 end

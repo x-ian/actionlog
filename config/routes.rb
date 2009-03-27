@@ -1,10 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
+  # restful_authentication
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.register '/register', :controller => 'accounts', :action => 'create'
   map.signup '/signup', :controller => 'accounts', :action => 'new'
-  map.resources :accounts
-
+  map.activate '/activate/:activation_code', :controller => 'accounts', :action => 'activate', :activation_code => nil
+  map.resources :accounts, :member => { :suspend => :put, :unsuspend => :put, :purge => :delete }
   map.resource :session
 
   map.resources :aktions, :controller => "scaffold/aktions"

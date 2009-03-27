@@ -12,10 +12,10 @@ class User < ActiveRecord::Base
   validates_format_of       :login,    :with => Authentication.login_regex, :message => Authentication.bad_login_message
   validates_format_of       :name,     :with => Authentication.name_regex,  :message => Authentication.bad_name_message, :allow_nil => true
   validates_length_of       :name,     :maximum => 100
-  #validates_presence_of     :email
-  #validates_length_of       :email,    :within => 6..100 #r@a.wk
+  validates_presence_of     :email
+  validates_length_of       :email,    :within => 6..100 #r@a.wk
   #validates_uniqueness_of   :email
-  #validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
+  validates_format_of       :email,    :with => Authentication.email_regex, :message => Authentication.bad_email_message
 
   has_many :events
   has_many :requested_bys, :class_name=>"Aktion"
@@ -28,8 +28,6 @@ class User < ActiveRecord::Base
 
   belongs_to :role
 
-  #belongs_to :meeting
-
   has_and_belongs_to_many :organizational_units
   has_and_belongs_to_many :meetings
 
@@ -37,15 +35,20 @@ class User < ActiveRecord::Base
     write_attribute :login, (self[:login] ? self[:login].downcase : nil)
     write_attribute :email, (self[:email] ? self[:email].downcase : nil)
 
-    account = Account.new if self.account.nil?
-    account = self.account unless self.account.nil?
-    account.name = self[:name]
-    account.email = self[:email]
-    account.password = self[:pw]
-    account.password_confirmation = self[:pw]
-    account.login = self[:login]
-    account.save
-    self.account = account
+    a = self.account unless self.account.nil?
+    if !self.public_user
+      a = Account.new if self.account.nil?
+      a.state=:active
+      self.public_user=false
+    end
+    a.name = self[:name]
+    a.email = self[:email]
+    a.password = self[:pw]
+    a.pw = self[:pw]
+    a.password_confirmation = self[:pw]
+    a.login = self[:login]
+    a.save
+    self.account = a
   end
 
   def is_user?
@@ -101,5 +104,42 @@ class User < ActiveRecord::Base
     parts = name.split(" ")
     parts.collect { |item| initials += item[0..0].upcase }
     initials
+  end
+
+  def initialize_default_public_user_data(account)
+    # account stuff
+    self.name = account.login
+    self.email = account.email
+    self.login = account.login
+    self.pw = account.pw
+    self.role_id = Role::USER
+    self.public_user = true
+    self.account = account
+
+    # org unit
+    o = OrganizationalUnit.new
+    o.name = self.login
+    #o.parent_id = 0
+    o.description = "Default Organizational Unit for user #{self.login}"
+    o.responsible_user = self
+    o.users << self
+    o.save
+
+    # meeting
+    m = Meeting.new
+    m.name = "My Meeting"
+    m.description =" Default Meeting for user #{self.login}"
+    m.organizational_unit_id = o.id
+    m.responsible_user_id = self.id
+    m.users << self
+    m.save
+
+    # event area
+    ea = EventArea.new
+    ea.name = "My Event Area"
+    ea.description =" Default Event area for user #{self.login}"
+    ea.meeting_id = m.id
+    ea.save
+    
   end
 end

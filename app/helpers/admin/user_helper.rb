@@ -11,4 +11,10 @@ module Admin::UserHelper
       end
     end
   end
+
+  # ActiveScaffold
+  def public_user_form_column(record, input_name)
+    check_box :record, :public_user, { :name => input_name, :disabled => true }
+  end
+
 end
