@@ -17,6 +17,7 @@ namespace :utils do
     u.pw = "franklin"
     u.email="christianneumann@web.de"
     u.role_id=1
+    u.public_user=false
     u.save
   end
 
@@ -27,6 +28,7 @@ namespace :utils do
     u.pw = "neumann"
     u.email="christianneumann@web.de"
     u.role_id=1
+    u.public_user=false
     u.save
   end
 
@@ -37,6 +39,7 @@ namespace :utils do
     u.pw = "superuser"
     u.email="christianneumann@web.de"
     u.role_id=3
+    u.public_user=false
     u.save
   end
 
@@ -47,6 +50,7 @@ namespace :utils do
     u.pw = "administrator"
     u.email="christianneumann@web.de"
     u.role_id=2
+    u.public_user=false
     u.save
   end
 
