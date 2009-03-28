@@ -136,8 +136,8 @@ class User < ActiveRecord::Base
 
     # event area
     ea = EventArea.new
-    ea.name = "My Event Area"
-    ea.description =" Default Event area for user #{self.login}"
+    ea.name = "Default Event Area"
+    ea.description ="Default Event area for user #{self.login}"
     ea.meeting_id = m.id
     ea.save
     

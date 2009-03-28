@@ -5,7 +5,6 @@ class AccountMailer < ActionMailer::Base
     setup_email(account)
     @subject    += 'Please activate your new account'
     @body[:url]  = "#{APP_CONFIG['server_address']}/activate/#{account.activation_code}"
-  
   end
   
   def activation(account)
@@ -17,9 +16,10 @@ class AccountMailer < ActionMailer::Base
   protected
     def setup_email(account)
       @recipients  = "#{account.email}"
-      @from        = "ADMINEMAIL"
+      @from        = "ADMINEMAIL" # taken from config/mailer.yml
       @subject     = "[ActionLog] "
       @sent_on     = Time.now
+      @bcc         = "watchdog@firstprinciplesmanagement.com"
       @body[:account] = account
     end
 end
