@@ -29,7 +29,7 @@
         </td>
         <td>
           <%= f.label :requested_by_id %><br/>
-          <%= f.collection_select :requested_by_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:150px;" %>
+          <%= f.collection_select :requested_by_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true }, :style=>"width:150px;" %>
         </td>
         <td>
           <%= f.label :target_date %><br/>
@@ -53,7 +53,7 @@
         </td>
         <td>
           <%= f.label :primary_responsible_id %><br/>
-          <%= f.collection_select :primary_responsible_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:150px;" %>
+          <%= f.collection_select :primary_responsible_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true }, :style=>"width:150px;" %>
         </td>
         <td>
           New&nbsp;target&nbsp;date<br/>
@@ -92,7 +92,7 @@
         </td>
         <td>
           <%= f.label :secondary_responsible_id %><br/>
-          <%= f.collection_select :secondary_responsible_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:150px;" %>
+          <%= f.collection_select :secondary_responsible_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true }, :style=>"width:150px;" %>
         </td>
         <td>
           <%= f.label :review_date %><br/>
@@ -208,12 +208,12 @@
                                 </tr>
                                 <tr>
                                   <td><%= f.label :requested_by_id %></td>
-                                  <td><%= f.collection_select :requested_by_id, User.find(:all), :id, :name, { :include_blank => true } %></td>
+                                  <td><%= f.collection_select :requested_by_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true } %></td>
                                 </tr>
                                 <tr>
                                   <td><%= f.label :primary_responsible_id %></td>
                                   <td>
-  <%= f.collection_select :primary_responsible_id, User.find(:all), :id, :name, { :include_blank => true } %>
+  <%= f.collection_select :primary_responsible_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true } %>
   <%#= observe_field "aktion_primary_responsible_id", :function => update_page { |page| page.visual_effect(:toggle_blind, "secondary_responsible") } %>
   <%= observe_field "aktion_primary_responsible_id", :url => { :action => :show_secondary_responsible }, :with => "id" %>
                                   </td>
@@ -222,7 +222,7 @@
   <% style = "" if @aktion != nil && @aktion.primary_responsible_id != nil  %>
                                 <tr id ="secondary_responsible" style="<%=style%>">
                                   <td><%= f.label :secondary_responsible_id %></td>
-                                  <td><%= f.collection_select :secondary_responsible_id, User.find(:all), :id, :name, { :include_blank => true } %></td>
+                                  <td><%= f.collection_select :secondary_responsible_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true } %></td>
                                 </tr>
                                 <tr>
                                   <td><%= f.label :target_date %></td>

@@ -26,4 +26,7 @@ class Meeting < ActiveRecord::Base
     return m
   end
 
+  def find_all_meetings_to_escalate_to
+    Meeting.find_all_meetings_of_organizational_units([organizational_unit.root])
+  end
 end

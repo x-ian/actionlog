@@ -31,7 +31,7 @@
     <tr>
       <td><%= f.label "Owner" %></td>
       <td>
-        <%= f.collection_select :user_id, User.find(:all), :id, :name, { :include_blank => true } %>
+        <%= f.collection_select :user_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true } %>
       </td>
     </tr>
     

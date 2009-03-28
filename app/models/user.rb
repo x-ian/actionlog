@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
     return self.login == "superuser"
   end
 
+  def self.find_all_users_of_meeting(meeting)
+    meeting.users
+  end
+
   def self.find_participated_primary_responsibles_users_of_meeting(meeting)
     #    User.find(:all, :order => "id").collect{|d| [d.name]}
     j = "LEFT JOIN aktions ON aktions.primary_responsible_id = users.id "

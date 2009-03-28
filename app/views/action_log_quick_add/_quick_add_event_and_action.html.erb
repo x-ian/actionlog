@@ -35,14 +35,14 @@
         </td>
         <td id="<%=id%>-requested_by" style="font-size:<%=session[:font_size]%>;">
           Requested by<br/>
-          <%= select_tag "aktion[requested_by_id]", create_user_select_tag_options(current_user, User.find(:all), true), :id => :quick_add_action_requested_by_id %>
+          <%= select_tag "aktion[requested_by_id]", create_user_select_tag_options(current_user, User.find_all_users_of_meeting(current_meeting), true), :id => :quick_add_action_requested_by_id %>
           <br/><br/><br/>
         </td>
         <td id="<%=id%>-responsible" style="font-size:<%=session[:font_size]%>;">
           Primary responsible<br/>
-          <%= select_tag "aktion[primary_responsible_id]", create_user_select_tag_options(current_user, User.find(:all), true), :id => :quick_add_primary_responsible_by_id %><br/>
+          <%= select_tag "aktion[primary_responsible_id]", create_user_select_tag_options(current_user, User.find_all_users_of_meeting(current_meeting), true), :id => :quick_add_primary_responsible_by_id %><br/>
           Secondary responsible<br/>
-          <%= select_tag "aktion[secondary_responsible_id]", create_user_select_tag_options(aktion.secondary_responsible, User.find(:all), true), :id => :quick_add_secondary_responsible_id %>
+          <%= select_tag "aktion[secondary_responsible_id]", create_user_select_tag_options(aktion.secondary_responsible, User.find_all_users_of_meeting(current_meeting), true), :id => :quick_add_secondary_responsible_id %>
         </td>
         <td id="<%=id%>-due_date" style="font-size:<%=session[:font_size]%>; white-space: nowrap;" >
           <% target_date = aktion.target_date %>

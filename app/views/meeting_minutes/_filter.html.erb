@@ -11,7 +11,7 @@
       </td>
       <td>
         Owner<br/>
-        <%=select_tag "owner", options_for_select_filter(User.find(:all), owner, true ), :onchange=>"document.getElementById ('submit_location_id').click();", :id => :filter_owner %>
+        <%=select_tag "owner", options_for_select_filter(User.find_all_users_of_meeting(current_meeting), owner, true ), :onchange=>"document.getElementById ('submit_location_id').click();", :id => :filter_owner %>
       </td>
       <td>
         <%= link_to_remote "Reset filter", :url => { :action => "apply_filter" } %>

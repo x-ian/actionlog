@@ -7,11 +7,11 @@
       </td>
       <td>
         <%= "Requested by" %><br/>
-        <%=select_tag "requested", options_for_select_filter(User.find(:all), requested, true), :onchange=>"document.getElementById ('submit_location_id').click();", :id => :filter_requested %>
+        <%=select_tag "requested", options_for_select_filter(User.find_all_users_of_meeting(current_meeting), requested, true), :onchange=>"document.getElementById ('submit_location_id').click();", :id => :filter_requested %>
       </td>
       <td>
         <%= "Responsible" %><br/>
-        <%=select_tag "responsible", options_for_select_filter(User.find(:all), responsible, true ), :onchange=>"document.getElementById ('submit_location_id').click();", :id => :filter_responsible %>
+        <%=select_tag "responsible", options_for_select_filter(User.find_all_users_of_meeting(current_meeting), responsible, true ), :onchange=>"document.getElementById ('submit_location_id').click();", :id => :filter_responsible %>
       </td>
       <td>
         <table>

@@ -57,11 +57,11 @@
       <td><%= f.label :secondary_responsible_id %></td>
     </tr>
     <tr>
-      <td><%= f.collection_select :requested_by_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:200px;" %></td>
+      <td><%= f.collection_select :requested_by_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true }, :style=>"width:200px;" %></td>
       <td>
-        <%= f.collection_select :primary_responsible_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:200px;" %>
+        <%= f.collection_select :primary_responsible_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true }, :style=>"width:200px;" %>
       </td>
-      <td><%= f.collection_select :secondary_responsible_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:200px;" %></td>
+      <td><%= f.collection_select :secondary_responsible_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true }, :style=>"width:200px;" %></td>
     </tr>
     <tr>
       <td><%= f.label :target_date %></td>

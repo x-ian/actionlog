@@ -1,13 +1,13 @@
 <table class="blindlayouttable" width="100%">
   <tr>
     <td align="left">
-      <%= select_tag "aktion[primary_responsible_id]", create_user_select_tag_options(aktion.primary_responsible, User.find(:all), true), :id => :popup_aktion_primary_responsible_id %>
+      <%= select_tag "aktion[primary_responsible_id]", create_user_select_tag_options(aktion.primary_responsible, User.find_all_users_of_meeting(current_meeting), true), :id => :popup_aktion_primary_responsible_id %>
       <%= observe_field "popup_aktion_primary_responsible_id", :url => { :action => :show_secondary_responsible }, :with => "id" %>
     </td>
     <% style = "display: none;" %>
     <% style = "" if aktion != nil && aktion.primary_responsible_id != nil  %>
     <td align="right" id ="popup_action_secondary_responsible" style="<%=style%>">
-      &nbsp;Secondary&nbsp;<%= select_tag "aktion[secondary_responsible_id]", create_user_select_tag_options(aktion.secondary_responsible, User.find(:all), true), :id => :popup_aktion_secondary_responsible_id %>
+      &nbsp;Secondary&nbsp;<%= select_tag "aktion[secondary_responsible_id]", create_user_select_tag_options(aktion.secondary_responsible, User.find_all_users_of_meeting(current_meeting), true), :id => :popup_aktion_secondary_responsible_id %>
     </td>
   </tr>
 </table>

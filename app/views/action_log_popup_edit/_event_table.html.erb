@@ -30,11 +30,11 @@
   </tr>
   <tr>
     <td>Owner</td>
-    <td><%= select_tag "event[user_id]", create_user_select_tag_options(event.user, User.find(:all), true), :id => :popup_event_user_id %>
+    <td><%= select_tag "event[user_id]", create_user_select_tag_options(event.user, User.find_all_users_of_meeting(current_meeting), true), :id => :popup_event_user_id %>
   </tr>
   <tr>
     <td>Escalated to Meeting</td>
-    <td><%= select_tag "event[escalated_meeting_id]", create_collection_select_tag_options(event.escalated_meeting, Meeting.find(:all), true, :id, :name), :id => :popup_event_escalated_meeting_id %>
+    <td><%= select_tag "event[escalated_meeting_id]", create_collection_select_tag_options(event.escalated_meeting, current_meeting.find_all_meetings_to_escalate_to, true, :id, :name), :id => :popup_event_escalated_meeting_id %>
   </tr>
 
   <%= render :partial => 'event_risk_management', :locals => {:event => event } %>

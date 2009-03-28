@@ -51,9 +51,9 @@
 
       <tr>
         <td valign="top">
-          <%= f.collection_select :user_id, User.find(:all), :id, :name, { :include_blank => true }, :style=>"width:200px;" %>
+          <%= f.collection_select :user_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true }, :style=>"width:200px;" %>
         </td>
-        <td valign="top"><%= f.collection_select :escalated_meeting_id, Meeting.find(:all), :id, :name, { :include_blank => true } %></td>
+        <td valign="top"><%= f.collection_select :escalated_meeting_id, current_meeting.find_all_meetings_to_escalate_to, :id, :name, { :include_blank => true } %></td>
         <td>
           <table id="risk_management">
             <tr>

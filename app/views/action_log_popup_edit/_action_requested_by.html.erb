@@ -1,1 +1,1 @@
-<%= select_tag "aktion[requested_by_id]", create_user_select_tag_options(aktion.requested_by, User.find(:all), true), :id => :popup_aktion_requested_by_id %>
+<%= select_tag "aktion[requested_by_id]", create_user_select_tag_options(aktion.requested_by, User.find_all_users_of_meeting(current_meeting), true), :id => :popup_aktion_requested_by_id %>
