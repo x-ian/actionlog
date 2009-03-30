@@ -47,11 +47,23 @@
     <% if APP_CONFIG['open_for_all'] %>
       <p align="center"><b>No account?</b> Sign up as a <%= link_to "new user", signup_path %>.</p>
     <% end %>
-    
+
     <p align="center"><b>Need help?</b> Contact us at <a href="mailto:info@firstprinciplesmanagement.com">info@firstprinciplesmanagement.com</a>.</p>
 
     <br/><br/>
     <p  style="font-size: 6pt" align="center">Environment: <%= RAILS_ENV %></p>
-    
+
+    <% if RAILS_ENV != "development" && RAILS_ENV != "testing" %>
+      <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+        try {
+          var pageTracker = _gat._getTracker("UA-7863063-1");
+          pageTracker._trackPageview();
+        } catch(err) {}
+      </script>
+    <% end %>
   </body>
 </html>
