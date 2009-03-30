@@ -45,11 +45,13 @@
 
     <br/><br/>
     <% if APP_CONFIG['open_for_all'] %>
-      <p align="center">(<%= link_to "sign up as a new user", signup_path %>)</p>
+      <p align="center"><b>No account?</b> Sign up as a <%= link_to "new user", signup_path %>.</p>
     <% end %>
+    
+    <p align="center"><b>Need help?</b> Contact us at <a href="mailto:info@firstprinciplesmanagement.com">info@firstprinciplesmanagement.com</a>.</p>
 
-    <br/><br/><br/><br/><br/>
-    <p align="center">Environment: <%= RAILS_ENV %></p>
+    <br/><br/>
+    <p  style="font-size: 6pt" align="center">Environment: <%= RAILS_ENV %></p>
     
   </body>
 </html>
