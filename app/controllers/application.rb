@@ -20,6 +20,14 @@ class ApplicationController < ActionController::Base
   # restful_authentication
   include AuthenticatedSystem
 
+  # Exception Notification
+  include ExceptionNotifiable
+  #local_addresses.clear # always send email notifications instead of displaying the error
+  # error testing
+  #def error
+  #  raise RuntimeError, "Generating an error"
+  #end
+
   def current_user
     return current_account.user
   end

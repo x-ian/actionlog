@@ -78,3 +78,8 @@ Rails::Initializer.run do |config|
   config.active_record.observers = :account_observer
 
 end
+
+# ExceptionNotification
+ExceptionNotifier.exception_recipients = %w(watchdog@firstprinciplesmanagement.com)
+ExceptionNotifier.sender_address = %(info@firstprinciplesmanagement.com)
+
