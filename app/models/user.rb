@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
 
     # meeting
     m = Meeting.new
-    m.name = "My Meeting"
+    m.name = "My Meeting (#{self.login})"
     m.description =" Default Meeting for user #{self.login}"
     m.organizational_unit_id = o.id
     m.responsible_user_id = self.id
@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
 
     # event area
     ea = EventArea.new
-    ea.name = "Default Event Area"
+    ea.name = "My Event Area (#{self.login})"
     ea.description ="Default Event area for user #{self.login}"
     ea.meeting_id = m.id
     ea.save
