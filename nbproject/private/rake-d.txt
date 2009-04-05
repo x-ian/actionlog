@@ -50,6 +50,7 @@ doc\:plugins\:auto_complete_cn=Generate documentation for the auto_complete_cn p
 doc\:plugins\:betternestedset=Generate documentation for the betternestedset plugin
 doc\:plugins\:popup-kit=Generate documentation for the popup-kit plugin
 doc\:plugins\:progress_bar_helper=Generate documentation for the progress_bar_helper plugin
+doc\:plugins\:rails-exception_notification=Generate documentation for the rails-exception_notification plugin
 doc\:plugins\:restful_authentication=Generate documentation for the restful_authentication plugin
 doc\:plugins\:yaml_db=Generate documentation for the yaml_db plugin
 doc\:rails=Build the rails HTML Files
