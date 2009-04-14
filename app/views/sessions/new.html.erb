@@ -57,14 +57,16 @@
     <br/><br/>
     <p  style="font-size: 6pt" align="center">Environment: <%= RAILS_ENV %></p>
 
-    <%#
+    <%
     location1 = Geokit::Geocoders::IpGeocoder.geocode(request.remote_ip)
     logger.debug(request)
     logger.debug(request.remote_ip)
     location2 = Geokit::Geocoders::IpGeocoder.geocode(request.env["HTTP_X_FORWARDED_FOR"] )
+    logger.debug(location1)
+    logger.debug(location2)
     %>
-    <%#=location1.full_address%>
-    <%#=location2.full_address%>
+    A: <%=location1.full_address%>
+    B: <%=location2.full_address%>
 
     <% if RAILS_ENV != "development" && RAILS_ENV != "testing" %>
       <script type="text/javascript">
