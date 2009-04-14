@@ -47,6 +47,12 @@
       </table>
     <% end -%>
 
+    <% location = Geokit::Geocoders::IpGeocoder.geocode(request.remote_ip)
+    if location.success %>
+      <br/><br/>
+      <p align="center"><b>Welcome visitor</b> from <%=location.full_address%></p>
+    <% end %>
+
     <br/><br/>
     <% if APP_CONFIG['open_for_all'] %>
       <p align="center"><b>No account?</b> Sign up as a <%= link_to "new user", signup_path %>.</p>
@@ -56,22 +62,6 @@
 
     <br/><br/>
     <p  style="font-size: 6pt" align="center">Environment: <%= RAILS_ENV %></p>
-
-    <%
-    location1 = Geokit::Geocoders::IpGeocoder.geocode(request.remote_ip)
-    logger.debug(request)
-    logger.debug(request.remote_ip)
-    location2 = Geokit::Geocoders::IpGeocoder.geocode(request.env["HTTP_X_FORWARDED_FOR"] )
-    logger.debug(location1)
-    logger.debug(location2)
-    %>
-    A: <%=location1.full_address%>
-    B: <%=location2.full_address%>
-    C: <%=h request.env["HTTP_X_FORWARDED_FOR"]%>
-    D: <%= request.env["HTTP_X_FORWARDED_FOR"] %>
-    E: <%= request.remote_ip %>
-    F: <%=h request %>
-
 
     <% if RAILS_ENV != "development" && RAILS_ENV != "testing" %>
       <script type="text/javascript">
