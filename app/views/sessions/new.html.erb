@@ -9,8 +9,12 @@
     <%= stylesheet_link_tag 'global' %>
   </head>
   <body>
-    <h1 align="center">Welcome to the ActionLog</h1>
+    <noscript>
+      <meta http-equiv="refresh" content="1; URL=/enable_javascript.html">
+      <p align="center">Error: JavaScript not present.</p>
+    </noscript>
 
+    <h1 align="center">Welcome to the ActionLog</h1>
 
     <% form_tag session_path do -%>
       <table align="center">
@@ -53,14 +57,14 @@
     <br/><br/>
     <p  style="font-size: 6pt" align="center">Environment: <%= RAILS_ENV %></p>
 
-<%
-location1 = Geokit::Geocoders::IpGeocoder.geocode(request.remote_ip)
-logger.debug(request)
-logger.debug(request.remote_ip)
-location2 = Geokit::Geocoders::IpGeocoder.geocode(request.env["HTTP_X_FORWARDED_FOR"] )
-%>
-Hola from: <%=location1.full_address%> (Rails-Prozess)<br/>
-Hola from: <%=location2.full_address%> (Apache-Prozess)
+    <%#
+    location1 = Geokit::Geocoders::IpGeocoder.geocode(request.remote_ip)
+    logger.debug(request)
+    logger.debug(request.remote_ip)
+    location2 = Geokit::Geocoders::IpGeocoder.geocode(request.env["HTTP_X_FORWARDED_FOR"] )
+    %>
+    <%#=location1.full_address%>
+    <%#=location2.full_address%>
 
     <% if RAILS_ENV != "development" && RAILS_ENV != "testing" %>
       <script type="text/javascript">
