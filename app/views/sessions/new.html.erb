@@ -67,6 +67,11 @@
     %>
     A: <%=location1.full_address%>
     B: <%=location2.full_address%>
+    C: <%=h request.env["HTTP_X_FORWARDED_FOR"]%>
+    D: <%= request.env["HTTP_X_FORWARDED_FOR"] %>
+    E: <%= request.remote_ip %>
+    F: <%=h request %>
+
 
     <% if RAILS_ENV != "development" && RAILS_ENV != "testing" %>
       <script type="text/javascript">
