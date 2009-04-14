@@ -48,6 +48,7 @@ doc\:plugins\:activescaffold=Generate documentation for the activescaffold plugi
 doc\:plugins\:aenima_base_auth=Generate documentation for the aenima_base_auth plugin
 doc\:plugins\:auto_complete_cn=Generate documentation for the auto_complete_cn plugin
 doc\:plugins\:betternestedset=Generate documentation for the betternestedset plugin
+doc\:plugins\:geokit-rails=Generate documentation for the geokit-rails plugin
 doc\:plugins\:popup-kit=Generate documentation for the popup-kit plugin
 doc\:plugins\:progress_bar_helper=Generate documentation for the progress_bar_helper plugin
 doc\:plugins\:rails-exception_notification=Generate documentation for the rails-exception_notification plugin

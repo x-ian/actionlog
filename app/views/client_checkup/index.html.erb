@@ -1,0 +1,53 @@
+<%= javascript_include_tag 'browser_detect.js' %>
+
+<table>
+  <tr>
+    <th>Method</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>Server: browser_os</td>
+    <td><%= browser_os %></td>
+  </tr>
+  <tr>
+    <td>Server: browser_name</td>
+    <td><%= browser_name %></td>
+  </tr>
+  <tr>
+    <td>Server: is_ie6?</td>
+    <td><%=is_ie6?%></td>
+  </tr>
+  <tr>
+    <td>Server: request.user_agent</td>
+    <td><%=request.user_agent%></td>
+  </tr>
+  <tr>
+    <td>Client: Browser</td>
+    <td><script type="text/javascript">
+      <!--
+      document.write(BrowserDetect.browser);
+      // -->
+      </script>
+    </td>
+  </tr>
+  <tr>
+    <td>Client: Version</td>
+    <td><script type="text/javascript">
+      <!--
+      document.write(BrowserDetect.version);
+      // -->
+      </script>
+    </td>
+  </tr>
+  <tr>
+    <td>Client: OS</td>
+    <td><script type="text/javascript">
+      <!--
+      document.write(BrowserDetect.OS);
+      // -->
+      </script>
+    </td>
+  </tr>
+</table>
+
+
