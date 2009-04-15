@@ -7,9 +7,10 @@ class SessionsController < ApplicationController
 
   def create
     logout_keeping_session!
-    if User.find_by_login(params[:login])
-      account = Account.public_authenticate(params[:login], params[:password]) if User.find_by_login(params[:login]).public_user
-      account = Account.authenticate(params[:login], params[:password]) unless User.find_by_login(params[:login]).public_user
+    user = User.find_by_login(params[:login])
+    if user && !user.inactive
+      account = Account.public_authenticate(params[:login], params[:password]) if user.public_user
+      account = Account.authenticate(params[:login], params[:password]) unless user.public_user
     end
     if account
       # Protects against session fixation attacks, causes request forgery
