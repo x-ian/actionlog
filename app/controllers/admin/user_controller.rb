@@ -21,4 +21,19 @@ class Admin::UserController < ApplicationController
       ['users.id IN (?)', User.find_all_users_of_organizational_units(current_user.organizational_units)]
     end
   end
+
+  def before_create_save(record)
+    stupid_way_to_ensure_at_least_one_org_unit record
+  end
+
+  def before_update_save(record)
+    stupid_way_to_ensure_at_least_one_org_unit record
+  end
+
+  def stupid_way_to_ensure_at_least_one_org_unit(record)
+    if !current_user.is_superuser?
+      raise "Organizational units can't be blank" if current_user.organizational_units == nil || current_user.organizational_units.empty?
+    end
+  end
+
 end

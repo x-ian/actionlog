@@ -28,27 +28,11 @@ class User < ActiveRecord::Base
 
   belongs_to :role
 
-  has_and_belongs_to_many :organizational_units, :before_remove => :stupid_way_to_ensure_minimum_org_units
+  has_and_belongs_to_many :organizational_units
   #has_many :join_organizational_unit_users
   #has_many :organizational_units, :through => :join_organizational_unit_users
 
   has_and_belongs_to_many :meetings
-
-  def stupid_way_to_ensure_minimum_org_units
-    if !current_user.is_superuser?
-      # errors don'tr work here...
-      errors.add_to_base "Organizational units can't be blank" if organizational_units == nil || current_user.organizational_units.empty?
-      raise "Organizational units can't be blank" if organizational_units == nil || current_user.organizational_units.empty?
-    end
-  end
-
-  def stupid_way_to_ensure_minimum_meetings
-    if !current_user.is_superuser?
-      # errors don'tr work here...
-      errors.add_to_base "Organizational units can't be blank" if organizational_units == nil || current_user.organizational_units.empty?
-      raise "Organizational units can't be blank" if organizational_units == nil || current_user.organizational_units.empty?
-    end
-  end
 
   def deal_with_account
     write_attribute :login, (self[:login] ? self[:login].downcase : nil)
