@@ -30,6 +30,8 @@ class Admin::UserController < ApplicationController
     stupid_way_to_ensure_at_least_one_org_unit record
   end
 
+  # dont know why, but m:n association are directly saved
+  # so even if validation of parent object fails, the assoc is updated. FUCK
   def stupid_way_to_ensure_at_least_one_org_unit(record)
     if !current_user.is_superuser?
       raise "Organizational units can't be blank" if current_user.organizational_units == nil || current_user.organizational_units.empty?
