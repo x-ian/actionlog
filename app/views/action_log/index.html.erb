@@ -40,13 +40,13 @@
     <div class="roundedcornr_content_479185">
       <% if !@edit_event %>
         <%= link_to_function "<b>Add event</b>", visual_effect(:toggle_blind,"add_event")%>
-        <div id="add_event" style="display:none;">
+        <div id="add_event" style='<%= "display:none;" unless flash[:error] == 'Error while creating event.'%>'>
           <%= render :partial => 'action_log/events/new_event_1', :locals => { :event => @event} if !@edit_event && @event != nil %>
         </div>
       <% end %>
       <% if !@edit_action %>
         <%= link_to_function "<b>Add action</b>", visual_effect(:toggle_blind,"add_action")%>
-        <div id="add_action" style="display:none;">
+        <div id="add_action" style='<%= "display:none;" unless flash[:error] == 'Error while creating action.'%>'>
           <%= render :partial => 'action_log/actions/new_action_1', :locals => { :aktion => @aktion} if !@edit_aktion && @aktion != nil %>
         </div>
       <% end %>
