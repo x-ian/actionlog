@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
       # reset_session
       self.current_account = account
       new_cookie_flag = (params[:remember_me] == "1")
+      session[:user_name] = user.login
       handle_remember_cookie! new_cookie_flag
       redirect_back_or_default('/')
       flash[:notice] = "Logged in successfully"
