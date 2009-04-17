@@ -2,19 +2,34 @@ class ActionLogController < ApplicationController
 
   before_filter :login_required
 
-  def index
+  def init_event
     @event = Event.new_with_defaults current_meeting
     #@event.default_meeting = current_account.user.meeting unless current_account.nil? || current_account.user.nil?
     @event.event_area_id = Event.find(flash[:last_used_event_id]).event_area_id unless flash[:last_used_event_id] == nil
     #@event.meeting_date = Time.now.to_date
+  end
 
+  def init_action
     @aktion = Aktion.new
     #@aktion.default_meeting = current_account.user.meeting unless current_account.nil? || current_account.user.nil?
     @aktion.event_id = flash[:last_used_event_id] unless flash[:last_used_event_id] == nil
     @aktion.assignment_date = Time.now.to_date
     @aktion.requested_by_id = current_user.id
     @aktion.primary_responsible_id = current_user.id
-    
+  end
+
+  def init_events_and_actions
+    @aktions = []
+    @events = []
+    @aktions = Aktion.find_all_by_filter_form(params, current_meeting, params[:page], session[:actions_per_page]) if session[:action_log_current_view] == "grouped_by_actions"
+    @events = Event.find_all_by_filter_form(params, current_meeting) if session[:action_log_current_view] == "grouped_by_events"
+  end
+
+  def index
+    init_event
+
+    init_action
+
     @edit_event = false
     if params.key?(:edit_event)
       @event = Event.find(params[:edit_event])
@@ -33,11 +48,8 @@ class ActionLogController < ApplicationController
     session[:cut_text] ="no" if session[:cut_text].blank?
     session[:font_size] = "auto" if session[:font_size].blank?
     session[:table_width] = "100%" if session[:table_width].blank?
-    
-    @aktions = []
-    @events = []
-    @aktions = Aktion.find_all_by_filter_form(params, current_meeting, params[:page], session[:actions_per_page]) if session[:action_log_current_view] == "grouped_by_actions"
-    @events = Event.find_all_by_filter_form(params, current_meeting) if session[:action_log_current_view] == "grouped_by_events"
+
+    init_events_and_actions
 
     respond_to do |format|
       format.html # index.html.erb
@@ -125,8 +137,8 @@ class ActionLogController < ApplicationController
           format.js
         else
           flash[:error] = 'Error while creating minute.'
-          @events = []
-          @aktions = []
+          init_action
+          init_events_and_actions
           format.html { render :action => "index" }
         end
       end
@@ -145,8 +157,8 @@ class ActionLogController < ApplicationController
           format.js
         else
           flash[:error] = 'Error while creating event.'
-          @events = []
-          @aktions = []
+          init_action
+          init_events_and_actions
           format.html { render :action => "index" }
         end
       end
@@ -170,9 +182,8 @@ class ActionLogController < ApplicationController
         format.html { redirect_to(:action => "index") }
       else
         flash[:error] = 'Error while creating action.'
-        @events = []
-        @aktions = []
-
+        init_event
+        init_events_and_actions
         format.html { render :action => "index" }
       end
     end
