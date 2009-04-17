@@ -38,7 +38,6 @@ class User < ActiveRecord::Base
     write_attribute :login, (self[:login] ? self[:login].downcase : nil)
     write_attribute :email, (self[:email] ? self[:email].downcase : nil)
 
-    logger.debug("XXX deal_wirth_account:#{self.organizational_units.empty?}.#{self.organizational_units}")
     a = self.account unless self.account.nil?
     if !self.public_user
       a = Account.new if self.account.nil?
