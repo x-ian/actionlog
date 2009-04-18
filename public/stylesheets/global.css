@@ -16,6 +16,8 @@ form {margin: 0px; padding: 0px; display: inline;}
     width: 100%;
 }
 
+/* HACK: all those tr classes are copied in action_log_popup_edit_controller, change there too */
+
 tr.record td {
     background-color:#E6F2FF;
     border-bottom:1px solid #C5DBF7;

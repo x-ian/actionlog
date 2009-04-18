@@ -89,11 +89,14 @@ class ActionLogPopupEditController < ApplicationController
           toggle_select_boxes_for_popups page
           page << "$('edit_action_popup').popup.hide();"
           if add_mode
-            page.insert_html :after, params[:insert_after_dom_id], :partial => "index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion }
+            page.insert_html :after, params[:insert_after_dom_id], :partial => "index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion, :add_mode => add_mode }
             page.remove params[:remove_dom_id] unless params[:remove_dom_id].blank?
             page.visual_effect(:blind_up, "index_events_without_actions") if Event.find_events_without_actions(current_meeting).empty?
           else
-            page.replace_html "action-#{aktion.id}", :partial => "action_log/index_actions_grouped_by_actions_row", :locals => {:aktion => aktion} unless add_mode
+            page.replace_html "action-#{aktion.id}", :partial => "action_log/index_actions_grouped_by_actions_row", :locals => {:aktion => aktion, :add_mode => add_mode }
+            page["action-#{aktion.id}"].remove_class_name "highlighted-record"
+            page["action-#{aktion.id}"].remove_class_name "deleted-record"
+            page["action-#{aktion.id}"].toggle_class_name get_new_table_row_class(aktion, add_mode)
           end
           highlight_changed_row page, aktion
         end
