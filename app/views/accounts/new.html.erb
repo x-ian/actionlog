@@ -1,29 +1,50 @@
-<h1>Sign up as a new user</h1>
-<% @account.password = @account.password_confirmation = nil %>
+    <%= stylesheet_link_tag 'scaffold' %>
+    <%= stylesheet_link_tag 'global' %>
 
-<div id="flash">
-  <%= render :partial => 'action_log/flash', :locals => { :flash => flash } %>
-</div>
+<h1 align="center">Sign up as a new user</h1>
+<% @account.password = @account.password_confirmation = nil %>
 
 <%= error_messages_for :account %>
 <% form_for :account, :url => accounts_path do |f| -%>
-  <p><%= label_tag 'login' %><br/>
-  <%= f.text_field :login %></p>
+        <table align="center">
+        <tr>
+          <td colspan="2" align="center">
+            <div id="flash">
+              <%= render :partial => 'action_log/flash', :locals => { :flash => flash } %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td align="right"><%= label_tag 'login' %></td>
+          <td align="left"><%= f.text_field :login %></td>
+        </tr>
+        <tr>
+          <td align="right"><%= label_tag 'email' %></td>
+          <td align="left"><%= f.text_field :email %></td>
+        </tr>
+        <tr>
+          <td align="right"><%= label_tag 'password' %></td>
+          <td align="left"><%= f.password_field :password %></td>
+        </tr>
+        <tr>
+          <td align="right"><%= label_tag 'password_confirmation', 'Confirm Password' %></td>
+          <td align="left"><%= f.password_field :password_confirmation %></td>
+        </tr>
+        <tr>
+          <td><br/></td>
+          <td><br/></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center"><%= submit_tag 'Sign up' %></td>
+        </tr>
+      </table>
 
-  <p><%= label_tag 'email' %><br/>
-  <%= f.text_field :email %></p>
-
-  <p><%= label_tag 'password' %><br/>
-  <%= f.password_field :password %></p>
-
-  <p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
-  <%= f.password_field :password_confirmation %></p>
-
-  <p><%= submit_tag 'Sign up' %></p>
 <% end -%>
 
 <br/>
-<p><b>Need help?</b> Contact us at <a href="mailto:info@firstprinciplesmanagement.com">info@firstprinciplesmanagement.com</a>.</p>
+<p align="center"><b>Need help?</b> Contact us at <a href="mailto:info@firstprinciplesmanagement.com">info@firstprinciplesmanagement.com</a>.</p>
+
+<p align="center"><b>Need more?</b> The ActionLog is also available as a full-fledged enterprise solution. Again ask <a href="mailto:info@firstprinciplesmanagement.com">us</a>.</p>
 
 <% if RAILS_ENV != "development" && RAILS_ENV != "testing" %>
   <script type="text/javascript">
