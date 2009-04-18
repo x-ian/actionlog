@@ -44,6 +44,10 @@ class Aktion < ActiveRecord::Base
     save
   end
 
+  def soft_deleted?
+    self.action_status_id == ActionStatus::DELETED
+  end
+
   def event_area
     event.event_area unless event.nil?
   end

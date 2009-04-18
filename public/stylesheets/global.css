@@ -38,6 +38,10 @@ tr.highlighted-record td {
     color:#F50000;
 }
 
+tr.deleted-record td {
+    text-decoration: line-through;
+}
+
 tr.even-record td.sorted {
     background-color:#E6F2FF;
     border-bottom:1px solid #AFD0F5;

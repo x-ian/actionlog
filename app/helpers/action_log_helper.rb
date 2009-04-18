@@ -46,6 +46,7 @@ module ActionLogHelper
   def get_table_row_class(aktion)
     aktion_class = cycle('record', 'even-record record')
     aktion_class = (aktion.overdue ? "highlighted-record " : "") + aktion_class
+    aktion_class = (aktion.soft_deleted? ? "deleted-record " : "") + aktion_class
     aktion_class
   end
 
