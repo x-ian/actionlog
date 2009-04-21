@@ -20,8 +20,7 @@ class Meeting < ActiveRecord::Base
 
     m = []
     organizational_units.each{ |organizational_unit|
-      logger.debug "#{organizational_unit}"
-      if organizational_unit != nil && organizational_unit_id != nil
+      if organizational_unit != nil && organizational_unit.id != nil
         m = m | Meeting.find_all_by_organizational_unit_id(organizational_unit.id)
         organizational_unit.all_children.each{ |c|
           m = m | Meeting.find_all_by_organizational_unit_id(c.id)
