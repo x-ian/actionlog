@@ -16,7 +16,7 @@
         <table class="blindtable" id="meeting_summary">
           <%= render :partial => 'action_log_quick_bar/meeting_summary_content', :locals => { :meeting_summary => ValueObjectMeetingSummary.new} %>
         </table>
-        <%= periodically_call_remote(:url => { :controller => :action_log_quick_bar, :action => :update_meeting_summary }, :frequency => '20', :update => 'meeting_summary')%>
+        <%#= periodically_call_remote(:url => { :controller => :action_log_quick_bar, :action => :update_meeting_summary }, :frequency => '20', :update => 'meeting_summary')%>
       </div>
 
     </div>
