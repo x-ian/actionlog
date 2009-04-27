@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
 
   # Exception Notification
-  include ExceptionNotifiable
+  #include ExceptionNotifiable
   #local_addresses.clear # always send email notifications instead of displaying the error
   # error testing
   #def error
