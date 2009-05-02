@@ -1,0 +1,107 @@
+<%= calendar_date_select_includes %>
+<% CalendarDateSelect.format = :iso_date  %>
+<% CalendarDateSelect.image = "/images/calendar_date_select/calendar.gif"%>
+<%= progress_bar_includes %>
+
+<h1>New action</h1>
+
+<table>
+  <% form_for(
+    aktion,
+    :html => { :method => :get, :onsubmit=>"document.getElementById('my_event_id').value = document.getElementById('aktion_event_id').value" },
+    :url => { :controller => "action_log_plain", :action => "create_action"}) do |f| %>
+    <%= f.error_messages %>
+
+    <%= render :partial => 'action_log_plain/actions/default_meeting', :locals => {:aktion => aktion } %>
+
+    <tr>
+    <td>Area of Event</td>
+    <td>
+      <div id="action_event_area_select">
+        <%= render :partial => 'action_log_plain/actions/event_area_select', :locals => {:meeting_id => aktion.meeting_id, :aktion => aktion } %>
+      </div>
+    </td>
+    <tr>
+      <td><%= f.label :event%></td>
+      <td>
+        <div id="action_event_select">
+          <%= render :partial => 'action_log_plain/actions/event_select', :locals => {:event_area_id => aktion.event_area_id, :aktion => aktion } %>
+        </div>
+        <%= hidden_field_tag "my_event_id", "" %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :action_type_id %></td>
+      <td>
+        <% for et in ActionType.find(:all) %>
+          <%= radio_button_tag "action_type", et.name, (aktion.action_type_id == et.id ? true : false) %> <%= et.name %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :action_required %></td>
+      <td>
+        <%= f.text_area :action_required, :size => "40x4" %>
+        <%= observe_field "aktion_action_required", :url => { :action => :check_action_required }, :frequency => 2, :with => 'verb'%>
+
+        <%#=text_area_with_auto_complete :aktion, :action_required,
+          { :size => "40x4", :onChange => "new Ajax.Request('/action_log_plain/check_action_required/' + this.value,
+          {asynchronous:true, evalScripts:true, parameters:'authenticity_token='+encodeURIComponent('"+form_authenticity_token.to_s+"')})"},
+          { :method => :get, :frequency=>0, :min_chars => 0} %>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        Description quality: <%=progress_bar("action_status_",0,false,true) %>&nbsp;&nbsp;<span id="action_status">&nbsp;</span>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :requested_by_id %></td>
+      <td><%= f.collection_select :requested_by_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true } %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :primary_responsible_id %></td>
+      <td>
+        <%= f.collection_select :primary_responsible_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true } %>
+        <%#= observe_field "aktion_primary_responsible_id", :function => update_page { |page| page.visual_effect(:toggle_blind, "secondary_responsible") } %>
+        <%= observe_field "aktion_primary_responsible_id", :url => { :action => :show_secondary_responsible }, :with => "id" %>
+      </td>
+    </tr>
+    <% style = "display: none;" %>
+    <% style = "" if aktion != nil && aktion.primary_responsible_id != nil  %>
+    <tr id ="secondary_responsible" style="<%=style%>">
+      <td><%= f.label :secondary_responsible_id %></td>
+      <td><%= f.collection_select :secondary_responsible_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true } %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :target_date %></td>
+      <td>
+        <%= f.calendar_date_select :target_date, :size => 10, :maxlength => 10,
+          :onchange => remote_function(:url => { :action => :show_review_date, :id => aktion.id }, :with => "'value=' + $('aktion_target_date').value") %>
+        <%#= f.text_field :target_date, :size => 10, :maxlength => 10 %>
+        <%#= observe_field "aktion_target_date", :url => { :action => :show_review_date }, :with => "value" %>
+      </td>
+    </tr>
+    <% style = "display: none;" %>
+    <%# style = "" if review_date_necessary(aktion) %>
+    <tr id ="review_date" style="<%=style%>">
+      <td><%= f.label :review_date %></td>
+      <td>
+        <%= f.calendar_date_select :review_date, :size => 10, :maxlength => 10 %>
+        (Because Target date more than 6 weeks ahead)
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :closeout_comment %></td>
+      <td><%= f.text_field :closeout_comment %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :action_priority_id %></td>
+      <td><%= f.collection_select :action_priority_id, ActionPriority.find(:all), :id, :level, { :include_blank => true } %></td>
+    </tr>
+    <tr>
+      <td><%= f.submit "Add" %></td>
+    </tr>
+  <% end %>
+</table>

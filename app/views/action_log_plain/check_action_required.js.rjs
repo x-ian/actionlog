@@ -1,0 +1,4 @@
+page
+page.replace_html "action_status", @action_status_text
+page.call 'action_status_PB.setPercentage', @action_status
+page.visual_effect(:highlight, "action_status", :duration => 2)

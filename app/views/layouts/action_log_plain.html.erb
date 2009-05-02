@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>ActionLog: <%= controller.action_name %></title>
+    <%= stylesheet_link_tag 'scaffold' %>
+    <%= stylesheet_link_tag 'global' %>
+  </head>
+  <body>
+    <div>
+      <% unless is_ie6? %>
+      <div style="width:100%; position:fixed; text-align:center;" id="overlay" align="center" >
+        <div id="spinner">
+          <%=image_tag("spinner/progress_bar.gif?", :id => "busy")%>
+          <br/><span style="width:auto; background-color:white;">Please wait while processing request...</span>
+        </div>
+      </div>
+      <% end %>
+      <div >
+        <%= render :partial => 'layouts/menu' %>
+
+        <div id="flash">
+          <%= render :partial => 'flash', :locals => { :flash => flash } %>
+        </div>
+
+        <%= yield  %>
+      </div>
+    </div>
+    <%= update_page_tag do |page|
+      page["overlay"].hide
+    end %>
+  </body>
+</html>

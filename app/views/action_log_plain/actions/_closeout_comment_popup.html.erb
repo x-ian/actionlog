@@ -1,0 +1,13 @@
+<div id="closeout_comment_popup_<%=aktion.id%>" class="popup" style="display:none">
+
+  <% form_remote_tag :url => { :controller => :action_log, :action => :complete_action, :id => aktion.id } do %>
+    <h1>Closeout comment</h1>
+    <%= text_area_tag :closeout_comment, aktion.closeout_comment, :size => "40x4", :id => "closeout_comment-#{aktion.id}" %>
+    <br/><br/>
+    <%= submit_tag 'Mark as complete', :class => 'popup_closebox' %>
+    <%= tag :input, :type => 'button', :value => 'Cancel', :class => 'popup_closebox' %>
+    <%#= hidden_field_tag :back, :value => request.path %>
+  <% end %>
+</div>
+
+<%= javascript_tag "new Popup('closeout_comment_popup_#{aktion.id}','closeout_comment_link_#{aktion.id}',{modal:true,position:'auto'})" %>

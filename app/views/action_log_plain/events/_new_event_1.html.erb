@@ -1,0 +1,118 @@
+<% form_for(event,
+  :html => { :onsubmit=>"document.getElementById('my_event_area_id').value = document.getElementById('event_event_area_id').value" },
+  :url => { :controller => "action_log_plain", :action => "create_event"}) do |f| %>
+  <%= f.error_messages %>
+  <table>
+
+    <tr>
+      <td align="left" colspan="2" style="white-space: nowrap;">
+        <table class="blindlayouttable">
+          <tr>
+            <td>Type:</td>
+            <td>
+              <% et = EventType.find(1) %>
+              <%= radio_button_tag "event_type", et.name, true,
+                :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.show('risk_management_header');"%> <%= et.name %>
+            </td>
+            <td>
+              <% et = EventType.find(2) %>
+              <%= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false),
+                :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.show('risk_management_header');"%> <%= et.name %>
+
+            </td>
+            <td>
+              <%= radio_button_tag "event_type", "Minute", false,
+                :onclick => "Element.show('minute_meeting_date'); Element.show('minute_meeting_date_header'); Element.hide('risk_management'); Element.hide('risk_management_header');" %> Minute &nbsp;&nbsp;
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <% et = EventType.find(3) %>
+              <%= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false),
+                :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.show('risk_management_header');"%> <%= et.name %>
+            </td>
+            <td>
+              <% et = EventType.find(4) %>
+              <%= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false),
+                :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.show('risk_management_header');"%> <%= et.name %>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+        <!--Type:-->
+        <%# for et in EventType.find(:all) %>
+          <%#= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false),
+            :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.show('risk_management_header');"%> <%#= et.name %>
+        <%# end %>
+        <%#= radio_button_tag "event_type", "Minute", false,
+          :onclick => "Element.show('minute_meeting_date'); Element.show('minute_meeting_date_header'); Element.hide('risk_management'); Element.hide('risk_management_header');" %> <!--Minute &nbsp;&nbsp;-->
+      </td>
+      <td>
+        Meeting:
+        <% if current_meeting == nil || current_meeting == "(all)" %>
+          (use Current Meeting selector)
+        <% else %>
+          <% event.default_meeting = current_meeting %>
+          <%= "'#{event.meeting.name}' (in '#{event.organizational_unit.name}')" %>
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2"><%= f.text_area :name, :size=>"55x2" %></td>
+      <td valign="top">
+        Area of Event<br/>
+        <div id="event_area_select">
+          <%= render :partial => 'action_log_plain/events/event_area_select', :locals => {:meeting_id => event.meeting_id, :event => event } %>
+        </div>
+        <%= hidden_field_tag "my_event_area_id", "" %>
+      </td>
+
+    </tr>
+    <tr>
+      <td>Owner</td>
+      <td>
+        <table id="risk_management_header" class="blindlayouttable">
+          <tr>
+            <td><%= link_to_function("Risk Management", visual_effect(:toggle_blind,"risk_management"))%></td>
+          </tr>
+        </table>
+        <table id="minute_meeting_date_header" style="display: none;" class="blindlayouttable">
+          <tr>
+            <td>Meeting date</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.collection_select :user_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true }, :style=>"width:200px;" %>
+      </td>
+
+      <td>
+        <table id="risk_management" style="display: none;" class="blindlayouttable">
+          <tr>
+            <td>
+              <% PriorityAxis.find(:all).each do |pa| %>
+                <%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options_for_priority(event.priority_value_by_axis(pa.id), PriorityRange.find_all_by_priority_axis_id(pa.id), true), :style=>"width:35px;" %>
+                <%=pa.name%><br/>
+              <% end %>
+              <%= label_tag "Impact" %><br/>
+              <%= text_area_tag "priority_description", "", :size=>"25x1" %>
+            </td>
+          </tr>
+        </table>
+        <table id="minute_meeting_date" style="display: none;" class="blindlayouttable">
+          <tr>
+            <td><%=calendar_date_select_tag :meeting_date, Time.now.to_date, :size => 10, :maxlength => 10 %></td>
+          </tr>
+        </table>
+      </td>
+
+      <td>
+        <%= f.submit "Add" %>
+      </td>
+    </tr>
+  </table>
+<% end %>

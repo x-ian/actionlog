@@ -1,0 +1,46 @@
+<h1>New event</h1>
+
+<table align="left">
+  <% form_for(event,
+    :html => { :onsubmit=>"document.getElementById('my_event_area_id').value = document.getElementById('event_event_area_id').value" },
+    :url => { :controller => "action_log_plain", :action => "create_event"}) do |f| %>
+    <%= f.error_messages %>
+
+      <%= render :partial => 'action_log_plain/events/default_meeting', :locals => {:event => event } %>
+    <tr>
+      <td>Area of Event</td>
+      <td>
+        <div id="event_area_select">
+          <%= render :partial => 'action_log_plain/events/event_area_select', :locals => {:meeting_id => event.meeting_id, :event => event } %>
+        </div>
+        <%= hidden_field_tag "my_event_area_id", "" %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :event_type_id %></td>
+      <td>
+        <% for et in EventType.find(:all) %>
+          <%= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false) %> <%= et.name %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>Event</td>
+      <td><%= f.text_area :name, :size=>"40x4" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Owner" %></td>
+      <td>
+        <%= f.collection_select :user_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true } %>
+      </td>
+    </tr>
+    
+    <%= render :partial => 'action_log_plain/events/risk_management', :locals => {:event => event } %>
+
+    <tr>
+      <td>
+        <%= f.submit "Add" %>
+      </td>
+    </tr>
+  <% end %>
+</table>

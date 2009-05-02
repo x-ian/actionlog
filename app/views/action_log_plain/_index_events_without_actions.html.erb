@@ -1,0 +1,16 @@
+
+<table cellspacing="0" cellpadding="0" width="100%">
+  <tr>
+    <th class="blueheader">Area&nbsp;of&nbsp;Event</th>
+    <th class="blueheader">Meeting&nbsp;date</th>
+    <th class="blueheader" width="100%">Event</th>
+    <th class="blueheader">Owner</th>
+    <th class="blueheader"></th>
+  </tr>
+
+  <% for event in Event.find_events_without_actions(current_meeting) %>
+    <tr id="event-without-action-<%=event.id%>" class="even-record record">
+      <%= render :partial => 'index_events_without_actions_tr', :locals => { :event => event } %>
+    </tr>
+  <% end %>
+</table>

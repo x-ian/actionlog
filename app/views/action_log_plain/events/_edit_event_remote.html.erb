@@ -1,0 +1,85 @@
+
+<td colspan="8">
+  <% form_for(event,
+    :html => { :onsubmit=>"document.getElementById('my_event_area_id').value = document.getElementById('event_event_area_id').value" },
+    :url => { :controller => "action_log_plain", :action => "update_event", :id => event}) do |f| %>
+    <%= f.error_messages %>
+    <table>
+      <tr>
+        <td>Event</td>
+        <td>
+          Type:
+          <% for et in EventType.find(:all) %>
+            <%= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false) %> <%= et.name %>
+          <% end %>
+        </td>
+        <td>
+          Organizational Unit<br/>
+          <%= tree_select(
+            OrganizationalUnit.find(:all, :conditions => "parent_id = 0"),
+            'organizational_unit',
+            'id',
+            event.organizational_unit,
+            nil
+          ) %>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <%= f.text_area :name, :size=>"55x2" %><br/>
+          <%= f.label :log_date %>: <%= event.log_date %>
+        </td>
+        <td valign="top">
+          Meeting<br/>
+          <div id="meeting_select">
+            <%= render :partial => 'action_log_plain/events/meeting_select', :locals => {:orgunit_id => event.organizational_unit_id, :event => event } %>
+          </div>
+          Area of Event<br/>
+          <div id="event_area_select">
+            <%= render :partial => 'action_log_plain/events/event_area_select', :locals => {:meeting_id => event.meeting_id, :event => event } %>
+          </div>
+          <%= hidden_field_tag "my_event_area_id", "" %>
+        </td>
+      </tr>
+
+      <tr>
+        <td><%= f.label "Owner" %></td>
+        <td><%= f.label "Escalated to Meeting" %></td>
+        <td><%= f.label "Risk Management"%></td>
+      </tr>
+
+      <tr>
+        <td valign="top">
+          <%= f.collection_select :user_id, User.find_all_users_of_meeting(current_meeting), :id, :name, { :include_blank => true }, :style=>"width:200px;" %>
+        </td>
+        <td valign="top"><%= f.collection_select :escalated_meeting_id, current_meeting.find_all_meetings_to_escalate_to, :id, :name, { :include_blank => true } %></td>
+        <td>
+          <table id="risk_management">
+            <tr>
+              <td>
+                <% PriorityAxis.find(:all).each do |pa| %>
+                  <%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options(event.priority_value_by_axis(pa.id), PriorityRange.find_all_by_priority_axis_id(pa.id), true) %>
+                  <%= label_tag "priority_axis_" + pa.name %><br/>
+                <% end %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <td><%= f.label :meeting_date %></td>
+      </tr>
+
+      <tr>
+        <td><%= f.calendar_date_select :meeting_date, :size => 10, :maxlength => 10 %></td>
+      </tr>
+
+      <tr>
+        <td><%= f.submit "Update" %><%= button_to 'Back', :action => "index" %></td>
+        <td><%= button_to 'Destroy', { :action => :destroy_event, :id => event.id}, :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    </table>
+  <% end %>
+</td>

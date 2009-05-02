@@ -1,0 +1,5 @@
+page.replace_html 'flash', :partial => "flash", :locals => { :flash => flash }
+page.visual_effect(:highlight, "flash")
+#page.insert_html :after, 'vendors_title',
+#                 :partial => 'vendor',
+#                 :object => Vendor.find(:all, :order => 'name')

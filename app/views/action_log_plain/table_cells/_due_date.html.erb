@@ -1,0 +1,20 @@
+<span onclick="<%=remote_function :update => 'action-' + aktion.id.to_s + '-due_date', :url => {:controller => "action_log_inplace_edit", :action=>"inplace_edit_due_date", :id=>aktion.id} unless @readonly %>">
+  <% date_text_exists = false %>
+    <% if aktion.review_date != nil && aktion.review_date != "" %>
+        Review:&nbsp;<%=h aktion.review_date.to_s %>
+        <% date_text_exists = true %>
+    <% end %>
+      <% if aktion.new_target_date == nil || aktion.new_target_date == "" %>
+        <% unless aktion.target_date == nil || aktion.target_date == "" %>
+          Target:&nbsp;<%=aktion.target_date.to_s %>
+          <% date_text_exists = true %>
+        <% else %>
+        <% end %>
+      <% else %>
+        Target:&nbsp;<%=aktion.new_target_date.to_s %>
+        <% date_text_exists = true %>
+      <% end %>
+  <%= aktion.check_date_consistency ? "" : "(inconsistent)" %>
+  <%= "&#160;" unless date_text_exists %>
+</span>
+&nbsp;-&nbsp;

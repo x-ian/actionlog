@@ -1,0 +1,140 @@
+<%= calendar_date_select_includes %>
+<% CalendarDateSelect.format = :iso_date  %>
+<% CalendarDateSelect.image = "/images/calendar_date_select/calendar.gif"%>
+<%= progress_bar_includes %>
+<%= stylesheet_link_tag 'popup-kit/popup.css' %>
+<%= javascript_include_tag 'popup-kit/popup.js' %>
+
+<% if current_meeting.nil? %>
+  <br/><br/><br/><br/><br/>
+  <p align="center"><b>Choose current meeting with Meeting Selector in top right corner.</b></p>
+  <%= update_page_tag do |page|
+    #page.visual_effect(:highlight, "cmeeting_selector", :duration => 2)
+    #page.visual_effect(:shake, "cmeeting_selector", :duration => 2, :distance=>40)
+    #page.visual_effect(:puff, "cmeeting_selector", :duration => 2)
+    #page.visual_effect(:appear, "cmeeting_selector", :duration => 2)
+    page.visual_effect(:pulsate, "cmeeting_selector", :duration => 2, :pulses=>5)
+  end %>
+
+<% else %>
+
+  <%= render :partial => 'action_log_quick_bar/quick_bar' %>
+
+  <% if @edit_event %>
+    <%= render :partial => 'action_log_plain/events/edit_event', :locals => { :event => @event } %>
+  <% end %>
+  <% if @edit_action %>
+    <%= render :partial => 'action_log_plain/actions/edit_action', :locals => {}  %>
+  <% end %>
+
+  <%
+  if flash[:notice].blank? && flash[:error].blank?
+    style = "display: none;"
+  else
+    style = ""
+  end
+%>
+
+  <div class="roundedcornr_box_479185">
+    <div class="roundedcornr_top_479185"><div></div></div>
+    <div class="roundedcornr_content_479185">
+      <% if !@edit_event %>
+        <%= link_to_function "<b>Add event</b>", visual_effect(:toggle_blind,"add_event")%>
+        <div id="add_event" style='<%= "display:none;" unless flash[:error] == 'Error while creating event.'%>'>
+          <%= render :partial => 'action_log_plain/events/new_event_1', :locals => { :event => @event} if !@edit_event && @event != nil %>
+        </div>
+      <% end %>
+      <% if !@edit_action %>
+        <%= link_to_function "<b>Add action</b>", visual_effect(:toggle_blind,"add_action")%>
+        <div id="add_action" style='<%= "display:none;" unless flash[:error] == 'Error while creating action.'%>'>
+          <%= render :partial => 'action_log_plain/actions/new_action_1', :locals => { :aktion => @aktion} if !@edit_aktion && @aktion != nil %>
+        </div>
+      <% end %>
+    </div>
+    <div class="roundedcornr_bottom_479185"><div></div></div>
+  </div>
+
+  <!--
+  <% if !@edit_event && !@edit_action %>
+    <%#= link_to_function "Add events and actions (old)", visual_effect(:toggle_blind,"add")%>
+                                                                <div id="add" style="<%=style%>">
+                                                                  <table>
+                                                                    <tr>
+                                                                      <td valign="top">
+    <%#= render :partial => 'action_log_plain/events/new_event', :locals => { :event => @event } if !@edit_event && @event != nil %>
+                                                                      </td>
+                                                                      <td>
+    <%#= render :partial => 'action_log_plain/actions/new_action', :locals => { :aktion => @aktion} if !@edit_aktion && @aktion != nil %>
+                                                                      </td>
+                                                                    </tr>
+                                                                  </table>
+                                                                </div>
+  <% end %>
+                            -->
+
+  <% events_without_actions = !Event.find_events_without_actions(current_meeting).empty? %>
+  <% if events_without_actions %>
+    <% style = "display: none;" %>
+    <% style = "" if events_without_actions %>
+    <div class="roundedcornr_box_479185">
+      <div class="roundedcornr_top_479185"><div></div></div>
+      <div class="roundedcornr_content_479185">
+        <%= link_to_function "<b>Events without Actions</b>", visual_effect(:toggle_blind,"index_events_without_actions")%>
+        <div id="index_events_without_actions" style = "<%=style%>">
+          <%= render :partial => 'index_events_without_actions', :locals => { } %>
+        </div>
+      </div>
+      <div class="roundedcornr_bottom_479185"><div></div></div>
+    </div>
+  <% end %>
+
+  <div class="roundedcornr_box_479185">
+    <div class="roundedcornr_top_479185"><div></div></div>
+    <div class="roundedcornr_content_479185">
+      <%= link_to_function "<b>Filter</b>", visual_effect(:toggle_blind,"index_filter")%>
+      <div id="index_filter" style = "display: none;">
+        <%= render :partial => 'index_filter', :locals => { :action_status => params[:action_status], :requested => params[:requested], :responsible => params[:responsible], :to => params[:to], :from => params[:from], } %>
+      </div>
+    </div>
+    <div class="roundedcornr_bottom_479185"><div></div></div>
+  </div>
+
+  <div class="centered-popup" style="width:950px; z-index:5000;">
+    <div id="edit_event_popup" class="popup" style="display:none">
+
+      <%= render :partial => 'action_log_popup_edit/popup_edit_event_singleton', :locals => { :event => Event.new }  %>
+    </div>
+    <%= javascript_tag "new Popup('edit_event_popup','null',{modal:true,position:'center'})" %>
+  </div>
+
+  <div class="centered-popup" style="width:950px; z-index:5000;">
+    <div id="edit_action_popup" class="popup" style="z-index:auto; display:none">
+      <%= render :partial => 'action_log_popup_edit/popup_edit_action_singleton', :locals => { :aktion => Aktion.new }  %>
+    </div>
+    <%= javascript_tag "new Popup('edit_action_popup','null',{modal:true,position:'center'})" %>
+  </div>
+
+  <div class="centered-popup" style="z-index:5000;">
+    <div id="action_closeout_comment_popup" class="popup" style="display:none">
+      <%= render :partial => 'action_log_plain/actions/popup_action_closeout_comment_singleton', :locals => { :aktion => Aktion.new }  %>
+    </div>
+    <%= javascript_tag "new Popup('action_closeout_comment_popup','null',{modal:true,position:'center'})" %>
+  </div>
+
+  <div class="roundedcornr_box_479185">
+    <div class="roundedcornr_top_479185"><div></div></div>
+    <div class="roundedcornr_content_479185">
+      <div id="index_action_log">
+        <div id="index_actions">
+          <% if session[:action_log_current_view] == "grouped_by_events" %>
+            <%= render :partial => 'index_actions_grouped_by_events', :locals => {} %>
+          <% else %>
+            <%= render :partial => 'index_actions_grouped_by_actions', :locals => {} %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="roundedcornr_bottom_479185"><div></div></div>
+  </div>
+
+<% end %>

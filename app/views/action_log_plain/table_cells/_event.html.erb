@@ -1,0 +1,15 @@
+      <span onclick="<%=remote_function :update => 'action-' + aktion.id.to_s + '-event', :url => {:controller => "action_log_inplace_edit", :action=>"inplace_edit_event", :id=>aktion.id} unless @readonly %>">
+        <%= "<span style='max-height:35px; max-width:125px; overflow:hidden;'>" if session[:cut_text]=='yes'%>
+        <%#=link_to_remote aktion.event.name, :url => { :controller => "action_log_plain", :action => "edit_event_remote", :id => aktion } %>
+        <%= h aktion.event.name %>
+        <%= " (escalated from Meeting '#{aktion.event.event_area.meeting.name}')" if aktion.event.escalated_meeting_id == current_meeting.id %>
+        <%= "</span>" if session[:cut_text]=='yes'%>
+      </span>
+      <% unless @readonly %>
+        <span>
+          <%=link_to_remote image_tag("Document-Write-48x48.png?", :alt => "(full edit)", :size => "12x12", :title=>"Full edit of the Event", :border=>"0"), { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_event", :id => aktion.event } } %>
+          <%=link_to_remote image_tag("Crystal_Clear_action_window_new_mine.png?", :alt => "(add action)", :size => "12x12", :title=>"Add Action to the Event", :border=>"0"), { :url => { :controller => "action_log_popup_edit", :action => "show_popup_add_action", :id => aktion.event, :insert_after_dom_id => "action-#{aktion.id}" } } %>
+          <%=link_to_remote image_tag("Add-48x48.png?", :alt => "(quick add action)", :size => "12x12", :title=>"Quick add action to the Event", :border=>"0"), { :url => { :controller => "action_log_quick_add", :action => "quick_add_action", :id => aktion.event, :insert_after_dom_id => "action-#{aktion.id}" } } %>
+        </span>
+      <% end %>
+&nbsp;-&nbsp;

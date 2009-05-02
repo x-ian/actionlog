@@ -1,0 +1,11 @@
+
+<b><u>Action Log</u></b> - Grouped by: Actions <br/> <br/>
+
+Event <%=link_to_remote image_tag("Crystal_Clear_action_edit_add.png?", :alt => "(quick add event &amp; action)", :size => "12x12", :title=>"Quick add of Event and Action", :border=>"0"), { :url => { :controller => "action_log_quick_add", :action => "quick_add_event_and_action", :insert_after_dom_id => "first_empty_row" } } %> - Action required - Requested by - Responsible - Due date - Completion date
+ <br/> <br/>
+<div id="first_empty_row"></div>
+<% for aktion in @aktions %>
+  <%= render :partial => "action_log_plain/index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion } %>
+  <br/>
+<% end %>
+

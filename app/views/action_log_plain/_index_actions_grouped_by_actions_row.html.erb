@@ -1,0 +1,7 @@
+<% id = "action-#{aktion.id}" %>
+<% event_title = "Click to edit" %>
+<% event_title = "Click to edit: " + aktion.event.name if session[:cut_text]=='yes' %>
+  <span id="<%=id%>-event" style="font-size:<%=session[:font_size]%>;" title="<%=event_title%>">
+    <%= render :partial => "action_log_plain/table_cells/event", :locals => { :aktion => aktion } %>
+  </span>
+<%= render :partial => "action_log_plain/index_actions_action_data", :locals => { :aktion => aktion } %>

@@ -1,0 +1,9 @@
+      <span onclick="<%=remote_function :update => 'action-' + aktion.id.to_s + '-action_required', :url => {:controller => "action_log_inplace_edit", :action=>"inplace_edit_action_required", :id=>aktion.id} unless @readonly %>">
+        <%= "<span style='max-height:35px; max-width:175px; overflow:hidden;'>" if session[:cut_text]=='yes'%>
+        <%= h aktion.action_required %>
+        <%= "</span>" if session[:cut_text]=='yes'%>
+      </span>
+      <% unless @readonly %>
+        <%=link_to_remote image_tag("Document-Write-48x48.png?", :alt => "(full edit)", :size => "12x12", :title=>"Full edit of the Action", :border=>"0"), { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_action", :id => aktion } } %>
+      <% end %>
+&nbsp;-&nbsp;
