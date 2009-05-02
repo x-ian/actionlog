@@ -95,9 +95,11 @@
           <tr>
             <td>
               <% PriorityAxis.find(:all).each do |pa| %>
-                <%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options(event.priority_value_by_axis(pa.id), PriorityRange.find_all_by_priority_axis_id(pa.id), true) %>
-                Priority axis <%=pa.name%><br/>
+                <%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options_for_priority(event.priority_value_by_axis(pa.id), PriorityRange.find_all_by_priority_axis_id(pa.id), true), :style=>"width:35px;" %>
+                <%=pa.name%><br/>
               <% end %>
+              <%= label_tag "Impact" %><br/>
+              <%= text_area_tag "priority_description", "", :size=>"25x1" %>
             </td>
           </tr>
         </table>

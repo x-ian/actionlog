@@ -144,7 +144,7 @@ class ActionLogController < ApplicationController
       end
     else
       @event = Event.new(params[:event])
-      @event.assign_priorities(collect_priority_values(params))
+      @event.assign_priorities(collect_priority_values(params), params[:priority_description])
       @event.event_type = EventType.find_by_name(params["event_type"]) unless params["event_type"].blank?
       @event.event_area_id = params[:my_event_area_id] unless params[:my_event_area_id].blank?
       @event.meeting_date = Time.now.to_date if params[:aktion_assignment_date].blank?
@@ -333,7 +333,7 @@ class ActionLogController < ApplicationController
 
   def update_event
     @event = Event.find(params[:id])
-    @event.assign_priorities(collect_priority_values(params))
+    @event.assign_priorities(collect_priority_values(params), params[:priority_description])
     @event.event_type = EventType.find_by_name(params["event_type"]) unless params["event_type"].blank?
     @event.event_area_id = params[:my_event_area_id] unless params[:my_event_area_id].blank?
 

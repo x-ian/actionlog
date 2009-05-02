@@ -26,6 +26,19 @@ module ActionLogHelper
     return tag
   end
 
+  def create_select_tag_options_for_priority(object, list, include_blank)
+    tag = ""
+    tag = "<option></option>" if include_blank
+    list.each do |i|
+      if object != nil && object.value == i.value
+        tag += "<option selected='selected' value='#{i.value}'>#{i.value} - #{i.description}</option>"
+      else
+        tag += "<option value='#{i.value}'>#{i.value} - #{i.description}</option>"
+      end
+    end
+    return tag
+  end
+
   def options_for_select_filter (elements, param, include_unassigned = false, include_all = false)
     s = []
     elements.each do |d|

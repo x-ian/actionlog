@@ -162,7 +162,7 @@ class ActionLogPopupEditController < ApplicationController
       return
     end
     event = Event.find(params[:id])
-    event.assign_priorities(collect_priority_values(params))
+    event.assign_priorities(collect_priority_values(params), params[:priority_description])
     event.event_type = EventType.find_by_name(params["popup_event_type"]) unless params["popup_event_type"].blank?
 
     respond_to do |format|

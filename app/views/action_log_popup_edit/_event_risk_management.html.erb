@@ -1,13 +1,11 @@
 <tr>
   <td><%= link_to_function("Risk Management", visual_effect(:toggle_blind,"popup_risk_management"))%></td>
   <td id="popup_risk_management" style="display: none;">
-    <table class="blindlayouttable">
-      <% PriorityAxis.find(:all).each do |pa| %>
-        <tr>
-          <td><%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options(event.priority_value_by_axis(pa.id), PriorityRange.find_all_by_priority_axis_id(pa.id), true), :id => "popup_priority_axis_" + pa.id.to_s %></td>
-          <td>&nbsp;<%=pa.name %></td>
-        </tr>
-      <% end %>
-    </table>
+    <% PriorityAxis.find(:all).each do |pa| %>
+      <%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options_for_priority(event.priority_value_by_axis(pa.id), PriorityRange.find_all_by_priority_axis_id(pa.id), true), :id => "popup_priority_axis_" + pa.id.to_s, :style=>"width:35px;" %>
+      <%=pa.name %><br/>
+    <% end %>
+    <%= label_tag "Impact" %>
+    <%= text_area_tag "priority_description", (event.priority == nil ? "" : event.priority.description), :size=>"25x1" %>
   </td>
 </tr>

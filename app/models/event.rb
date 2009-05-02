@@ -56,7 +56,7 @@ class Event < ActiveRecord::Base
   end
   # END possible mixin or whatever for aktion and event
 
-  def assign_priorities(priorities)
+  def assign_priorities(priorities, description)
     priority.destroy unless priority.nil?
     p = Priority.new
     p.event = self
@@ -71,7 +71,7 @@ class Event < ActiveRecord::Base
       end
     end
     p.level = level
-
+    p.description = description
     p.save    
     priority = p
   end
