@@ -126,12 +126,13 @@ class User < ActiveRecord::Base
     # org unit
     o = OrganizationalUnit.new
     o.name = self.login
-    o.move_to_child_of OrganizationalUnit::PUBLIC_ORGUNIT
     o.description = "Default Organizational Unit for user #{self.login}"
     o.responsible_user = self
     o.users << self
     o.save
-
+    o.move_to_child_of OrganizationalUnit::PUBLIC_ORGUNIT
+    o.save
+    
     # meeting
     m = Meeting.new
     m.name = "My Meeting (#{self.login})"
