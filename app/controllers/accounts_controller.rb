@@ -31,13 +31,18 @@ class AccountsController < ApplicationController
     account = Account.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
     case
     when (!params[:activation_code].blank?) && account && !account.active?
-      account.activate!
-      flash[:notice] = "Signup complete! Please sign in to continue."
-      # success, create user
-      user = User.new
-      user.initialize_default_public_user_data(account)
-      user.save
-      redirect_to '/login'
+      begin
+        account.activate!
+        flash[:notice] = "Signup complete! Please sign in to continue."
+        # success, create user
+        user = User.new
+        user.initialize_default_public_user_data(account)
+        user.save
+        redirect_to '/login'
+      rescue
+        account.destroy
+        user.delete
+      end
     when params[:activation_code].blank?
       flash[:error] = "The activation code was missing.  Please follow the URL from your email."
       redirect_to(login_url)
