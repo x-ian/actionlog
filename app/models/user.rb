@@ -126,7 +126,7 @@ class User < ActiveRecord::Base
     # org unit
     o = OrganizationalUnit.new
     o.name = self.login
-    #o.parent_id = 0
+    o.parent_id = OrganizationalUnit::PUBLIC_ORGUNIT
     o.description = "Default Organizational Unit for user #{self.login}"
     o.responsible_user = self
     o.users << self

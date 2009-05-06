@@ -1,4 +1,8 @@
 class OrganizationalUnit < ActiveRecord::Base
+
+  PUBLIC_ORGUNIT = OrganizationalUnit.exists?(:name => "Public") ? OrganizationalUnit.find_by_name("Public") : nil
+  COMPANIES_ORGUNIT = OrganizationalUnit.exists?(:name => "Companies") ? OrganizationalUnit.find_by_name("Companies") : nil
+
   acts_as_nested_set
   before_save :correct_parent
 
