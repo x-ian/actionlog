@@ -42,6 +42,7 @@ class AccountsController < ApplicationController
       rescue
         account.destroy
         user.delete
+        raise
       end
     when params[:activation_code].blank?
       flash[:error] = "The activation code was missing.  Please follow the URL from your email."
