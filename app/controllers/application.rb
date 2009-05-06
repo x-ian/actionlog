@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   #end
 
   def current_user
-    return current_account.user
+    return current_account.user if current_account
   end
 
   def current_meeting
