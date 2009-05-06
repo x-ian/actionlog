@@ -149,6 +149,13 @@ class ActionLogPopupEditController < ApplicationController
     page.replace_html "popup_event_table", :partial => "action_log_popup_edit/event_table", :locals => {:event => event, :from_events_without_actions => from_events_without_actions }
       toggle_select_boxes_for_popups page
       page.replace_html "popup_event_title", :partial => "action_log_popup_edit/event_title", :locals => {:event => event }
+      if event.event_type_id == 3 # Risk
+        page['popup_risk_management_header'].show
+        page['popup_risk_management'].show
+      else
+        page['popup_risk_management_header'].hide
+        page['popup_risk_management'].hide
+      end
       page << "$('edit_event_popup').popup.show();"
     end
   end

@@ -12,12 +12,12 @@
             <td>
               <% et = EventType.find(1) %>
               <%= radio_button_tag "event_type", et.name, true,
-                :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.show('risk_management_header');"%> <%= et.name %>
+                :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.hide('risk_management_header');"%> <%= et.name %>
             </td>
             <td>
               <% et = EventType.find(2) %>
               <%= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false),
-                :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.show('risk_management_header');"%> <%= et.name %>
+                :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.hide('risk_management_header');"%> <%= et.name %>
 
             </td>
             <td>
@@ -30,12 +30,12 @@
             <td>
               <% et = EventType.find(3) %>
               <%= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false),
-                :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.show('risk_management_header');"%> <%= et.name %>
+                :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.show('risk_management'); Element.show('risk_management_header');"%> <%= et.name %>
             </td>
             <td>
               <% et = EventType.find(4) %>
               <%= radio_button_tag "event_type", et.name, (et.id == 1 ? true : false),
-                :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.show('risk_management_header');"%> <%= et.name %>
+                :onclick => "Element.hide('minute_meeting_date'); Element.hide('minute_meeting_date_header'); Element.hide('risk_management'); Element.hide('risk_management_header');"%> <%= et.name %>
             </td>
             <td></td>
           </tr>
@@ -73,9 +73,9 @@
     <tr>
       <td>Owner</td>
       <td>
-        <table id="risk_management_header" class="blindlayouttable">
+        <table id="risk_management_header" class="blindlayouttable"  style="display: none;" class="blindlayouttable">
           <tr>
-            <td><%= link_to_function("Risk Management", visual_effect(:toggle_blind,"risk_management"))%></td>
+            <td>Risk Management</td>
           </tr>
         </table>
         <table id="minute_meeting_date_header" style="display: none;" class="blindlayouttable">
@@ -98,8 +98,8 @@
                 <%= select_tag "priority_axis_" + pa.id.to_s, create_select_tag_options_for_priority(event.priority_value_by_axis(pa.id), PriorityRange.find_all_by_priority_axis_id(pa.id), true), :style=>"width:35px;" %>
                 <%=pa.name%><br/>
               <% end %>
-              <%= label_tag "Impact" %><br/>
-              <%= text_area_tag "priority_description", "", :size=>"25x1" %>
+              <%= label_tag "Consequence" %><br/>
+              <%= text_area_tag "priority_description", "", :size=>"25x2" %>
             </td>
           </tr>
         </table>

@@ -16,7 +16,13 @@
     <td>Event type</td>
     <td>
       <% for et in EventType.find(:all) %>
-        <%= radio_button_tag "popup_event_type", et.name, (event.event_type_id == et.id ? true : false) %> <%= et.name %><br/>
+        <% if et.id == 3 %>
+        <%= radio_button_tag "popup_event_type", et.name, (event.event_type_id == et.id ? true : false),
+          :onclick => "Element.show('popup_risk_management_header'); Element.show('popup_risk_management');" %> <%= et.name %><br/>
+        <% else %>
+        <%= radio_button_tag "popup_event_type", et.name, (event.event_type_id == et.id ? true : false),
+          :onclick => "Element.hide('popup_risk_management_header'); Element.hide('popup_risk_management');" %> <%= et.name %><br/>
+        <% end %>
       <% end %>
     </td>
   </tr>
