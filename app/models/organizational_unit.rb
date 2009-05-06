@@ -14,8 +14,10 @@ class OrganizationalUnit < ActiveRecord::Base
   belongs_to :responsible_user, :class_name=>"User"
 
   def validate
-    if !current_user.is_superuser? || (current_user.organizational_units != nil && !current_user.organizational_units.empty?)
-      errors.add_to_base "Parent can't be blank" if parent.nil? || :parent_id == 0
+    unless current_user
+      if !current_user.is_superuser? || (current_user.organizational_units != nil && !current_user.organizational_units.empty?)
+        errors.add_to_base "Parent can't be blank" if parent.nil? || :parent_id == 0
+      end
     end
   end
 
