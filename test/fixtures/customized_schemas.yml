@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  organizational_unit_id: 1
+  field_type: 1
+  name: MyString
+  size: MyString
+
+two:
+  organizational_unit_id: 1
+  field_type: 1
+  name: MyString
+  size: MyString

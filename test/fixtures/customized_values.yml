@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  customized_schema_id: 1
+  action_id: 1
+  event_id: 1
+  value: MyText
+
+two:
+  customized_schema_id: 1
+  action_id: 1
+  event_id: 1
+  value: MyText

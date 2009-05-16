@@ -17,6 +17,9 @@ class ActionLogPopupEditController < ApplicationController
       page.replace_html "popup_action_actual_completion_date_and_status", :partial => "action_log_popup_edit/action_actual_completion_date_and_status", :locals => {:aktion => aktion }
       page.replace_html "popup_action_assignment_date", :partial => "action_log_popup_edit/action_assignment_date", :locals => {:aktion => aktion }
       page.replace_html "popup_action_closeout_comment", :partial => "action_log_popup_edit/action_closeout_comment", :locals => {:aktion => aktion }
+      aktion.customized_schemas.each do |cs|
+        page.replace_html "popup_action_customized_value_#{cs.id}", :partial => "action_log_popup_edit/action_customized_values", :locals => {:aktion => aktion, :schema => cs }
+      end
       page.replace_html "popup_action_event_area_select", :partial => "action_log_popup_edit/action_event_area_select", :locals => {:aktion => aktion, :meeting_id => aktion.meeting_id }
       page.replace_html "popup_action_event_select", :partial => "action_log_popup_edit/action_event_select", :locals => {:aktion => aktion, :event_area_id => aktion.event_area_id }
       if params[:remove_dom_id]
@@ -44,6 +47,9 @@ class ActionLogPopupEditController < ApplicationController
       page.replace_html "popup_action_actual_completion_date_and_status", :partial => "action_log_popup_edit/action_actual_completion_date_and_status", :locals => {:aktion => aktion }
       page.replace_html "popup_action_assignment_date", :partial => "action_log_popup_edit/action_assignment_date", :locals => {:aktion => aktion }
       page.replace_html "popup_action_closeout_comment", :partial => "action_log_popup_edit/action_closeout_comment", :locals => {:aktion => aktion }
+      aktion.customized_schemas.each do |cs|
+        page.replace_html "popup_action_customized_value_#{cs.id}", :partial => "action_log_popup_edit/action_customized_values", :locals => {:aktion => aktion, :schema => cs }
+      end
       page.replace_html "popup_action_event_area_select", :partial => "action_log_popup_edit/action_event_area_select", :locals => {:aktion => aktion, :meeting_id => aktion.meeting_id }
       page.replace_html "popup_action_event_select", :partial => "action_log_popup_edit/action_event_select", :locals => {:aktion => aktion, :event_area_id => aktion.event_area_id }
       page.replace_html "popup_action_id", :partial => "action_log_popup_edit/action_id", :locals => {:aktion => aktion }
@@ -77,9 +83,10 @@ class ActionLogPopupEditController < ApplicationController
 
     aktion.action_type = ActionType.find_by_name(params["popup_action_type"]) unless params["popup_action_type"].blank?
     aktion.event_id = params[:my_event_id] unless params[:popup_my_event_id].blank?
-
+    
     respond_to do |format|
       if aktion.update_attributes(params[:aktion])
+        aktion.assign_customized_values(collect_customized_values(params))
         flash[:notice] = 'Action was successfully updated.'
       else
         flash[:error] = 'Error while updating action.'
@@ -171,6 +178,7 @@ class ActionLogPopupEditController < ApplicationController
     event = Event.find(params[:id])
     event.assign_priorities(collect_priority_values(params), params[:priority_description])
     event.event_type = EventType.find_by_name(params["popup_event_type"]) unless params["popup_event_type"].blank?
+    event.assign_customized_values(collect_customized_values(params))
 
     respond_to do |format|
       if event.update_attributes(params[:event])
@@ -203,6 +211,10 @@ class ActionLogPopupEditController < ApplicationController
         end
       }
     end
+  end
+
+  def collect_customized_values(params)
+    params.select { |key,value| key.starts_with?("customized_schema_") }
   end
 
   def collect_priority_values(params)

@@ -16,6 +16,7 @@ class OrganizationalUnit < ActiveRecord::Base
   belongs_to :parent, :class_name=>"OrganizationalUnit"
   has_many :meetings
   belongs_to :responsible_user, :class_name=>"User"
+  has_many :customized_schemas
 
   def validate
     if current_user

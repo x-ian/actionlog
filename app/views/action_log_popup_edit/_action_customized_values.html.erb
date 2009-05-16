@@ -1,0 +1,7 @@
+  <td><%=schema.name%></td>
+  <% cv = aktion.customized_value(schema) %>
+  <% if schema.size %>
+    <td><%= text_area_tag "customized_schema_#{schema.id}", (cv ? cv.value : ""), :size=>(schema.size ? schema.size : "55x2") %></td>
+  <% else %>
+    <td><%= text_field_tag "customized_schema_#{schema.id}", (cv ? cv.value : "") %></td>
+  <% end %>

@@ -109,7 +109,26 @@
           </tr>
         </table>
       </td>
-
+      <td></td>
+    </tr>
+    <% for s in event.customized_schemas %>
+    <tr>
+      <td><%=s.name%></td>
+      <td></td>
+    </tr>
+    <tr>
+      <% cv = event.customized_value(s) %>
+      <% if s.size %>
+        <td><%= text_area_tag "customized_schema_#{s.id}", (cv ? cv.value : ""), :size=>(s.size ? s.size : "55x2") %></td>
+      <% else %>
+        <td><%= text_field_tag "customized_schema_#{s.id}", (cv ? cv.value : "") %></td>
+      <% end %>
+      <td></td>
+    </tr>
+    <% end %>
+    <tr>
+      <td></td>
+      <td></td>
       <td>
         <%= f.submit "Add" %>
       </td>

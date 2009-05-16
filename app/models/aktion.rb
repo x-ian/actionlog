@@ -13,6 +13,8 @@ class Aktion < ActiveRecord::Base
   belongs_to :secondary_responsible, :class_name=>"User"
   belongs_to :closed_by, :class_name=>"User"
 
+  has_many :customized_values, :dependent => :destroy
+
   def save
     # timestamp every change
     self.log_date = Time.now.to_date
@@ -208,5 +210,31 @@ class Aktion < ActiveRecord::Base
     return @default_meeting.organizational_unit if (event.nil? || event.event_area.nil? || event.event_area.meeting.nil?) && @default_meeting != nil && @default_meeting.organizational_unit != nil
   end
   # END possible mixin or whatever for aktion and event
+
+  def customized_schemas
+    CustomizedSchema.find_all_customized_schemas(organizational_unit, CustomizedFieldType::AKTION)
+  end
+
+  def customized_value(schema)
+    CustomizedValue.find(:first, :conditions => [ "aktion_id = ? AND customized_schema_id = ?", id, schema.id])
+  end
+
+  def assign_customized_values(values)
+    customized_values.each do |item|
+      item.destroy
+    end
+    save
+    values.each do |key,value|
+      unless value.empty?
+        cv = CustomizedValue.new
+        cv.aktion = self
+        cs_id = key["customized_schema_".length, key.length - "customized_schema_".length]
+        cv.customized_schema_id = cs_id
+        cv.value = value
+        cv.save
+        customized_values << cv
+      end
+    end
+  end
 
 end

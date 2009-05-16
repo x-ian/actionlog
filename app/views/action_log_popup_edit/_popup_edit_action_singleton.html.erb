@@ -89,6 +89,12 @@
       <%#= render :partial => 'action_review_date', :locals => { :aktion => aktion } %>
     </td>
   </tr>
+  <% aktion.default_meeting=current_meeting %>
+  <% for cs in aktion.customized_schemas %>
+    <tr id="popup_action_customized_value_<%=cs.id%>">
+      <%#= render :partial => 'action_customized_values', :locals => { :aktion => aktion } %>
+    </tr>
+  <% end %>
   <tr>
     <td>Closeout comment</td>
     <td>

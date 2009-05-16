@@ -148,7 +148,8 @@ class ActionLogController < ApplicationController
       @event.event_type = EventType.find_by_name(params["event_type"]) unless params["event_type"].blank?
       @event.event_area_id = params[:my_event_area_id] unless params[:my_event_area_id].blank?
       @event.meeting_date = Time.now.to_date if params[:aktion_assignment_date].blank?
-
+      @event.assign_customized_values(collect_customized_values(params))
+      
       respond_to do |format|
         if @event.save
           flash[:notice] = 'Event was successfully created.'
@@ -165,6 +166,10 @@ class ActionLogController < ApplicationController
     end
   end
 
+  def collect_customized_values(params)
+    params.select { |key,value| key.starts_with?("customized_schema_") }
+  end
+
   def collect_priority_values(params)
     params.select { |key,value| key.starts_with?("priority_axis_") }
   end
@@ -177,6 +182,8 @@ class ActionLogController < ApplicationController
 
     respond_to do |format|
       if @aktion.save
+        @aktion.assign_customized_values(collect_customized_values(params))
+        @aktion.save
         flash[:last_used_event_id] = @aktion.event_id
         flash[:notice] = 'Action was successfully created.'
         format.html { redirect_to(:action => "index") }
@@ -336,6 +343,7 @@ class ActionLogController < ApplicationController
     @event.assign_priorities(collect_priority_values(params), params[:priority_description])
     @event.event_type = EventType.find_by_name(params["event_type"]) unless params["event_type"].blank?
     @event.event_area_id = params[:my_event_area_id] unless params[:my_event_area_id].blank?
+    @event.assign_customized_values(collect_customized_values(params))
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
@@ -374,6 +382,7 @@ class ActionLogController < ApplicationController
     @aktion = Aktion.find(params[:id])
     @aktion.action_type = ActionType.find_by_name(params["action_type"]) unless params["action_type"].blank?
     @aktion.event_id = params[:my_event_id] unless params[:my_event_id].blank?
+    @aktion.assign_customized_values(collect_customized_values(params))
 
     respond_to do |format|
       if @aktion.update_attributes(params[:aktion])

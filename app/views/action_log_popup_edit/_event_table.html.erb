@@ -2,45 +2,56 @@
   <%= render :partial => 'action_log_popup_edit/event_id', :locals => { :event => event } %>
 </div>
 
-  <tr>
-    <td>Area of Event</td>
-    <td>
-      <div id="event_area_select">
-        <%= render :partial => 'event_event_area_select', :locals => {:meeting_id => event.meeting_id, :event => event } %>
-      </div>
-      <%= hidden_field_tag "popup_my_event_area_id", "", :id => :popup_my_event_area_id %>
-      <%= hidden_field_tag :from_events_without_actions, from_events_without_actions, :id => :popup_from_events_without_actions %>
-    </td>
-  </tr>
-  <tr>
-    <td>Event type</td>
-    <td>
-      <% for et in EventType.find(:all) %>
-        <% if et.id == 3 %>
+<tr>
+  <td>Area of Event</td>
+  <td>
+    <div id="event_area_select">
+      <%= render :partial => 'event_event_area_select', :locals => {:meeting_id => event.meeting_id, :event => event } %>
+    </div>
+    <%= hidden_field_tag "popup_my_event_area_id", "", :id => :popup_my_event_area_id %>
+    <%= hidden_field_tag :from_events_without_actions, from_events_without_actions, :id => :popup_from_events_without_actions %>
+  </td>
+</tr>
+<tr>
+  <td>Event type</td>
+  <td>
+    <% for et in EventType.find(:all) %>
+      <% if et.id == 3 %>
         <%= radio_button_tag "popup_event_type", et.name, (event.event_type_id == et.id ? true : false),
           :onclick => "Element.show('popup_risk_management_header'); Element.show('popup_risk_management');" %> <%= et.name %><br/>
-        <% else %>
+      <% else %>
         <%= radio_button_tag "popup_event_type", et.name, (event.event_type_id == et.id ? true : false),
           :onclick => "Element.hide('popup_risk_management_header'); Element.hide('popup_risk_management');" %> <%= et.name %><br/>
-        <% end %>
       <% end %>
-    </td>
-  </tr>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <td>Event</td>
+  <td><%= text_area_tag "event[name]", event.name, :size=>"40x4", :id => :popup_event_name %></td>
+</tr>
+<tr>
+  <td>Meeting date</td>
+  <td><%= calendar_date_select_tag "event[meeting_date]", event.meeting_date, :size => 10, :maxlength => 10, :id => :popup_event_meeting_date, :parent_div=>"'edit_event_popup'" %></td>
+</tr>
+<tr>
+  <td>Owner</td>
+  <td><%= select_tag "event[user_id]", create_user_select_tag_options(event.user, User.find_all_users_of_meeting(current_meeting), true), :id => :popup_event_user_id %>
+</tr>
+<tr>
+  <td>Escalated to Meeting</td>
+  <td><%= select_tag "event[escalated_meeting_id]", create_collection_select_tag_options(event.escalated_meeting, current_meeting.find_all_meetings_to_escalate_to, true, :id, :name), :id => :popup_event_escalated_meeting_id %>
+</tr>
+<% for s in event.customized_schemas %>
   <tr>
-    <td>Event</td>
-    <td><%= text_area_tag "event[name]", event.name, :size=>"40x4", :id => :popup_event_name %></td>
+    <td><%=s.name%></td>
+    <% cv = event.customized_value(s) %>
+    <%  if s.size %>
+      <td><%= text_area_tag "customized_schema_#{s.id}", (cv ? cv.value : ""), :size=>(s.size ? s.size : "55x2") %></td>
+    <% else %>
+      <td><%= text_field_tag "customized_schema_#{s.id}", (cv ? cv.value : "") %></td>
+    <% end %>
   </tr>
-  <tr>
-    <td>Meeting date</td>
-    <td><%= calendar_date_select_tag "event[meeting_date]", event.meeting_date, :size => 10, :maxlength => 10, :id => :popup_event_meeting_date, :parent_div=>"'edit_event_popup'" %></td>
-  </tr>
-  <tr>
-    <td>Owner</td>
-    <td><%= select_tag "event[user_id]", create_user_select_tag_options(event.user, User.find_all_users_of_meeting(current_meeting), true), :id => :popup_event_user_id %>
-  </tr>
-  <tr>
-    <td>Escalated to Meeting</td>
-    <td><%= select_tag "event[escalated_meeting_id]", create_collection_select_tag_options(event.escalated_meeting, current_meeting.find_all_meetings_to_escalate_to, true, :id, :name), :id => :popup_event_escalated_meeting_id %>
-  </tr>
+<% end %>
 
-  <%= render :partial => 'event_risk_management', :locals => {:event => event } %>
+<%= render :partial => 'event_risk_management', :locals => {:event => event } %>
