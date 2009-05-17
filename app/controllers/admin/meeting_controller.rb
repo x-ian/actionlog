@@ -10,8 +10,6 @@ class Admin::MeetingController < ApplicationController
     config.columns.exclude :event_areas, :users
     list.sorting = {:organizational_unit => 'ASC'}
     config.columns[:organizational_unit].form_ui = :select
-#    config.columns[:private_events_password].form_ui = :textarea
- #   config.columns[:private_events_password].options = {:rows => 0, :cols => 20}
     config.columns[:description].options = {:rows => 4, :cols => 41}
     config.columns[:responsible_user].form_ui = :select
   end

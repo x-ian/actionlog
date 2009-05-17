@@ -413,7 +413,6 @@ class ActionLogController < ApplicationController
   end
 
   def show_private_events
-    logger.debug("ABC #{params[:password]}")
     respond_to do |format|
       if current_meeting.private_password_match?(params[:password])
         session["show_private_events_#{current_meeting.id}"] = true
