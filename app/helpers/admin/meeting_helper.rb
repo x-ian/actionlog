@@ -12,4 +12,9 @@ module Admin::MeetingHelper
       end
     end
   end
+
+  # ActiveScaffold
+  def private_events_password_form_column(record, input_name)
+    text_field :record, :private_events_password, :name => input_name
+  end
 end

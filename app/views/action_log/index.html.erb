@@ -50,6 +50,26 @@
           <%= render :partial => 'action_log/actions/new_action_1', :locals => { :aktion => @aktion} if !@edit_aktion && @aktion != nil %>
         </div>
       <% end %>
+      <% if current_meeting.private_events? %>
+        <% if private_events_for?(current_meeting) %>
+          <%= link_to_function "<b>Hide private events</b>", visual_effect(:toggle_blind,"hide_private_events")%>
+          <div id="hide_private_events" style='<%= "display:none;" unless flash[:error] == 'Error while creating action.'%>'>
+            <% form_tag(:action => "hide_private_events", :controller => "/action_log" ) do %>
+              <br/>
+              <%= submit_tag 'Hide private events' %>
+            <% end %>
+          </div>
+        <% else %>
+          <%= link_to_function "<b>Show private events</b>", visual_effect(:toggle_blind,"show_private_events")%>
+          <div id="show_private_events" style='<%= "display:none;" unless flash[:error] == 'Error while creating action.'%>'>
+            <% form_tag(:action => "show_private_events", :controller => "/action_log" ) do %>
+              <br/>
+              Meeting password: <%= password_field_tag 'password' %>
+              <%= submit_tag 'Show private events' %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
     <div class="roundedcornr_bottom_479185"><div></div></div>
   </div>
@@ -57,20 +77,20 @@
   <!--
   <% if !@edit_event && !@edit_action %>
     <%#= link_to_function "Add events and actions (old)", visual_effect(:toggle_blind,"add")%>
-                                                                <div id="add" style="<%=style%>">
-                                                                  <table>
-                                                                    <tr>
-                                                                      <td valign="top">
+                                                                    <div id="add" style="<%=style%>">
+                                                                      <table>
+                                                                        <tr>
+                                                                          <td valign="top">
     <%#= render :partial => 'action_log/events/new_event', :locals => { :event => @event } if !@edit_event && @event != nil %>
-                                                                      </td>
-                                                                      <td>
+                                                                          </td>
+                                                                          <td>
     <%#= render :partial => 'action_log/actions/new_action', :locals => { :aktion => @aktion} if !@edit_aktion && @aktion != nil %>
-                                                                      </td>
-                                                                    </tr>
-                                                                  </table>
-                                                                </div>
+                                                                          </td>
+                                                                        </tr>
+                                                                      </table>
+                                                                    </div>
   <% end %>
-                            -->
+                              -->
 
   <% events_without_actions = !Event.find_events_without_actions(current_meeting).empty? %>
   <% if events_without_actions %>
@@ -101,7 +121,7 @@
 
   <div class="centered-popup" style="width:950px; z-index:5000;">
     <div id="edit_event_popup" class="popup" style="display:none">
-      
+
       <%= render :partial => 'action_log_popup_edit/popup_edit_event_singleton', :locals => { :event => Event.new }  %>
     </div>
     <%= javascript_tag "new Popup('edit_event_popup','null',{modal:true,position:'center'})" %>

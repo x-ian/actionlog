@@ -38,7 +38,13 @@
 
   <tr id="first_empty_row"><td colspan="7"></td></tr>
   <% for aktion in @aktions %>
-    <%= render :partial => "action_log/index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion } %>
+    <% if aktion.event.private_event && !private_events_for?(current_meeting) %>
+      <tr class="<%=get_table_row_class(aktion)%>" id="action-<%=aktion.id%>">
+        <td colspan="7"><%=Event::PASSWORD_PROTECTED_NAME%></td>
+      </tr>
+    <% else %>
+      <%= render :partial => "action_log/index_actions_grouped_by_actions_tr", :locals => { :aktion => aktion } %>
+    <% end %>
   <% end %>
 
 </table>

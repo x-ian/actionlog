@@ -64,4 +64,9 @@ module ApplicationHelper
     address
   end
 
+  def private_events_for?(meeting)
+    logger.debug session
+    !(session["show_private_events_#{meeting.id}"].blank? || session["show_private_events_#{meeting.id}"] == false)
+  end
+
 end

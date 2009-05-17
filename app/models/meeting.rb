@@ -33,4 +33,13 @@ class Meeting < ActiveRecord::Base
   def find_all_meetings_to_escalate_to
     Meeting.find_all_meetings_of_organizational_units([organizational_unit.root])
   end
+
+  def private_events?
+    Event.count(:conditions => "meeting_id = #{id} AND private_event = true", :joins => "LEFT JOIN event_areas ON event_areas.id = event_area_id LEFT JOIN meetings ON meetings.id = event_areas.meeting_id") > 0
+  end
+
+  def private_password_match?(password)
+    return true if password.blank? && private_events_password.blank?
+    private_events_password == password
+  end
 end

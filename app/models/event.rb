@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+  PASSWORD_PROTECTED_NAME = "(password protected event)"
+
   before_save :update_timestamp
 
   validates_presence_of :name
@@ -135,7 +137,6 @@ class Event < ActiveRecord::Base
 
   def self.find_all_events_of_meeting(meeting)
     return [] if meeting == nil
-
     Event.find(:all, :joins => [ :event_area ], :conditions => [ "event_areas.meeting_id = ?",  meeting.id])
   end
 

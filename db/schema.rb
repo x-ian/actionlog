@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090327150150) do
+ActiveRecord::Schema.define(:version => 20090516213730) do
 
   create_table "account_publics", :force => true do |t|
     t.string   "login",                     :limit => 40
@@ -97,6 +97,31 @@ ActiveRecord::Schema.define(:version => 20090327150150) do
     t.integer  "closed_by_id"
   end
 
+  create_table "customized_field_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "customized_schemas", :force => true do |t|
+    t.integer  "organizational_unit_id"
+    t.integer  "customized_field_type_id"
+    t.string   "name"
+    t.string   "size"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "customized_values", :force => true do |t|
+    t.integer  "customized_schema_id"
+    t.integer  "aktion_id"
+    t.integer  "event_id"
+    t.text     "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "event_areas", :force => true do |t|
     t.string   "name"
     t.integer  "meeting_id"
@@ -122,6 +147,7 @@ ActiveRecord::Schema.define(:version => 20090327150150) do
     t.datetime "updated_at"
     t.date     "meeting_date"
     t.integer  "escalated_meeting_id"
+    t.boolean  "private_event"
   end
 
   create_table "meetings", :force => true do |t|
@@ -131,6 +157,7 @@ ActiveRecord::Schema.define(:version => 20090327150150) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "responsible_user_id"
+    t.string   "private_events_password"
   end
 
   create_table "meetings_users", :id => false, :force => true do |t|

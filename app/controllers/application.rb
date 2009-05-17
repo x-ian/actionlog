@@ -76,5 +76,4 @@ class ApplicationController < ActionController::Base
     s.uncompleted_actions = Aktion.count_by_sql sql + " AND action_status_id=#{ActionStatus::UNCOMPLETED}"
     return s
   end
-
 end

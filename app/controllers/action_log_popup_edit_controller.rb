@@ -176,6 +176,7 @@ class ActionLogPopupEditController < ApplicationController
       return
     end
     event = Event.find(params[:id])
+    event.private_event=false #defaulting for stupido checkboxes
     event.assign_priorities(collect_priority_values(params), params[:priority_description])
     event.event_type = EventType.find_by_name(params["popup_event_type"]) unless params["popup_event_type"].blank?
     event.assign_customized_values(collect_customized_values(params))

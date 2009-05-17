@@ -403,4 +403,25 @@ class ActionLogController < ApplicationController
       format.html { redirect_to(:action => "index") }
     end
   end
+
+  def hide_private_events
+    session["show_private_events_#{current_meeting.id}"] = false
+    respond_to do |format|
+      flash[:notice] = 'Private events are hidden.'
+      format.html { redirect_to(:action => "index") }
+    end
+  end
+
+  def show_private_events
+    logger.debug("ABC #{params[:password]}")
+    respond_to do |format|
+      if current_meeting.private_password_match?(params[:password])
+        session["show_private_events_#{current_meeting.id}"] = true
+        flash[:notice] = 'Private events are shown.'
+      else
+        flash[:error] = 'Invalid meeting password. Private events are NOT shown.'
+      end
+      format.html { redirect_to(:action => "index") }
+    end
+  end
 end

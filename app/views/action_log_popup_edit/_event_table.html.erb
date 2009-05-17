@@ -36,11 +36,18 @@
 </tr>
 <tr>
   <td>Owner</td>
-  <td><%= select_tag "event[user_id]", create_user_select_tag_options(event.user, User.find_all_users_of_meeting(current_meeting), true), :id => :popup_event_user_id %>
+  <td><%= select_tag "event[user_id]", create_user_select_tag_options(event.user, User.find_all_users_of_meeting(current_meeting), true), :id => :popup_event_user_id %></td>
+</tr>
+<tr>
+  <td>Private event</td>
+  <td>
+    <%= check_box_tag "event[private_event]", "true", event.private_event, :id => :popup_event_private_event %>
+    (protected with meeting password)
+  </td>
 </tr>
 <tr>
   <td>Escalated to Meeting</td>
-  <td><%= select_tag "event[escalated_meeting_id]", create_collection_select_tag_options(event.escalated_meeting, current_meeting.find_all_meetings_to_escalate_to, true, :id, :name), :id => :popup_event_escalated_meeting_id %>
+  <td><%= select_tag "event[escalated_meeting_id]", create_collection_select_tag_options(event.escalated_meeting, current_meeting.find_all_meetings_to_escalate_to, true, :id, :name), :id => :popup_event_escalated_meeting_id %></td>
 </tr>
 <% for s in event.customized_schemas %>
   <tr>

@@ -16,15 +16,20 @@
   <% for event in @events %>
     <%  clazz = "record" %>
     <tr class="<%=clazz %>" id="event-<%=event.id%>-event-tr">
+      <% if event.private_event && !private_events_for?(current_meeting) %>
+        <td colspan="8"><%=Event::PASSWORD_PROTECTED_NAME%></td>
+      </tr>
+    <% else %>
       <td colspan="8" title="Click to edit" id="event-<%=event.id%>-event">
         <%= render :partial => "action_log/table_cells/event_grouped_by_events", :locals => { :event => event } %>
       </td>
-    </tr>
-    <% for aktion in event.aktions %>
-      <tr class="<%=get_table_row_class(aktion)%>" id="action-<%=aktion.id%>">
-        <td>&#160;</td>
-        <%= render :partial => "index_actions_action_data", :locals => { :aktion => aktion } %>
       </tr>
+      <% for aktion in event.aktions %>
+        <tr class="<%=get_table_row_class(aktion)%>" id="action-<%=aktion.id%>">
+          <td>&#160;</td>
+          <%= render :partial => "index_actions_action_data", :locals => { :aktion => aktion } %>
+        </tr>
+      <% end %>
     <% end %>
   <% end %>
 </table>
