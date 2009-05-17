@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  PASSWORD_PROTECTED_NAME = "(password protected event)"
+  PASSWORD_PROTECTED_NAME = "(confidential events are not visible)"
 
   before_save :update_timestamp
 

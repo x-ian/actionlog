@@ -6,7 +6,7 @@
   <%=h event.name %>
   <%= " (escalated from Meeting '#{event.event_area.meeting.name}')" if event.escalated_meeting_id == current_meeting.id %>
 </td>
-<td id="event-without-action-<%=event.id%>-owner"style="white-space: nowrap"><%=event.user.nil? ? "&#160;" : event.user.name %></td>
+<td id="event-without-action-<%=event.id%>-owner" style="white-space: nowrap"><%=event.user.nil? ? "&#160;" : event.user.name %></td>
 <td id="event-without-action-<%=event.id%>-actions" style="white-space: nowrap;" valign="bottom">
   <% unless @readonly %>
     <%=link_to_remote image_tag("Document-Write-48x48.png?", :alt => "(full edit)", :size => "12x12", :title=>"Full edit of the Event", :border=>"0"), { :url => { :controller => "action_log_popup_edit", :action => "show_popup_edit_event", :id => event, :from_events_without_actions => :true } } %>

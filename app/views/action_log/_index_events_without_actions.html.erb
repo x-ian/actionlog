@@ -11,11 +11,7 @@
   <% for event in Event.find_events_without_actions(current_meeting) %>
     <tr id="event-without-action-<%=event.id%>" class="even-record record">
       <% if event.private_event && !private_events_for?(current_meeting) %>
-        <td></td>
-        <td></td>
-        <td><%=Event::PASSWORD_PROTECTED_NAME%></td>
-        <td></td>
-        <td></td>
+        <%= render :partial => 'index_events_without_actions_tr_confidential', :locals => { :event => event } %>
       <% else %>
         <%= render :partial => 'index_events_without_actions_tr', :locals => { :event => event } %>
       <% end %>

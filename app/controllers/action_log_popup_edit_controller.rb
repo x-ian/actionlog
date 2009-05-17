@@ -72,7 +72,7 @@ class ActionLogPopupEditController < ApplicationController
     if params[:aktion]=="cancel"
       render :update do |page|
         toggle_select_boxes_for_popups page
-      page << "$('edit_action_popup').popup.hide();"
+        page << "$('edit_action_popup').popup.hide();"
       end
       return
     end
@@ -153,7 +153,7 @@ class ActionLogPopupEditController < ApplicationController
     from_events_without_actions = params[:from_events_without_actions].blank? ? :false : params[:from_events_without_actions]
 
     render :update do |page|
-    page.replace_html "popup_event_table", :partial => "action_log_popup_edit/event_table", :locals => {:event => event, :from_events_without_actions => from_events_without_actions }
+      page.replace_html "popup_event_table", :partial => "action_log_popup_edit/event_table", :locals => {:event => event, :from_events_without_actions => from_events_without_actions }
       toggle_select_boxes_for_popups page
       page.replace_html "popup_event_title", :partial => "action_log_popup_edit/event_title", :locals => {:event => event }
       if event.event_type_id == 3 # Risk
@@ -171,7 +171,7 @@ class ActionLogPopupEditController < ApplicationController
     if params[:aktion]=="cancel"
       render :update do |page|
         toggle_select_boxes_for_popups page
-      page << "$('edit_event_popup').popup.hide();"
+        page << "$('edit_event_popup').popup.hide();"
       end
       return
     end
@@ -191,27 +191,44 @@ class ActionLogPopupEditController < ApplicationController
         render :update do |page|
           toggle_select_boxes_for_popups page
           page << "$('edit_event_popup').popup.hide();"
-          if session[:action_log_current_view] == "grouped_by_events"
-            page.replace_html "event-#{event.id}-event", :partial => "action_log/table_cells/event_grouped_by_events", :locals => {:event => event}
-            page.visual_effect(:highlight, "event-#{event.id}-event") unless params[:event] == nil
-          elsif params[:from_events_without_actions] == "true"
-            page.replace_html "event-without-action-#{event.id}", :partial => "action_log/index_events_without_actions_tr", :locals => {:event => event}
+          if params[:from_events_without_actions] == "true"
+            if !private_events_for?(current_meeting) && event.private_event
+              page.replace_html "event-without-action-#{event.id}", :partial => "action_log/index_events_without_actions_tr_confidential", :locals => {:event => event}
+            else
+              page.replace_html "event-without-action-#{event.id}", :partial => "action_log/index_events_without_actions_tr", :locals => {:event => event}
+            end
             page.visual_effect(:highlight, "event-without-action-#{event.id}-area")
             page.visual_effect(:highlight, "event-without-action-#{event.id}-meeting")
             page.visual_effect(:highlight, "event-without-action-#{event.id}-name")
             page.visual_effect(:highlight, "event-without-action-#{event.id}-owner")
             page.visual_effect(:highlight, "event-without-action-#{event.id}-actions")
+          elsif session[:action_log_current_view] == "grouped_by_events"
+            if !private_events_for?(current_meeting) && event.private_event
+              page.reload
+            else
+              page.replace_html "event-#{event.id}-event", :partial => "action_log/table_cells/event_grouped_by_events", :locals => {:event => event}
+              page.visual_effect(:highlight, "event-#{event.id}-event") unless params[:event] == nil
+            end
           else
             for aktion in event.aktions
               page << "if ($('action-#{aktion.id}')) {"
-              page.replace_html "action-#{aktion.id}", :partial => "action_log/index_actions_grouped_by_actions_row", :locals => {:aktion => aktion}
-              highlight_changed_row page, aktion
+              if !private_events_for?(current_meeting) && event.private_event
+                page.replace_html "action-#{aktion.id}", :partial => "action_log/index_actions_grouped_by_actions_row_confidential.html", :locals => {:aktion => aktion}
+                page.visual_effect(:highlight, "action-#{aktion.id}-event")
+              else
+                page.replace_html "action-#{aktion.id}", :partial => "action_log/index_actions_grouped_by_actions_row", :locals => {:aktion => aktion}
+                highlight_changed_row page, aktion
+              end
               page << "}"
             end
           end
         end
       }
     end
+  end
+
+  def private_events_for?(meeting)
+    !(session["show_private_events_#{meeting.id}"].blank? || session["show_private_events_#{meeting.id}"] == false)
   end
 
   def collect_customized_values(params)
