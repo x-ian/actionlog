@@ -52,20 +52,20 @@
       <% end %>
       <% if current_meeting.private_events? %>
         <% if private_events_for?(current_meeting) %>
-          <%= link_to_function "<b>Hide private events</b>", visual_effect(:toggle_blind,"hide_private_events")%>
+          <%= link_to_function "<b>Hide protected events</b>", visual_effect(:toggle_blind,"hide_private_events")%>
           <div id="hide_private_events" style='<%= "display:none;" unless flash[:error] == 'Error while creating action.'%>'>
             <% form_tag(:action => "hide_private_events", :controller => "/action_log" ) do %>
               <br/>
-              <%= submit_tag 'Hide private events' %>
+              <%= submit_tag 'Hide protected events' %>
             <% end %>
           </div>
         <% else %>
-          <%= link_to_function "<b>Show private events</b>", visual_effect(:toggle_blind,"show_private_events")%>
+          <%= link_to_function "<b>Show protected events</b>", visual_effect(:toggle_blind,"show_private_events")%>
           <div id="show_private_events" style='<%= "display:none;" unless flash[:error] == 'Error while creating action.'%>'>
             <% form_tag(:action => "show_private_events", :controller => "/action_log" ) do %>
               <br/>
-              Meeting password: <%= password_field_tag 'password' %>
-              <%= submit_tag 'Show private events' %>
+              Meeting password <%= password_field_tag 'password' %>
+              <%= submit_tag 'Show protected events' %>
             <% end %>
           </div>
         <% end %>

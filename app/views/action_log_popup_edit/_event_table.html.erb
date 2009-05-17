@@ -39,7 +39,7 @@
   <td><%= select_tag "event[user_id]", create_user_select_tag_options(event.user, User.find_all_users_of_meeting(current_meeting), true), :id => :popup_event_user_id %></td>
 </tr>
 <tr>
-  <td>Private event</td>
+  <td>Protected event</td>
   <td>
     <%= check_box_tag "event[private_event]", "true", event.private_event, :id => :popup_event_private_event %>
     (protected with meeting password)
