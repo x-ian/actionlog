@@ -34,7 +34,8 @@ class Admin::UserController < ApplicationController
   # so even if validation of parent object fails, the assoc is updated. FUCK
   def stupid_way_to_ensure_at_least_one_org_unit(record)
     if !current_user.is_superuser?
-      raise "Organizational units can't be blank" if record.organizational_units.empty? && !current_user.organizational_units.empty?
+      #logger.debug("sw #{record.organizational_units.empty?} #{!current_user.organizational_units.empty?} #{current_user.name} #{current_user.organizational_units}")
+      raise "Organizational units can't be blank" if record.organizational_units.empty? #&& !current_user.organizational_units.empty? # 2. half is not working because org_unit gets update even before my condition test
     end
   end
 
