@@ -26,7 +26,6 @@
                 <li><%= link_to "Meetings", :controller => "admin/meeting" %></li>
                 <li><%= link_to "Event Areas", :controller => "admin/event_area" %></li>
                 <li><%= link_to "Customized Schema", :controller => "admin/customized_schema" %></li>
-                <li><%= link_to "Export data", :controller => "admin/export" %></li>
               </ul>
             </li>
             <% deny :user => :is_administrator? do %>
@@ -36,6 +35,7 @@
                   <li><%= link_to "Action Priorities", :controller => "customization/action_priority" %></li>
                   <li><%= link_to "Action Verbs", :controller => "customization/action_verb" %></li>
                   <li><%= link_to "Priority Axes & Ranges", :controller => "customization/priority_axis" %></li>
+                  <li><%= link_to "Export data", :controller => "admin/export" %></li>
                 </ul>
               </li>
             <% end %>
