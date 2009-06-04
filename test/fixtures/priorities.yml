@@ -3,9 +3,7 @@
 one:
   level: MyString
   description: MyText
-  event_id: 1
 
 two:
   level: MyString
   description: MyText
-  event_id: 1
