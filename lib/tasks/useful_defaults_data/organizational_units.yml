@@ -1,0 +1,24 @@
+one:
+  id: 1
+  name: Companies
+  parent_id: 0
+  description:
+  lft: 1
+  rgt: 4
+
+two:
+  id: 2
+  name: First Principles Management
+  parent_id: 1
+  description:
+  lft: 2
+  rgt: 3
+
+three:
+  id: 3
+  name: Public
+  parent_id: 0
+  description:
+  lft: 5
+  rgt: 6
+  responsible_user_id: 1

@@ -1,0 +1,11 @@
+one:
+  id: 1
+  name: Weekly Operations
+  meeting_id: 1
+  description: 
+
+two:
+  id: 2
+  name: Daily Operations
+  meeting_id: 2
+  description: 

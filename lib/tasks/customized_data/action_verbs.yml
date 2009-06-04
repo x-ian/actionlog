@@ -1,0 +1,104 @@
+one:
+  id: 1
+  verb: Complete
+  disliked: false
+
+two:
+  id: 2
+  verb: Agree
+  disliked: false
+
+three:
+  id: 3
+  verb: Implement
+  disliked: false
+
+four:
+  id: 4
+  verb: Confirm
+  disliked: false
+
+five:
+  id: 5
+  verb: Deliver
+  disliked: false
+
+six:
+  id: 6
+  verb: Revise
+  disliked: false
+
+seven:
+  id: 7
+  verb: Update
+  disliked: false
+
+eight:
+  id: 8
+  verb: Increase
+  disliked: false
+
+nine:
+  id: 9
+  verb: Decrease
+  disliked: false
+
+ten:
+  id: 10
+  verb: Identity
+  disliked: false
+
+eleven:
+  id: 11
+  verb: Review
+  disliked: true
+
+twelfe:
+  id: 12
+  verb: Discuss
+  disliked: true
+
+thirteen:
+  id: 13
+  verb: Investigate
+  disliked: true
+
+fourteen:
+  id: 14
+  verb: Assess
+  disliked: true
+
+fifteen:
+  id: 15
+  verb: Debate
+  disliked: true
+
+sixteen:
+  id: 16
+  verb: Consider
+  disliked: true
+
+seventeen:
+  id: 17
+  verb: Evaluate
+  disliked: true
+
+eightteen:
+  id: 18
+  verb: Propose
+  disliked: true
+
+nineteen:
+  id: 19
+  verb: Table
+  disliked: true
+
+twenty:
+  id: 20
+  verb: Suggest
+  disliked: true
+
+twentyone:
+  id: 21
+  verb: Ponder
+  disliked: true

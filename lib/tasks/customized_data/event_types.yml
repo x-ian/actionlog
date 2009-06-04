@@ -1,0 +1,15 @@
+one:
+  id: 1
+  name: Issue
+
+two:
+  id: 2
+  name: Variance
+
+three:
+  id: 3
+  name: Risk
+
+four:
+  id: 4
+  name: Opportunity

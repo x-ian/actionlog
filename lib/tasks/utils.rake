@@ -2,57 +2,6 @@ require "parsedate.rb"
 include ParseDate
 
 namespace :utils do
-  desc "Create default users"
-  task(:create_default_users => :environment ) do
-    create_superuser
-    create_administrator
-    create_neumann
-    create_franklin
-  end
-
-  def create_franklin
-    return unless User.find_by_name("Franklin") == nil
-    u = User.new(:name=>"Franklin")
-    u.login="franklin"
-    u.pw = "franklin"
-    u.email="christianneumann@web.de"
-    u.role_id=1
-    u.public_user=false
-    u.save
-  end
-
-  def create_neumann
-    return unless User.find_by_name("Neumann") == nil
-    u = User.new(:name=>"Neumann")
-    u.login="neumann"
-    u.pw = "neumann"
-    u.email="christianneumann@web.de"
-    u.role_id=1
-    u.public_user=false
-    u.save
-  end
-
-  def create_superuser
-    return unless User.find_by_name("Superuser") == nil
-    u = User.new(:name=>"Superuser")
-    u.login="superuser"
-    u.pw = "superuser"
-    u.email="christianneumann@web.de"
-    u.role_id=3
-    u.public_user=false
-    u.save
-  end
-
-  def create_administrator
-    return unless User.find_by_name("Administrator") == nil
-    u = User.new(:name=>"Administrator")
-    u.login="administrator"
-    u.pw = "administrator"
-    u.email="christianneumann@web.de"
-    u.role_id=2
-    u.public_user=false
-    u.save
-  end
 
   desc "Mark as completed"
   task(:mark_acions_as_completed => :environment ) do
