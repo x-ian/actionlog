@@ -2,6 +2,5 @@ tmp/**/*
 log/*.log
 actionlog_development
 actionlog_test
-db/schema.rb
 db/data.yml
 nbproject/private/rake-d.txt
