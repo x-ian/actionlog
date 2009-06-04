@@ -4,6 +4,6 @@ class CustomizedFieldType < ActiveRecord::Base
 
   has_many :customized_schemas
 
-  EVENT = CustomizedFieldType.exists?(1) ? CustomizedFieldType.find(1).id : nil
-  AKTION = CustomizedFieldType.exists?(2) ? CustomizedFieldType.find(2).id : nil
+  EVENT = 1 #CustomizedFieldType.exists?(1) ? CustomizedFieldType.find(1).id : nil
+  AKTION = 2 #CustomizedFieldType.exists?(2) ? CustomizedFieldType.find(2).id : nil
 end
