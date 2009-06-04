@@ -1,3 +1,5 @@
+actionlog\:import_fixed_data=import fixed data
+actionlog\:import_useful_defaults=import useful defaults
 auth\:gen\:site_key=Generates config/initializers/site_keys.rb
 db\:abort_if_pending_migrations=Raises an error if there are pending migrations
 db\:charset=Retrieves the charset for the current environment's database
@@ -99,7 +101,6 @@ tmp\:create=Creates tmp directories for sessions, cache, and sockets
 tmp\:pids\:clear=Clears all files in tmp/pids
 tmp\:sessions\:clear=Clears all files in tmp/sessions
 tmp\:sockets\:clear=Clears all files in tmp/sockets
-utils\:create_default_users=Create default users
 utils\:do_something_with_models=Iterates through models in the app and does something with each of them
 utils\:import_actionlog_dummy_data_set=Import
 utils\:mark_acions_as_completed=Mark as completed
