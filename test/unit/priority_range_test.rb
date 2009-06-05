@@ -1,8 +1,7 @@
 require 'test_helper'
 
 class PriorityRangeTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_to_label
+    assert_equal "MyString", priority_ranges(:one).to_label
   end
 end

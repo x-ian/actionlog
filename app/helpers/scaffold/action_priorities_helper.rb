@@ -1,2 +1,0 @@
-module Scaffold::ActionPrioritiesHelper
-end

@@ -1,2 +1,0 @@
-module Scaffold::MeetingsHelper
-end

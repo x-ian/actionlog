@@ -1,2 +1,0 @@
-module Scaffold::ActionVerbsHelper
-end
