@@ -35,4 +35,14 @@ class Test::Unit::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+
+  # looks like the OrgUnit Consts are not bounded when the DB is loaded in test env, fake em
+  def organizationalUnit__PUBLIC_ORGUNIT
+    return OrganizationalUnit.find_by_name("Public")
+  end
+
+  def organizationalUnit__COMPANIES_ORGUNIT
+    return OrganizationalUnit.find_by_name("Companies")
+  end
 end

@@ -2,12 +2,12 @@
 
 one:
   customized_schema_id: 1
-  aktion_id: 1
+  aktion_id: 
   event_id: 1
-  value: MyText
+  value: Value1Schema1
 
 two:
-  customized_schema_id: 1
-  aktion_id: 1
+  customized_schema_id: 2
+  aktion_id: 
   event_id: 1
-  value: MyText
+  value: Value1Schema2

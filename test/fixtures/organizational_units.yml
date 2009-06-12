@@ -1,11 +1,57 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name: MyString
-  parent_id: 1
-  description: MyText
+  id: 1
+  name: Companies
+  parent_id: 0
+  description:
+  lft: 1
+  rgt: 4
 
 two:
-  name: MyString
+  id: 2
+  name: First Principles Management
   parent_id: 1
-  description: MyText
+  description:
+  lft: 2
+  rgt: 3
+
+three:
+  id: 3
+  name: Public
+  parent_id: 0
+  description:
+  lft: 5
+  rgt: 6
+  responsible_user_id: 
+
+four:
+  id: 4
+  name: Test
+  parent_id: 0
+  description:
+  lft: 7
+  rgt: 8
+  responsible_user_id: 1
+
+test_users_1:
+  name: TestOrg
+  parent_id: 0
+  responsible_user_id: test_users_1
+  lft: 9
+  rgt: 12
+
+test_users_2:
+  name: SubTestOrg
+  parent_id: 0
+  responsible_user_id: test_users_1
+  lft: 10
+  rgt: 11
+
+
+test_events_1:
+  name: TestEvents1
+  parent_id: 0
+  responsible_user_id: test_events_1
+  lft: 13
+  rgt: 14

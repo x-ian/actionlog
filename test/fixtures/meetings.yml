@@ -1,11 +1,62 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
+  id: 1
   name: MyString
   organizational_unit_id: 1
   description: MyText
 
 two:
-  name: MyString
+  id: 2
+  name: Meeting with private Events
   organizational_unit_id: 1
   description: MyText
+  private_events_password: private
+
+three:
+  id: 3
+  name: Meeting without Orgunit
+  organizational_unit_id:
+
+four:
+  id: 4
+  name: FpmMeeting1
+  organizational_unit_id: 2
+
+five:
+  id: 5
+  name: FpmMeeting2
+  organizational_unit_id: 2
+
+six:
+  id: 6
+  name: PublicMeeting1
+  organizational_unit_id: 3
+
+seven:
+  id: 7
+  name: CompaniesMeeting1
+  organizational_unit_id: 1
+
+eight:
+  id: 8
+  name: CompaniesMeeting2
+  organizational_unit_id: 1
+
+nine:
+  id: 9
+  name: TestMeeting
+  organizational_unit_id: 4
+
+test_users_1:
+  name: TestUsers1
+  organizational_unit: test_users_1
+
+test_users_2:
+  name: TestUsers2
+  organizational_unit: test_users_2
+
+test_events_1:
+  name: TestEvents1
+  organizational_unit: test_events_1
+  responsible_user: test_events_1

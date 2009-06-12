@@ -1,11 +1,49 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
 one:
-  value: MyString
-  description: MyText
-  priority_axis_id: 1
+  value: A
+  description: Rare
+  priority_axis_id: probability
 
 two:
-  value: MyString
-  description: MyText
-  priority_axis_id: 1
+  value: B
+  description: Unlikely
+  priority_axis_id: probability
+
+three:
+  value: C
+  description: Possible
+  priority_axis_id: probability
+
+four:
+  value: D
+  description: Likely
+  priority_axis_id: probability
+
+five:
+  value: E
+  description: Certain
+  priority_axis_id: probability
+
+six:
+  value: 1
+  description: Insignificant
+  priority_axis_id: severity
+
+seven:
+  value: 2
+  description: Minor
+  priority_axis_id: severity
+
+eight:
+  value: 3
+  description: Moderate
+  priority_axis_id: severity
+
+nine:
+  value: 4
+  description: Major
+  priority_axis_id: severity
+
+ten:
+  value: 5
+  description: Catastrophic
+  priority_axis_id: severity

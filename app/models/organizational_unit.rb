@@ -10,17 +10,21 @@ class OrganizationalUnit < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => "parent_id"
 
   has_and_belongs_to_many :users
-  #has_many :join_organizational_unit_users
-  #has_many :users, :through => :join_organizational_unit_users
 
   belongs_to :parent, :class_name=>"OrganizationalUnit"
   has_many :meetings
   belongs_to :responsible_user, :class_name=>"User"
   has_many :customized_schemas
 
+  def current_user=(user)
+    @current_user = user
+  end
+  
   def validate
-    if current_user
-      if !current_user.is_superuser? || (current_user.organizational_units != nil && !current_user.organizational_units.empty?)
+    user = @current_user ? @current_user : current_user
+    if user
+      return if user.is_superuser?
+      if (!user.organizational_units.empty?)
         errors.add_to_base "Parent can't be blank" if parent.nil? || :parent_id == 0
       end
     end

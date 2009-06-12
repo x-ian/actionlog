@@ -1,11 +1,54 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name: MyString
-  email: MyString
+  name: Superuser
+  login: superuser
+  email: admin@firstprinciplesmanagement.com
+  role_id: 3
+  public_user: false
   inactive: false
 
 two:
-  name: MyString
-  email: MyString
+  name: Administrator
+  login: administrator
+  email: admin@firstprinciplesmanagement.com
+  role_id: 2
+  public_user: false
   inactive: false
+
+test_users_1:
+  name: test_users_1
+  login: test_users_1
+  email: admin@firstprinciplesmanagement.com
+  role_id: user
+  public_user: false
+  inactive: false
+  organizational_units: test_users_1
+  meetings: test_users_1
+
+test_users_2:
+  name: test_users_2
+  login: test_users_2
+  email: admin@firstprinciplesmanagement.com
+  role_id: user
+  public_user: false
+  inactive: false
+  organizational_units: test_users_2
+
+test_users_3:
+  name: test_users_3
+  login: test_users_3
+  email: admin@firstprinciplesmanagement.com
+  role_id: user
+  public_user: false
+  inactive: false
+  organizational_units: test_users_2
+
+test_events_1:
+  name: test_events_1
+  login: test_events_1
+  email: admin@firstprinciplesmanagement.com
+  role_id: user
+  public_user: false
+  inactive: false
+  organizational_units: test_events_1

@@ -4,16 +4,49 @@ one:
   name: MyString
   log_date: 2009-01-10
   event_area_id: 1
-  escalated_meeting_id: 1
   event_type_id: 1
   user_id: 1
   priority_id: 1
+  meeting_date:
+  escalated_meeting_id:
+  private_event: false
+
 
 two:
-  name: MyString
+  name: Private event 1
   log_date: 2009-01-10
-  event_area_id: 1
-  escalated_meeting_id: 1
+  event_area_id: 2
   event_type_id: 1
-  user_id: 1
-  priority_id: 1
+  user_id:
+  priority_id:
+  meeting_date:
+  escalated_meeting_id:
+  private_event: true
+
+three:
+  name: Private event 1 (non private)
+  log_date: 2009-01-10
+  event_area_id: 2
+  event_type_id: 1
+  user_id:
+  priority_id:
+  meeting_date:
+  escalated_meeting_id:
+  private_event: false
+
+test_users_1:
+  name: TestUsers1
+  event_area: test_users_1
+  event_type: issue
+
+test_users_2:
+  name: TestUsers2
+  event_area: test_users_1
+  event_type: issue
+
+test_events_1:
+  name: TestEvents1
+  event_area: test_events_1
+  event_type: issue
+  log_date: 2009-06-10
+  user: test_events_1

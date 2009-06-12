@@ -1,7 +1,15 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+issue:
+  id: 1
+  name: Issue
 
-one:
-  name: MyString
+variance:
+  id: 2
+  name: Variance
 
-two:
-  name: MyString
+risk:
+  id: 3
+  name: Risk
+
+opportunity:
+  id: 4
+  name: Opportunity

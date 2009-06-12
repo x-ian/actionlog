@@ -2,12 +2,18 @@
 
 one:
   organizational_unit_id: 1
-  customized_field_type: 1
-  name: MyString
-  size: MyString
+  customized_field_type_id: 1
+  name: CompaniesExtension
+  size: 
 
 two:
-  organizational_unit_id: 1
-  customized_field_type: 1
-  name: MyString
-  size: MyString
+  organizational_unit_id: 2
+  customized_field_type_id: 1
+  name: FpmExtension
+  size:
+
+three:
+  organizational_unit_id: 3
+  customized_field_type_id: 1
+  name: PublicExtension
+  size:

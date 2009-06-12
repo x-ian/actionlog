@@ -6,6 +6,27 @@ one:
   description: MyText
 
 two:
-  name: MyString
-  meeting_id: 1
+  id: 2
+  name: EventAreaPrivateMeeting
+  meeting_id: 2
   description: MyText
+
+three:
+  id: 3
+  name: EventAreaTest
+  meeting_id: 9
+  description: MyText
+
+four:
+  id: 4
+  name: EventAreaTest2
+  meeting_id: 9
+  description: MyText
+
+test_users_1:
+  name: TestUsers1
+  meeting: test_users_1
+
+test_events_1:
+  name: TestEvents1
+  meeting: test_events_1

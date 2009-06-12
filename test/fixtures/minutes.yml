@@ -2,12 +2,18 @@
 
 one:
   name: MyText
-  event_area_id: 1
+  event_area_id: 3
   user_id: 1
   meeting_date: 2009-02-20
 
 two:
-  name: MyText
-  event_area_id: 1
-  user_id: 1
+  name: MyText2
+  event_area_id: 3
+  user_id: 2
   meeting_date: 2009-02-20
+
+three:
+  name: MyText3
+  event_area_id: 4
+  user_id: 3
+  meeting_date: 2009-02-21

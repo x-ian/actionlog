@@ -25,7 +25,7 @@ two:
   target_date: 2009-01-10
   new_target_date: 2009-01-10
   new_target_date_changed: false
-  closeout_comment: 
+  closeout_comment:
   actual_completion_date: 2009-01-10
   event_id: 1
   requested_by_id: 1
@@ -33,3 +33,33 @@ two:
   secondary_responsible_id: 1
   action_priority_id: 1
   action_status_id: 1
+
+test_users_1:
+  action_required: TestUsers1
+  event: test_users_1
+  primary_responsible: test_users_1
+  secondary_responsible:
+
+test_users_2:
+  action_required: TestUsers2
+  event: test_users_1
+  primary_responsible: test_users_1
+  secondary_responsible:
+
+test_users_3:
+  action_required: TestUsers3
+  event: test_users_1
+  primary_responsible: test_users_2
+  secondary_responsible: test_users_1
+
+test_users_4:
+  action_required: TestUsers4
+  event: test_users_2
+  primary_responsible: test_users_1
+  secondary_responsible:
+
+test_users_1:
+  action_required: TestUsers1
+  event_id: test_users_1
+  primary_responsible_id: test_users_1
+  secondary_responsible_id:
