@@ -95,6 +95,7 @@ class Event < ActiveRecord::Base
       unless value.empty?
         pa_id = key["priority_axis_".length, key.length - "priority_axis_".length]
         pr = PriorityRange.find_by_priority_axis_id_and_value(pa_id, value)
+        prs=PriorityRange.find(:all)
         p.priority_ranges << pr
         level += value
       end

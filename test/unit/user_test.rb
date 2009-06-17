@@ -195,7 +195,7 @@ class UserTest < ActiveSupport::TestCase
 
   def test_find_all_users_of_organizational_unit
     us = User.find_all_users_of_organizational_unit(nil)
-    assert_equal 5, us.size
+    assert_equal 6, us.size
 
 
     us = User.find_all_users_of_organizational_unit(organizationalUnit__PUBLIC_ORGUNIT)

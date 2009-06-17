@@ -18,7 +18,14 @@ class NotificationsTest < ActionMailer::TestCase
     @expected.from = 'info@firstprinciplesmanagement.com'
     @expected.bcc = "watchdog@firstprinciplesmanagement.com"
 
-    assert Notifications.create_daily_digest_dashboard(user, meeting, server_path, meeting_summary, @expected.date).encoded.starts_with?(@expected.encoded)
+    a = Notifications.create_daily_digest_dashboard(user, meeting, server_path, meeting_summary)
+    assert a.encoded.starts_with?(@expected.encoded)
+  end
+
+  def read_fixture(action)
+    a = super
+    template = ERB.new(a.join)
+    template.result(binding)
   end
 
 end

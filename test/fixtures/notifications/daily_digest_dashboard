@@ -1,6 +1,6 @@
 Gruezi Superuser,
 
-The chairman of the Meeting FpmMeeting1 () has sent you this summary of your Daily Digest from 2009-06-11.
+The chairman of the Meeting FpmMeeting1 () has sent you this summary of your Daily Digest from <%=Time.now.to_date%>.
 
 0 Actions you're responsible for
 0 Actions you've requested
